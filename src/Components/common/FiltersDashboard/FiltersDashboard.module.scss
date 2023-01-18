@@ -1,0 +1,313 @@
+$green: #11A834;
+$light-violet: #C899CC;
+$violet: #95009C;
+$dark-violet: #57005C;
+$thin-gray-border: 1px solid #D8D1CA;
+$light-beige-gray: #D8D1CA;
+$dark-fontcolor: #333333;
+$gray-fontcolor: #666666;
+$small-fontSize: 14px;
+$light-background: #FAFAFA;
+$serif-font-family: 'Playfair Display SC', serif;
+
+.menuBar {
+    display: flex;
+    border-top: $thin-gray-border;
+    border-bottom: $thin-gray-border;
+    height: 90px;
+    background: $light-background;
+    
+    @media (max-width: 1024px) {
+        height: 14vw;
+    }
+    @media (max-width: 768px) {
+        display: none;
+    }
+}
+.hiddenMenuBar {
+    display: none;
+    @media (min-width: 769px){
+        display: flex;
+    }
+}
+.mobileDashBoard {
+    //position: relative;
+    @media (min-width: 769px){
+        display: none;
+    }
+}
+
+.filters {
+    flex: 3;
+    
+    @media (max-width: 768px) {
+        //border: 1px solid hotpink;
+        //min-height: 10vw;
+        margin: 0;
+        width: 100%;
+    }
+}
+
+.mobileFiltersSwitcher {
+    background: $light-background;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 700;
+    height: 46px;
+    padding-top: 11px;
+    border-top: $thin-gray-border;
+    border-bottom: $thin-gray-border;
+    
+    img {
+        display: inline-block;
+        margin-bottom: -5px;
+        margin-left: 4px;
+    }
+    @media (min-width: 769px){
+        display: none;
+    }
+}
+.selectedfilters,
+.selectedfilters div {
+    font-size: $small-fontSize;
+    color: $dark-fontcolor;
+    display: inline-block;
+    font-weight: 700;
+    padding: 0 6px;
+    @media (max-width: 768px) {
+        //border: 1px solid blue;
+        display: block;
+        padding: 0;
+    }
+}
+
+.selectedfilters {
+    margin: 10px auto 26px 14px;
+}
+
+.filtersOptions {
+    margin: auto auto auto 14px;
+    cursor: pointer;
+    display: block;
+  
+
+    @media (max-width: 768px) {
+        //min-height: 10vw;
+        margin: 0;
+        width: 100%;
+        
+        box-sizing: border-box;
+    }
+}
+
+.filterName {
+    //border: 1px solid green;
+    display: inline-block;
+    height: 40px;
+    bottom: 7px;
+    font-size: $small-fontSize;
+    font-weight: 700;
+    padding: 0 4px;
+    color: $gray-fontcolor;
+    position: relative;
+
+  
+    &::after {
+        position: absolute;
+        width: 0;
+        content: '';
+        height: 3px;
+        background: $dark-violet;
+        bottom: 41px;
+        right: 0;
+        left: 0;
+        transition: all 500ms;
+    }
+
+    &:hover {
+        &::after {
+            width: 100%;
+        }        
+        border: 1px solid $light-beige-gray;
+        border-bottom: none;
+        border-top: none;
+        color: $dark-violet;        
+    }
+
+    &:hover {
+        &::before {
+            position: absolute;
+            box-sizing: padding-box;
+            width: 100%;
+            content: '';
+            height: 2px;
+            z-index: 1;
+            background: $light-background;
+            left: 0;
+            top: 39px;
+        }
+    }
+    @media (max-width: 768px) {
+        border: 1px solid blue;
+        //min-height: 10vw;
+        //margin: auto auto 14px 14px;
+        width: 100%;
+        height: 80px; 
+    }
+}
+
+
+.otherFilterName {
+    /* height: auto; */
+    display: inline-block;
+    //height: 40px;
+    bottom: 7px;
+    font-size: $small-fontSize;
+    font-weight: 700;
+    padding: 0 4px;
+    color: $gray-fontcolor;
+    position: relative;
+    height: 18px;
+    border-right: 1px solid $light-beige-gray;
+    &::after {
+        position: absolute;
+        width: 0;
+        content: '';
+        height: 3px;
+        background: $dark-violet;
+        bottom: 40px;
+        right: 0;
+        left: 0;
+        transition: all 700ms;
+        top: -4px;
+    }
+
+    &:hover {
+        &::after {
+            width: 100%;
+        }        
+        border: 1px solid $light-beige-gray;
+        border-bottom: none;
+        border-top: none;
+        color: $dark-violet;        
+    }
+
+    &:hover {
+        &::before {
+            position: absolute;
+            box-sizing: padding-box;
+            width: 100%;
+            content: '';
+            height: 2px;
+            z-index: 1;
+            background: $light-background;
+            left: 0;
+            top: 39px;
+        }
+    }
+}
+.filterName, .otherFilterName {
+    @media (max-width: 768px) {
+        border: none;
+        border-bottom: $thin-gray-border;
+        height: 50px;
+        width: 100%;
+        background: white;
+        //display: block;
+        &::after {
+            display: none;}
+        &::before {display: none;}
+
+        p {
+            border: 1px solid salmon;
+            width: 100%;
+            display: flex;
+        }
+        img {
+            //margin: auto;
+            margin: 0px 0 auto auto;
+            display: inline-block;
+            border: 1px solid salmon;
+        }
+        
+    }
+}
+
+/* .filterName {
+    padding-top: 0;
+    margin-top: 0;
+} */
+
+.filterName:first-child {
+    border-left: 1px solid #D8D1CA;
+}
+
+.sortBoard {
+    flex: 1;
+}
+
+.filters img {
+    margin-bottom: -5px;
+}
+.selectedfilters img {
+    margin-right: 5px;
+}
+
+.hiddenAccordeon {
+    display: none;
+}
+
+.accordeon {
+    position: absolute;
+    width: 146%;
+    background: $light-background;
+    border: 1px solid $light-beige-gray;
+    border-top: none;
+    //top: 100%;
+    top: 37px;
+    left: -1px;
+    padding: 4px;
+    transition: all 700ms;
+    z-index: 1;
+    @media (max-width: 768px) {
+        //border: 1px solid red;
+        //border: 1px solid blueviolet;
+        position: static;
+        width: 100%;
+        padding: 0;
+        margin: 0 auto;
+        border: none;
+        border-bottom: 1px solid $light-beige-gray;
+
+ 
+    }
+}
+
+.filterCheckBoxLabel {
+    display: block;
+    color: $gray-fontcolor;
+    margin-top: 6px;
+    cursor: pointer;
+}
+.filterCheckBoxWrapper {
+    display: inline-block;
+    @media (max-width: 768px) {
+        padding: 0;
+        margin: 0;
+        
+    }
+}
+.filterCheckBoxWrapper:first-child {
+  /*   position: relative;
+    margin-top: 14px;
+
+    &:first-child::before {
+        position: absolute;
+        width: 55%;
+        content: '';
+        background: $light-beige-gray;
+        bottom: 170%;
+        right: -56%;
+        height: 1px;
+    } */
+}

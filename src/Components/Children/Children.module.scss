@@ -1,0 +1,27 @@
+.mainSection {
+    display: flex;
+    width: 100vw;
+    
+}
+.mainDescription {
+    flex: 1;
+    
+}
+.mainDescriptionWrap {
+    border: 1px solid pink;
+    width: 82%;
+    margin: 0 auto;
+    margin-top: 150px;
+}
+.mainDescription h2 {
+    display: block;
+    font-size: 24px;
+    
+}
+.mainImgBlock {
+    flex: 2;
+    border: 1px solid red;
+    max-height: 460px ;
+
+
+}

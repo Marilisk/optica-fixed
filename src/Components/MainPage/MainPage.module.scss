@@ -1,0 +1,242 @@
+$green: #11A834;
+$violet: #95009C;
+$dark-violet: #57005C;
+$thin-gray-border: 1px solid #D8D1CA;
+$light-beige-gray: #D8D1CA;
+$dark-fontcolor: #333333;
+$gray-fontcolor: #666666;
+$small-fontSize: 14px;
+$light-background: #FAFAFA;
+$serif-font-family: 'Playfair Display SC', serif;
+
+@keyframes appearanceFromLeft {
+    0% {transform: translateX(-10px); opacity: 0;}
+    100% {transform: translateX(0px); opacity: 1;} 
+}
+@keyframes appearFromBehind {
+    0% {transform: scale(0.6); opacity: 0;}
+    100% {transform: scale(1); opacity: 1;}
+}
+
+h2, h3 {
+    font-family: $serif-font-family;
+}
+
+.text {
+    opacity: 0;
+    animation: appearFromBehind 1000ms ease;
+    animation-delay: 600ms;
+    animation-fill-mode: forwards;
+}
+
+.firstRow {
+    display: flex;
+    justify-content: center;
+    max-height: 681px;
+    overflow-x: hidden;
+    img {
+        margin: 16px;
+        max-height: 481px;
+        object-fit: contain;
+        //object-fit: cover;        
+    }
+    h2 {
+        animation: appearanceFromLeft 1500ms ease-out;
+    }
+    @media (max-width: 1024px) {
+        img {
+            width: 50%;
+            object-fit: cover;
+        }
+    }
+    @media (max-width: 768px) {
+        display: block;
+        max-height: none;
+
+        img {
+            margin: 0 auto;
+            width: 100%;
+            object-fit: cover;
+            padding: 0;
+        }
+    }
+
+    div {
+        width: 25%;
+        margin: 16px 0;
+        background: $dark-violet;
+        color: white;
+        padding: 30px;
+        max-height: 481px;
+        @media (max-width: 1200px) {
+            padding: 15px;
+            width: 37%;
+            max-height: 471px;
+
+        }
+        @media (max-width: 1032px) {
+            padding: 0 20px;
+        }
+        @media (max-width: 1024px) {
+            padding: 0 20px;
+            padding-bottom: 10px;
+        }
+        @media (max-width: 768px) {
+            width: 100vw;
+            padding: 30px;
+            margin: 0 auto;
+        }
+
+        h3 {
+            max-width: 90%;
+        }
+    }
+    
+
+    h2 {
+        font-size: 34px;
+        font-weight: 700;
+        letter-spacing: .03em;
+        margin-top: 0;
+    }
+
+    .subscrP {
+        font-size: $small-fontSize;
+        max-width: 86%;
+    }
+}
+
+
+.shopBy {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 120px;
+    @media (max-width: 768px) {
+        max-height: none;
+    }
+    @media (max-width: 533px) {
+        max-height: none;
+        display: block;
+        text-align: center;
+    }
+
+    img {
+        width: 100%;
+        max-height: 362px;
+        min-width: 202px; 
+        object-fit: cover;
+        display: block;
+        margin: 0;
+        //border: 2px solid yellow;
+        @media (max-width: 768px)
+         and (min-width: 534px) {
+            min-width: 130px;
+            margin: 0 auto;
+            max-height: none;
+            width: 50%;
+        } 
+        @media (max-width: 533px) {
+
+        }
+    }
+    & > div {
+        width: 33,3%;
+        margin: 0 20px;
+        @media (max-width: 768px) {
+            width: 50%;
+        } 
+        @media (max-width: 533px) {
+            width: 100%;
+            margin: 0;
+            margin-bottom: 40px;
+        }
+    }
+    p {
+        font-weight: 600;
+        font-size: 24px;
+        margin: 16px 0;
+        //border: 1px solid teal;
+    }
+    span {
+        margin: 0;
+        height: 100%;
+        display: inline-block;
+    }
+    h2 {
+        font-family: $serif-font-family;
+        font-weight: 900;
+    }
+   
+}
+.animatedText1,
+.animatedText2,
+.animatedText3 {
+    opacity: 0;
+    animation: appearFromBehind 400ms ease;
+    //animation-delay: 300ms;
+    animation-fill-mode: forwards;
+}
+.animatedText2 {
+    animation-delay: 300ms;
+}
+.animatedText3 {
+    animation-delay: 500ms;
+}
+
+// текст линков под картинками
+.bestSellers, .shopByLink {
+    font-size: 16px;
+    color: $green;
+    display: flex;
+    cursor: pointer;
+    @media (max-width: 533px) {
+        display: inline;   
+    }
+}
+.shopByLink {
+    color: #03424C;
+    font-size: 20px;
+}
+.bestSellers img {
+    height: 10px;
+}
+
+
+// фиолетовая строка "будьте готовы выглядеть..."
+.shopProcessSection {
+    display: block;
+    background: $dark-violet;
+    min-width: 100%;
+    color: white;
+    margin-top: 80px;
+}
+.shopProcessWrap {
+    margin: 30px auto;
+    padding: 58px;
+    max-width: 1440px; 
+    display: flex;
+    justify-content: space-between;
+   
+    h2 {
+        font-family: $serif-font-family;
+        font-weight: 700;
+        font-size: 30px;
+        //letter-spacing: .01em;
+    }
+    div {
+        width: 48%;
+    }
+    a {
+        color: white;
+    }
+    @media (max-width: 533px) {
+        display: block; 
+        padding: 28px;
+
+        div {
+            width: 99%;
+            text-align: justify;
+            font-size: 16px;
+        }  
+    }
+}

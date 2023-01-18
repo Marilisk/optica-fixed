@@ -1,0 +1,38 @@
+$background-gray: #FAFAFA;
+$thin-gray-border: 1px solid #D8D1CA;
+$light-beige-gray: #D8D1CA;
+$dark-violet: #64E80C;
+$dark-fontcolor: #333333;
+$gray-fontcolor: #666666;
+$small-fontSize: 14px;
+$light-background: #FAFAFA;
+
+.catGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 24vw;
+    grid-row-gap: 1px;
+    grid-column-gap: 1px;
+    background: $light-beige-gray;
+    z-index: 0;
+
+    @media (max-width: 1024px) {
+        grid-auto-rows: 28vw;
+        grid-template-columns: repeat(2, 1fr);
+    } 
+
+    @media (max-width: 768px) {
+        //border: 1px solid hotpink;
+        //min-height: 10vw;
+        margin: 0;
+        width: 100%;
+        grid-auto-rows: 36vw;
+
+    }
+
+    @media (max-width: 533px) {
+        //grid-template-columns: repeat(1, 1fr);
+        grid-auto-rows: 36vw;
+          
+    }
+}

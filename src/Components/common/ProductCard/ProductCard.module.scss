@@ -1,0 +1,65 @@
+$green: #11A834;
+$light-violet: #C899CC;
+$violet: #95009C;
+$dark-violet: #57005C;
+$thin-gray-border: 1px solid #D8D1CA;
+$light-beige-gray: #D8D1CA;
+$dark-fontcolor: #333333;
+$gray-fontcolor: #666666;
+$small-fontSize: 14px;
+$light-background: #FAFAFA;
+$serif-font-family: 'Playfair Display SC', serif;
+
+.wrap {
+    background: white;
+    position: relative;
+    cursor: pointer;
+    
+    &:hover {
+        box-shadow: 2px 2px 18px 3px #DADADA;
+        transition: all 700ms;
+        z-index: 1;
+    }
+    img {
+        width: 72%;
+        margin: 20% auto;
+        display: block;
+        @media (max-width: 1024px) {
+            margin: 8vw auto;
+            width: 62%;
+        }
+        @media (max-width: 533px) {
+            margin: 13vw auto;
+          
+        }
+    }
+}
+
+.price {
+    position: absolute;
+    bottom: 5%;
+    left: 5%;
+    font-weight: 700;
+    color: $gray-fontcolor;
+    @media (max-width: 768px) {
+        font-size: 14px;
+        bottom: 2%;
+        left: 6%;
+    }
+}
+
+.like {
+    position: absolute;
+    right: 10%;
+    top: 5%;
+    //height: 50px;
+    @media (min-width: 1024px) {
+        right: 8%;
+        top: 5%;
+    }
+    &::hover {
+        height: 50px;
+        width: 50px;
+    }
+}
+

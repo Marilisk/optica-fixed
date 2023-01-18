@@ -1,0 +1,88 @@
+$green: #11A834;
+$light-violet: #C899CC;
+$violet: #95009C;
+$dark-violet: #57005C;
+$thin-gray-border: 1px solid #D8D1CA;
+$light-beige-gray: #D8D1CA;
+$dark-fontcolor: #333333;
+$gray-fontcolor: #666666;
+$small-fontSize: 14px;
+$light-background: #FAFAFA;
+$serif-font-family: 'Playfair Display SC', serif;
+
+.mainSection {
+    display: flex;
+    height: 26vw;
+    @media (max-width: 533px) {
+        flex-direction: column-reverse;     
+    }  
+    @media (max-width: 1024px) {
+        height: 38vw;     
+    }  
+    @media (max-width: 768px) {
+        height: auto;
+             
+    }  
+}
+.mainDescription {
+    flex: 1;   
+}
+.mainDescriptionWrap {    
+    width: 82%;
+    margin: 3vw auto;
+    
+    h2 {
+        display: block;
+        
+    }
+    @media (max-width: 1024px) {
+        text-align: justify; 
+        h2 {
+            font-size: 20px;
+        }   
+    } 
+    @media (max-width: 533px) {
+        width: 92%;
+        text-align: justify; 
+        font-size: 14px; 
+        h2 {
+            font-size: 20px;
+        }   
+    }   
+}
+.mainImgBlock {
+    flex: 2;
+    width: 100%;
+    background: url('./../../assets/men/man-optic-shop.jpg') no-repeat;
+    background-size: cover;
+    background-position: center center;
+    //border: 2px solid pink;
+    overflow: hidden;
+    @media (max-width: 1200px) {
+        flex: 1;
+        background-position: 40% center;
+    }
+    @media (max-width: 768px) {
+        background-position: 42% center;
+    }
+    @media (max-width: 533px) {
+        display: block;  
+        background-position: 40% 34%;
+        background-size: 230%;
+        min-height: 60vw;
+    }
+    
+
+
+}
+.mainImg {
+    /* width: 100%; */
+    height: 100%;
+    //object-fit: contain;
+    //object-fit: cover;
+    @media (max-width: 1200px) {
+        width: 120%;
+    }
+}
+
+

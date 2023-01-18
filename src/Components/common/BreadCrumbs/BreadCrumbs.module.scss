@@ -1,0 +1,41 @@
+$background-gray: #FAFAFA;
+$thin-gray-border: 1px solid #D8D1CA;
+$dark-violet: #64E80C; 
+$gray-fontcolor: #666666; 
+
+
+.breadCrumb {
+    display: flex;
+    border-bottom: $thin-gray-border;
+    background: $background-gray;
+    color: $gray-fontcolor;
+    height: 46px;
+    width: 100vw;
+    @media (max-width: 533px) {
+        display: none;
+    }
+    //border: 1px solid fuchsia;
+    //box-sizing: border-box;
+}
+
+.icon {
+    height: 18px;
+}
+.iconWrapper {
+    margin: auto 0;
+    margin-left: 40px;
+}
+.iconWrapper:hover {
+    opacity: 0.7;
+}
+.angleIcon {
+    height: 12px;
+}
+.angleIconWrapper {
+    margin: auto 0;
+    margin-left: 20px;
+}
+.breadCrumb p {
+    margin: auto 0;
+    margin-left: 20px;
+}

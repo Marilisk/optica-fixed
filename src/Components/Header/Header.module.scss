@@ -1,0 +1,238 @@
+$dark-violet: #57005C;
+$thin-gray-border: 1px solid #D8D1CA;
+$light-beige-gray: #D8D1CA;
+$dark-fontcolor: #333333;
+$gray-fontcolor: #666666;
+$small-fontSize: 14px;
+$light-background: #FAFAFA;
+
+
+.wideWrapper {
+    //width: 100vw;
+    max-width: 100vw;
+    border-bottom: 1px solid #D8D1CA;
+    //border: 1px solid seagreen;
+    padding-right: 10px;
+    @media (max-width : 768px)  {
+        padding-left: 10px;
+    }
+}
+.mainWrapper {
+    display: flex;
+    height: 70px;
+    margin: 0 auto;
+
+    @media (max-width : 1440px)  {
+        width: 100vw;
+    }
+    @media (max-width : 768px)  {
+        max-width: 100vw;
+    }
+    @media (max-width : 533px)  {
+        display: none;
+    }
+
+}
+
+
+.logoWrap {
+    width: 180px;
+    @media (max-width : 768px)  {
+        width: auto;
+    }
+    
+}
+
+.logo {
+    width: 150px;
+    margin: 18px auto;
+    display: block;
+    @media (max-width : 768px)  {
+        max-width: 17vw;
+        margin: 20px auto;
+        //border: 1px solid hotpink;
+    }
+}
+
+.navWrap {
+    width: 60%;
+    display: flex;
+    //border: 1px solid hotpink;
+
+    @media (max-width: 768px) {
+        width: 50%;
+    }
+}
+
+
+.navLinkWrap {
+    cursor: pointer;
+    margin-left: 40px;
+    position: relative;
+    padding: 0 10px;
+    //border: 1px solid hotpink;
+    @media (max-width: 1024px) {
+        margin-left: 10px;
+        margin: 0 auto;
+        padding: 0 6px;
+    }
+    @media (max-width: 600px) {
+        &:last-child {
+            display: none;
+        }
+    }
+    @media (max-width: 890px) {
+        font-size: 14px;
+        padding: 0 6px;
+    }
+
+    &::before {
+        position: absolute;
+        width: 0;
+        content: '';
+        height: 3px;
+        background: $dark-violet;
+        left: 0;
+        transition: all 700ms;
+        top: -1px;
+    }
+
+    &:hover {
+        border-right: $thin-gray-border ;
+        border-left: $thin-gray-border ;
+        &::before {
+            width: 101%;
+        }
+
+        &::after {
+            position: absolute;
+            box-sizing: padding-box;
+            width: 100%;
+            content: '';
+            height: 3px;
+            z-index: 0;
+            left: 0;
+            top: 69px;
+            //border-right: $thin-gray-border ;
+            //border-left: $thin-gray-border ;
+            //border-bottom: 3px solid $light-background;
+            background: $light-background;
+        }
+
+        background: $light-background;
+    }
+}
+
+.navItem {
+    width: fit-content;
+    padding: 0 8px;
+    span {
+        margin: 24px auto;
+        display: block;
+        font-weight: 800;
+        color: $gray-fontcolor;
+        //border: 1px solid khaki;        
+    }
+    @media (max-width: 1024px) {
+        width: auto;
+        padding: 0 4px;
+    }
+    @media (max-width : 768px)  {
+        width: auto;
+        //padding: 0 4px;
+    }
+}
+
+
+
+.accordeon {
+    min-height: 80px;
+    min-width: 188%;
+    background: $light-background;
+    border: $thin-gray-border;
+    top: 70px;
+    left: -1px;
+    position: absolute;
+    //border: 1px solid khaki;        
+    z-index: 2;
+}
+
+
+
+.menuWrap {
+    display: flex;
+    justify-content: flex-end;
+    margin: 0;
+    margin-left: auto;
+    margin-right: 20px;
+    cursor: pointer;
+    //border: 1px solid blue;
+    @media (max-width : 768px)  {
+        width: 30%;
+        margin-left: auto;
+    }
+    @media (max-width : 700px)  {
+        margin-right: 0px;
+    }
+}
+
+.menuItem {
+    font-size: 12px;
+    width: 80px;
+    border-left: $thin-gray-border;
+    padding-top: 16px;
+    position: relative;
+
+    @media (max-width : 768px)  {
+        width: 68px;
+        &:first-child {
+            display: none;
+        }
+       
+    }
+    @media (max-width : 700px) {
+        padding-top: 22px;
+        min-width: 60px;
+    }
+
+    &::before {
+        position: absolute;
+        width: 0;
+        content: '';
+        height: 3px;
+        background: $dark-violet;
+        left: 0;
+        transition: all 700ms;
+        top: -1px;
+    }
+
+    &:hover {
+        &::before {
+            width: 101%;
+        }
+    }
+
+    img, svg {
+        height: 24px;
+        display: block;
+        margin: 0 auto;
+    }
+
+    p {
+        margin: 0 auto;
+        text-align: center;
+        display: block;
+        @media (max-width : 700px) {
+            display: none;
+        }
+    }
+}
+
+.countLabel {
+    position: absolute;
+    right: 14px;
+    top: 10px;
+    font-size: 14px;
+}
+
+
