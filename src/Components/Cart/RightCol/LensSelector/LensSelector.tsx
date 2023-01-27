@@ -1,5 +1,5 @@
 import c from './LensSelector.module.scss';
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 import { updateCart } from '../../../../redux/authSlice';
@@ -10,9 +10,10 @@ const dioptries = [-9.0, -8.5, -8.0, -7.5, -7.0, -6.5, -6.0, -5.75, -5.5, -5.25,
 interface ILensSelector {
     cartItem: ICartItem
     cartItemIndex: number
+    editCart: () => void
 }
 
-export const LensSelector: FC<ILensSelector> = ({ cartItem, cartItemIndex }: ILensSelector,) => {
+export const LensSelector: FC<ILensSelector> = ({ cartItem, cartItemIndex, editCart }: ILensSelector,) => {
     const dispatch = useDispatch();
 
     const [leftOptionsOpened, toggleLOptions] = useState(false);
@@ -24,6 +25,7 @@ export const LensSelector: FC<ILensSelector> = ({ cartItem, cartItemIndex }: ILe
             : { ...cartItem, rightLens: value };
         //console.log(newCartItem)         
         dispatch(updateCart({ cartItemIndex, newCartItem }))
+        editCart()
     }
 
     const leftOptions = dioptries.map((value, index) => {

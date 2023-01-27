@@ -48,7 +48,7 @@ $serif-font-family: 'Playfair Display SC', serif;
     }
 }
 
-.like {
+.like, .addToCart {
     position: absolute;
     right: 10%;
     top: 5%;
@@ -61,5 +61,10 @@ $serif-font-family: 'Playfair Display SC', serif;
         height: 50px;
         width: 50px;
     }
+}
+
+.addToCart {
+    top: auto;
+    bottom: 5%;
 }
 

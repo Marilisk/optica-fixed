@@ -8,6 +8,7 @@ import instance from '../../../redux/API/api';
 import { Preloader } from '../../../assets/common/Preloader/Preloader';
 import { CartIcon } from '../../../assets/header/icons/CartIcon';
 import { fetchAddEyewearToCart } from '../../../redux/authSlice';
+import { priceFormatter } from '../../../assets/functions/priceFormatter';
 
 
 export const FavoriteProductCard = ({ id, removeFromFavorites, authIsLoading, inCartArray }) => {
@@ -23,14 +24,11 @@ export const FavoriteProductCard = ({ id, removeFromFavorites, authIsLoading, in
         fetchData();
     }, [id]);
 
-    //console.log(product)
     if (!Object.keys(product).length) {
         return <Preloader minFormat={true} />;
     }
-    const price = product.price.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB' });
+    const price = priceFormatter(product.price) 
     const isInCart = inCartArray.includes(id) 
-    console.log(inCartArray, isInCart)
-
 
     return <div className={c.wrap} onClick={() => dispatch(setCurrentProd(product))} >
 

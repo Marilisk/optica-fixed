@@ -2,7 +2,7 @@ import c from './Men.module.scss';
 import { BreadCrumbs } from '../common/BreadCrumbs/BreadCrumbs';
 import { FiltersDashboard } from '../common/FiltersDashboard/FiltersDashboard';
 import { useDispatch, useSelector } from 'react-redux';
-import { clearAllFilters, selectFilter } from '../../redux/featuresSlice.js';
+import { clearAllFilters, selectFilter } from '../../redux/featuresSlice';
 import { Catalog } from '../common/Catalog/Catalog';
 import { useEffect } from 'react';
 import { filterProducts } from '../../assets/functions/filterProducts';

@@ -1,6 +1,6 @@
 import c from './ProductPage.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchProd } from '../../../redux/productsSlice.js';
+import { fetchProd } from '../../../redux/productsSlice';
 import { fetchAddEyewearToCart, selectIsManager } from '../../../redux/authSlice';
 import { BreadCrumbs } from '../BreadCrumbs/BreadCrumbs';
 import { useEffect } from 'react';
@@ -11,6 +11,7 @@ import { Specifications } from './Specifications/Specifications';
 import { Price } from './Price/Price';
 import { Preloader } from '../../../assets/common/Preloader/Preloader';
 import { CustomerButtons } from './CustomerButtons/CustomerButtons';
+import { priceFormatter } from '../../../assets/functions/priceFormatter';
 
 
 export const ProductPage = ({ addToFavorites, removeFromFavorites, userFavorites, authIsLoading }) => {
@@ -36,9 +37,7 @@ export const ProductPage = ({ addToFavorites, removeFromFavorites, userFavorites
         return <Preloader minFormat={true} />;
     }
 
-    console.log(product);
-
-    const price = product.price.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB' });
+    const price = priceFormatter(product.price)
 
 
     return <>

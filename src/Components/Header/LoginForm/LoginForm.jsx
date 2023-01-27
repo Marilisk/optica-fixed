@@ -14,7 +14,6 @@ export const LoginForm = ({ toggleLoginModalOpened, dispatch, isLoading }) => {
         onSubmit={async (values, actions) => {
             const payload = { email: values.email, password: values.password };
             const data = await dispatch(fetchAuth(payload));
-            //console.log(data);
             
             if (!data.payload && data.error.message === 'Request failed with status code 404') {
                 alert('неверный логин или пароль');

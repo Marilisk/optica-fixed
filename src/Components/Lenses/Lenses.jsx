@@ -14,7 +14,7 @@ export const Lenses = ({authIsLoading}) => {
     const products = useSelector(state => state.lenses.products);
     const goodsAmount = products.items.length;
 
-    console.log(products.items);
+    //console.log(products.items);
 
     const areProdsLoading = products.status === 'loading';
     const filters = useSelector(state => state.filters.features);

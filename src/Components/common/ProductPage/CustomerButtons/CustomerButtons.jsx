@@ -4,7 +4,7 @@ import { Heart } from '../../../../assets/icons/Heart';
 
 export const CustomerButtons = ({ addToFavorites, removeFromFavorites, authIsLoading, isFavorite, productId, prodLoadingStatus, addToCart }) => {
 
-    console.log('prodLoadingStatus', prodLoadingStatus)
+    //console.log('prodLoadingStatus', prodLoadingStatus)
 
     return <div className={c.btnWrap} >
 

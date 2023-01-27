@@ -12,13 +12,14 @@ $serif-font-family: 'Playfair Display SC', serif;
 
 .secondLine {
     width: 100%;
-    //border: 1px solid firebrick;
     border-bottom: $thin-gray-border;
     display: flex;
-    //height: 60px;
     padding: 20px;
     font-weight: 700;
     background: white;
+    @media (max-width: 533px) {
+        display: block;
+    }
 
 }
 
@@ -34,8 +35,7 @@ $serif-font-family: 'Playfair Display SC', serif;
 .sideFlex {
     display: flex;
     color: $gray-fontcolor;
-
-
+    //border: 1px solid blue;
 }
 
 .sideName {

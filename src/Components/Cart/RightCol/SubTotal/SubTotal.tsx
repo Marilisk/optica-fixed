@@ -9,10 +9,11 @@ type ITotal = {
     price: string
     cartItem: ICartItem
     cartItemIndex: number
+    editCart: () => void
 }
 const quantities = [1, 2, 3, ];
 
-export const SubTotal: FC<ITotal> = ({ price, cartItem, cartItemIndex }: ITotal) => {
+export const SubTotal: FC<ITotal> = ({ price, cartItem, cartItemIndex, editCart }: ITotal) => {
     const dispatch = useAppDispatch();
 
     const [quantityOpened, toggleQuantity] = useState(false);
@@ -20,6 +21,7 @@ export const SubTotal: FC<ITotal> = ({ price, cartItem, cartItemIndex }: ITotal)
     const chooseQuantity = (value: number) => {
         const newCartItem = { ...cartItem, quantity: value }
         dispatch(updateCart({ cartItemIndex, newCartItem }))
+        editCart()
     }
 
     const options = quantities.map((value, index) => {
@@ -29,9 +31,6 @@ export const SubTotal: FC<ITotal> = ({ price, cartItem, cartItemIndex }: ITotal)
             {value}
         </div>
     })
-
-
-
 
     return <div className={c.sideFlex}>
 
@@ -54,14 +53,9 @@ export const SubTotal: FC<ITotal> = ({ price, cartItem, cartItemIndex }: ITotal)
             </div>
         </div>
 
-
         <div className={c.bold}>
             <p>{price}</p>
         </div>
-
-
-
-
 
     </div>
 

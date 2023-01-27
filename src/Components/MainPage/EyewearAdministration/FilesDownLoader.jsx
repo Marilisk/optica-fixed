@@ -6,17 +6,9 @@ import c from './FilesDownLoader.module.scss';
 
 export const FilesDownloader = ({ images, setImages }) => {
 
-
-    //const [images, setImages] = useState(editMode ? (currentProduct.item.imageUrl || {} ) : { main: '', side: '', perspective: '' });
-
     const [downloadStatus, setDownloadStatus] = useState({ main: null, side: null, perspective: null })
-    console.log(images);
-    /* if (!images) {
-        images = {
-
-        }
-    } */
-
+    //console.log(images);
+    
     const handleChangeFile = async (e, currentImg) => {
         try {
             const formData = new FormData();

@@ -1,5 +1,5 @@
 import c from './AdminProductPanel.module.scss';
-import { fetchDeleteProd } from '../../../redux/productsSlice.js';
+import { fetchDeleteProd } from '../../../redux/productsSlice';
 import { useNavigate } from 'react-router-dom';
 
 

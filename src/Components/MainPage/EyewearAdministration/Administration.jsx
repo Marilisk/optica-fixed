@@ -11,7 +11,7 @@ import { FilesDownloader } from './FilesDownLoader';
 import { initValues } from './../InitValues/EyewearInitvalues';
 
 
-export const Administration = ({ }) => {
+export const Administration = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const params = useParams();

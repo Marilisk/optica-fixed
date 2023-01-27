@@ -2,8 +2,10 @@ import { createAppAsyncThunk } from './hooks';
 import { RootState } from './redux-store';
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
-import { ICartItem, ILData, ISubscribeData, IUser } from "../Components/Types/types";
+import { ICartItemWithSum, ILData, ISubscribeData, IUser, OrderType } from "../Components/Types/types";
 import instance, { API_URL } from "./API/api";
+import { IInitialValues } from '../Components/Cart/Order/Address/initialValues';
+import { orderCreate } from './functions/useOrderCreator';
 
 
 export const fetchAuth = createAsyncThunk('auth/fetchAuth', async (params) => {
@@ -19,15 +21,17 @@ export const fetchLogout = createAsyncThunk('auth/fetchLogout', async () => {
     return response.data;
 })
 
-export const checkAuth = createAsyncThunk('auth/checkAuth', async () => {
+export const checkAuth = createAsyncThunk('auth/checkAuth', async () => {  // refreshes tokens and login data
     try {
         const response = await axios.get(`${API_URL}auth/refresh`, { withCredentials: true });
-        //console.log('refresh response tokens ', response.data.tokens.accessToken)
         localStorage.setItem('token', response.data.tokens.accessToken);
         console.log(response.data.user)
         return response.data.user;
     } catch (error) {
         console.log(error)
+        if (error.response.status === 401) {  // тут удаляем токен чтоб все не висело если юзер заходил с другого устройства и отсюда вылетел
+            localStorage.removeItem('token')
+        }
     }
 })
 
@@ -50,56 +54,52 @@ export const fetchRemoveFromFavorites = createAsyncThunk('auth/fetchRemoveFromFa
 });
 
 export const fetchAddEyewearToCart = createAsyncThunk('auth/fetchAddEyewearToCart', async (productId: string) => {
-    console.log(productId)
     const response = await instance.post(`/addtocart`, { productId });
-    console.log(response);
     return response.data;
 })
 export const fetchRemoveEyewearFromCart = createAsyncThunk('auth/fetchRemoveEyewearFromCart', async (productId: string) => {
-    const response = await instance.post(`/removefav`, { productId });
-    console.log(response);
+    const response = await instance.post(`/removefromcart`, { productId });
     return response.data;
 });
-
-
 
 export const fetchUpdateCart = createAppAsyncThunk('auth/fetchUpdateCart', async (_, thunkApi) => {
     const state = thunkApi.getState();
     const queryCart = state.auth.loginData.data?.cart;
-    //console.log('fetchUpdateCart cart ', queryCart)
     const response = await instance.post(`/editcart`, queryCart);
-    //console.log(response);
-    return response;
+    return response.data;
 });
 
 
+
+
+
+export const fetchCreateOrder = createAppAsyncThunk('auth/fetchCreateOrder', async (addressValues:IInitialValues, thunkApi) => {
+    const state = thunkApi.getState()
+    const userId = state.auth.loginData.data._id;
+    const cart = state.products.currentCartWithSums.items;
+    const order:OrderType = orderCreate(cart, addressValues, userId)
+    const response = await instance.post(`/createorder`, order );
+    console.log(response)
+    return response.data;
+})
+
+
 export type AuthInitStateType = {
-    loginData?: ILData 
+    loginData?: ILData
     subscribeData: ISubscribeData
+    totalCartSum: object,
 }
 
 const initialState: AuthInitStateType = {
     loginData: {
-        data: /* {
-            activationLink: '',
-            _id: '',
-            cart: [],
-            createdAt: '',
-            email: '',
-            favourites: [],
-            fullName: '',
-            isActivated: false,
-            password: '',
-            role: '',
-            updatedAt: '',
-            __v: 0,
-        } */ null,
+        data: null,
         status: 'loaded',
     },
     subscribeData: {
         email: '',
         responseMsg: '',
-    }
+    },
+    totalCartSum: {},
 }
 
 const authSlice = createSlice({
@@ -110,11 +110,19 @@ const authSlice = createSlice({
             //there must be an async func which checks email in base and if its not yet:
             state.subscribeData.responseMsg = 'Ваш промокод на скидку 8% направлен на e-mail. Спасибо.'
         },
+        sendPromoCode(state, action:PayloadAction<string>) {
+            //there must be an async func which checks email in base and if its not yet:
+            state.subscribeData.responseMsg = action.payload
+        },
         updateCart(state, action/* : PayloadAction<number> */) {
             if (state.loginData.data != null) {
-            state.loginData.data.cart[action.payload.cartItemIndex] = action.payload.newCartItem;
-             }
-        }
+                state.loginData.data.cart[action.payload.cartItemIndex] = action.payload.newCartItem;
+            }
+        },
+        pushPriceToTotal(state, action) {
+            //console.log(action.payload)
+            state.totalCartSum[action.payload.id] = action.payload.sum;
+        },
 
     },
     extraReducers: (builder) => {
@@ -192,9 +200,6 @@ const authSlice = createSlice({
                     state.loginData.data.favourites = action.payload;
                     state.loginData.status = 'loaded';
                 }
-                /* state.loginData.data?.favourites = action.payload;
-                state.loginData.status = 'loaded'; */
-
             })
             .addCase(fetchRemoveFromFavorites.rejected, (state, action) => {
                 state.loginData.status = 'error';
@@ -217,10 +222,10 @@ const authSlice = createSlice({
                 state.loginData.status = 'loading';
             })
             .addCase(fetchRemoveEyewearFromCart.fulfilled, (state, action) => {
-                if (state.loginData.data != null) {
-                    state.loginData.data.cart = action.payload;
-                    state.loginData.status = 'loaded';
-                }
+                console.log('in extraReducer', action.payload)
+                state.loginData.data.cart = action.payload;
+                state.loginData.status = 'loaded';
+
             })
             .addCase(fetchRemoveEyewearFromCart.rejected, (state, action) => {
                 state.loginData.status = 'error';
@@ -231,15 +236,27 @@ const authSlice = createSlice({
             })
             .addCase(fetchUpdateCart.fulfilled, (state, action) => {
                 console.log(action)
-                //state.loginData.data.cart = action.payload;
+                state.loginData.data.cart = action.payload;
                 state.loginData.status = 'loaded';
             })
             .addCase(fetchUpdateCart.rejected, (state, action) => {
                 state.loginData.status = 'error';
             })
 
+            .addCase(fetchCreateOrder.pending, (state, action) => {
+                state.loginData.status = 'loading';
+            })
+            .addCase(fetchCreateOrder.fulfilled, (state, action) => {
+                console.log(action)
+                state.loginData.data.orders.push(action.payload) ;
+                state.loginData.status = 'loaded';
+            })
+            .addCase(fetchCreateOrder.rejected, (state, action) => {
+                state.loginData.status = 'error';
+            })
 
 
+            
 
     },
 
@@ -250,5 +267,5 @@ export const selectIsManager = (state: RootState) => Boolean(state.auth.loginDat
 
 
 
-export const { subscribe, updateCart } = authSlice.actions;
+export const { subscribe, updateCart, pushPriceToTotal, sendPromoCode } = authSlice.actions;
 export default authSlice.reducer;

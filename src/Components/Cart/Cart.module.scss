@@ -11,14 +11,24 @@ $light-background: #FAFAFA;
 $serif-font-family: 'Playfair Display SC', serif;
 
 .beforeConfirm {
-    
+    display: flex;
+    height: fit-content;
+    padding-bottom: 40px;
+
+
+    & > div {
+        flex: 1;
+    }
     
 
     @media (max-width: 1024px) {
-        
+        & > div {
+            flex: 2;
+        }
     } 
 
     @media (max-width: 768px) {
+        flex-wrap: wrap-reverse;
     }
 
     @media (max-width: 533px) {

@@ -1,11 +1,9 @@
 import c from './Favourites.module.scss';
-import React, { useEffect, useState } from 'react';
-import { Catalog } from '../common/Catalog/Catalog';
-import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { Preloader } from '../../assets/common/Preloader/Preloader';
 import { FavoriteProductCard } from './FavoriteProductCard/FavoriteProductCard';
 import { useNavigate } from 'react-router-dom';
-
 
 
 export const Favourites = ({ isAuth, removeFromFavorites, userFavorites, authIsLoading }) => {
@@ -17,7 +15,7 @@ export const Favourites = ({ isAuth, removeFromFavorites, userFavorites, authIsL
             navigate('/');
         }
     })
-    const cart = useSelector(s => s.auth.loginData.data.cart);
+    const cart = useSelector(s => s.auth.loginData.data?.cart);
 
     if (!userFavorites || !userFavorites.length) {
         return <Preloader minFormat={true} />;

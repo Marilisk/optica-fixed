@@ -3,7 +3,6 @@ import c from './Specifications.module.scss';
 
 
 export const Specifications = ({ product, dispatch, IsManager }) => {
-    console.log(product);
 
     return <div className={c.section}>
         

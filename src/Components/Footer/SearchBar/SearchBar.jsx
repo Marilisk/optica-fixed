@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearSearchResults, fetchSearch } from '../../../redux/productsSlice';
 import c from './SearchBar.module.scss';

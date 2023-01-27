@@ -5,39 +5,47 @@ import { Preloader } from '../../../assets/common/Preloader/Preloader.jsx';
 import { ICartItem, IProduct } from '../../Types/types';
 import { LeftCol } from '../LeftCol/LeftCol';
 import { RightCol } from '../RightCol/RightCol';
+import { useAppDispatch } from '../../../redux/hooks';
+import { pushPriceToTotal } from '../../../redux/authSlice';
 
 interface CartProductCardProps {
-    cartItem: ICartItem,
-    authIsLoading: string;
+    cartItem: ICartItem
+    authIsLoading: string
     cartItemIndex: number
+    editCart: () => void
 }
 
-export const CartProductCard: FC<CartProductCardProps> = ({ cartItem, authIsLoading, cartItemIndex }: CartProductCardProps,) => {
-     
+export const CartProductCard: FC<CartProductCardProps> = ({ cartItem, authIsLoading, cartItemIndex, editCart }: CartProductCardProps,) => {
+    const dispatch = useAppDispatch();
     const [product, setProduct] = useState<IProduct | null>();
 
     useEffect(() => {
         async function fetchData() {
             const response = await instance.get(`/products/${cartItem.productId}`);
-            //console.log('productCard ', response)
             setProduct(response.data);
+            //console.log(response.data.price)
+            dispatch(pushPriceToTotal({
+                id: cartItem.productId,
+                sum: (response.data.price * cartItem.quantity)
+            })) // получаем актуальную сумму товаров в корзине
         }
         fetchData();
-    }, [cartItem.productId]);
+    }, [cartItem.productId, cartItem.quantity, dispatch]);
 
     if (!product) {
         return <Preloader minFormat={true} />;
     }
-    
+
 
     return <div className={c.wrap} >
 
         <LeftCol productId={cartItem.productId} imageUrlMain={product.imageUrl.main} />
 
-        <RightCol product={product} 
-                  cartItem={cartItem}
-                  authIsLoading={authIsLoading}
-                  cartItemIndex={cartItemIndex} />
+        <RightCol product={product}
+            cartItem={cartItem}
+            authIsLoading={authIsLoading}
+            cartItemIndex={cartItemIndex}
+            editCart={editCart} />
 
     </div>
 }

@@ -1,0 +1,34 @@
+$green: #11A834;
+$light-violet: #C899CC;
+$violet: #95009C;
+$dark-violet: #57005C;
+$thin-gray-border: 1px solid #D8D1CA;
+$light-beige-gray: #D8D1CA;
+$dark-fontcolor: #333333;
+$gray-fontcolor: #666666;
+$small-fontSize: 14px;
+$light-background: #FAFAFA;
+$serif-font-family: 'Playfair Display SC', serif;
+
+
+
+.header {
+    display: block;
+    //border-bottom: $thin-gray-border;
+    height: 110px;
+    margin: 0;
+    div {
+        font-size: 22px;
+        position: relative;
+        display: inline-block;
+        margin: 40px auto auto 40px;
+    }
+
+    @media (max-width: 533px) {
+        height: 70px;
+        div {
+            font-size: 20px;
+            margin-top: 0px;
+        }
+    }
+}

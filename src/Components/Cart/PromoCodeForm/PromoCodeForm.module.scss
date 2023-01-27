@@ -1,0 +1,129 @@
+$green: #11A834;
+$light-violet: #C899CC;
+$violet: #95009C;
+$dark-violet: #57005C;
+$thin-gray-border: 1px solid #D8D1CA;
+$light-beige-gray: #D8D1CA;
+$dark-fontcolor: #333333;
+$gray-fontcolor: #666666;
+$small-fontSize: 14px;
+$light-background: #FAFAFA;
+$serif-font-family: 'Playfair Display SC', serif;
+
+.wrap {
+    //width: 50%;
+    margin: 26px;
+    display: flex;
+    margin-right: 0;
+    height: fit-content;
+    margin-bottom: 10px;
+
+    form {
+        //border: 1px solid rebeccapurple;
+        margin: 20px;
+        margin-left: 0;
+
+        div {
+            display: flex;
+            //border: 1px solid firebrick;
+        }
+    }
+
+    input {
+        background: white;
+        padding: .6em;
+        border: $thin-gray-border;
+        font-size: 18px;
+        height: fit-content;
+        width: 130px;
+        margin-right: 10px;
+        margin-top: 2px;
+        &:focus {
+            outline: none;
+        }
+
+    }
+
+    @media (max-width: 1024px) {
+        form {
+            width: 70%;
+            margin: 0 auto;
+            display: inline-block;
+            div {
+                display: block;
+            }
+        }
+        input {
+            margin-bottom: 4px;
+            //width: 100%;
+        }
+
+    }
+
+    @media (max-width: 700px) {
+        form {
+            &>div {
+                display: flex;
+            }
+        }
+    }
+
+    @media (max-width: 533px) {
+        display: block;
+        //border: 1px solid forestgreen;
+        margin: 0;
+        width: 80%;
+        margin: 0 auto;
+        margin-bottom: 30px;
+
+        form {
+            margin: 12px;
+        }
+    }
+}
+
+.line {
+    margin: 20px;
+    font-weight: 600;
+    margin-right: 10px;
+    font-weight: 400;
+    //border: 1px solid rebeccapurple;
+    p {
+        margin: 0;
+    }
+}
+
+.bold {
+    font-weight: 700;
+}
+
+
+.submitBtn {
+    border: 3px solid #C899CC;
+    color: $violet;
+    font-weight: 600;
+    letter-spacing: .5px;
+    font-size: 18px;
+    background: white;
+    padding: .6em;
+    cursor: pointer;
+    transition: 300ms;
+    display: block;
+    width: 130px;
+   
+    &:hover {
+        border-color: $violet;
+    }
+
+    &:disabled {
+        color: #D8D1CA;
+        border-color: $light-beige-gray;
+    }
+}
+
+
+.codeResult {
+    display: inline-block;
+    font-size: 14px;
+    color: $dark-violet;
+}

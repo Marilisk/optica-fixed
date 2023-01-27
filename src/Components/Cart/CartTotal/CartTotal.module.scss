@@ -11,25 +11,52 @@ $light-background: #FAFAFA;
 $serif-font-family: 'Playfair Display SC', serif;
 
 .wrap {
-    
     border: $thin-gray-border;
     background: white;
-    width: 50%;
+    //width: 50%;
+    flex: 1;
     margin: 26px;
 
     @media (max-width: 1024px) {
+        margin-top: 46px;
+        height: 24vw;
         
     } 
 
     @media (max-width: 768px) {
+        margin-top: 26px;
+        height: 36vw;
+
     }
 
     @media (max-width: 533px) {
+        height: auto;
+
         
     }
 }
-.line {
+.line, .shipline {
     display: flex;
+    justify-content: space-between;
     margin: 20px;
-    border: 1px solid salmon;
+    font-weight: 600;
+    margin-bottom: 0;
+}
+
+.shipline {
+    color: #666666;
+    font-size: 14px;
+    font-weight: 400;
+    display: inline;
+    text-align: right;
+    p {
+        margin: 0;
+        padding-right: 20px;
+    }
+}
+.bigInt {
+    font-size: 36px;
+    font-weight: 300;
+    color: #666666;
+
 }

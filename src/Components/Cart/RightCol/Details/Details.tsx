@@ -30,9 +30,6 @@ export const Details: FC<IDetails> = ({ price }: IDetails) => {
             </div>
         </div>
 
-
-        
-
     </div> 
 
 

@@ -15,7 +15,7 @@ $serif-font-family: 'Playfair Display SC', serif;
     
 
     @media (max-width: 1024px) {
-        
+        flex-wrap: wrap;
     } 
 
     @media (max-width: 768px) {
@@ -27,33 +27,16 @@ $serif-font-family: 'Playfair Display SC', serif;
     }
 }
 
-.header {
-    display: block;
-    border-bottom: $thin-gray-border;
-    height: 110px;
-    margin: 0;
-    div {
-        font-size: 22px;
-        position: relative;
-        display: inline-block;
-        margin: 40px auto auto 40px;
+.col, .passiveCol {
+    flex: 1;
+    background: $light-background;
+    margin: 20px;
+    border-top: 2px solid $violet;
+}
 
-        &::after {
-            content: '';
-            position: absolute;
-            width: 40px;
-            height: 4px;
-            background: $dark-violet;
-            top: 42px;
-            left: 0;
-        }
-    }
 
-    @media (max-width: 533px) {
-        height: 70px;
-        div {
-            font-size: 20px;
-            margin-top: 0px;
-        }
-    }
+.passiveCol {
+    border: none;
+    opacity: .69;
+    pointer-events: none;
 }

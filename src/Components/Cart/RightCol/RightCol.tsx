@@ -6,6 +6,7 @@ import { LensSelector } from './LensSelector/LensSelector';
 import { useAppDispatch } from '../../../redux/hooks';
 import { Details } from './Details/Details';
 import { SubTotal } from './SubTotal/SubTotal';
+import { priceFormatter } from '../../../assets/functions/priceFormatter';
 
 
 interface IRightCol {
@@ -13,15 +14,14 @@ interface IRightCol {
     product: IProduct
     cartItem: ICartItem
     cartItemIndex: number
+    editCart: () => void
 }
 
-export const RightCol: FC<IRightCol> = ({ authIsLoading, product, cartItem, cartItemIndex }: IRightCol,) => {
+export const RightCol: FC<IRightCol> = ({ authIsLoading, product, cartItem, cartItemIndex, editCart }: IRightCol,) => {
     const dispatch = useAppDispatch();
 
-
-    const price = product.price.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB' });
-    const totalPrice = (product.price * cartItem.quantity).toLocaleString('ru-RU', { style: 'currency', currency: 'RUB' });
-
+    const price = priceFormatter(product.price)
+    const totalPrice = priceFormatter(product.price * cartItem.quantity)
 
     return <div className={c.wrap}>
 
@@ -33,11 +33,11 @@ export const RightCol: FC<IRightCol> = ({ authIsLoading, product, cartItem, cart
             </div>
         </div>
 
-        <LensSelector cartItem={cartItem} cartItemIndex={cartItemIndex} />
+        <LensSelector cartItem={cartItem} cartItemIndex={cartItemIndex} editCart={editCart} />
 
         <Details price={price} />
 
-        <SubTotal cartItem={cartItem} price={totalPrice} cartItemIndex={cartItemIndex} />
+        <SubTotal cartItem={cartItem} price={totalPrice} cartItemIndex={cartItemIndex} editCart={editCart}  />
 
 
         <div className={c.cart}>

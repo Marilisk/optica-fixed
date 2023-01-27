@@ -2,7 +2,7 @@ import c from './../BestSellers.module.scss';
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import defaultImg from '../../../../assets/common/defaultGlasses.webp';
+import { priceFormatter } from '../../../../assets/functions/priceFormatter';
 
 
 export const useBestSellers = () => {
@@ -31,7 +31,7 @@ export const useBestSellers = () => {
     }
 
     const bestsellersItems = products.map((item, ind) => {
-        const price = item.price.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB' });
+        const price = priceFormatter(item.price)
 
         return <NavLink to={`/product/${item._id}`} key={ind} >
             <div className={c.item}
@@ -50,7 +50,7 @@ export const useBestSellers = () => {
 
     const mobileBestsellersItems = products.filter(item => item.buyCount > 0)
         .map((item, ind) => {
-            const price = item.price.toLocaleString('ru-RU', { style: 'currency', currency: 'RUB' });
+            const price = priceFormatter(item.price)
 
             return <NavLink to={`/product/${item._id}`} key={ind + 'm'} >
                 <div className={c.item}

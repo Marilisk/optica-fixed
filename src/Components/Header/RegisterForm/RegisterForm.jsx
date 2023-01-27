@@ -1,8 +1,7 @@
 import c from './RegisterForm.module.scss';
 import { CustomCheckbox } from '../../../assets/form_elements/CustomCheckbox/CustomCheckbox';
-//import { useSelector } from 'react-redux';
 import { Field, Form, Formik } from 'formik';
-import { fetchRegister, selectIsAuth } from '../../../redux/authSlice';
+import { fetchRegister } from '../../../redux/authSlice';
 import { validateEmail, validatePassword, validateFullName } from '../LoginForm/loginValidate';
 import snowFlake from './../../../assets/icons/snowflake.png';
 import errorInput from './../../../assets/icons/errorInput.png';
@@ -20,11 +19,9 @@ export const RegisterForm = ({dispatch, toggleLoginModalOpened, isLoading, /* na
         onSubmit={async (values, actions) => {
             const payload = { email: values.email, password: values.password, fullName: values.fullName };
             const response = await dispatch(fetchRegister(payload));
-            //console.log(response);
             if (!response.payload) {
                 alert(response.error.message);
             } else if ('email' in response.payload) {
-                //window.localStorage.setItem('token', response.data.accessToken);
                 actions.resetForm({
                     fullName: '',
                     email: '',

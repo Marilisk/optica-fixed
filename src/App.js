@@ -22,8 +22,8 @@ import { OfflineShop } from './Components/OfflineShop/OfflineShop';
 import c from './App.module.scss';
 import { Favourites } from './Components/Favourites/Favourites.jsx';
 import { Preloader } from './assets/common/Preloader/Preloader.jsx';
-import { Cart } from './Components/Cart/Cart.tsx';
-import { Order } from './Components/Cart/Order/Order.jsx';
+import { Cart } from './Components/Cart/Cart';
+import { Order } from './Components/Cart/Order/Order';
 
 
 function App() {
@@ -86,6 +86,7 @@ function App() {
           removeFromFavorites={removeFromFavorites}
           userFavorites={userFavorites}
           authIsLoading={authIsLoading} />} />
+
         <Route path='/men' element={<Men addToFavorites={addToFavorites}
           removeFromFavorites={removeFromFavorites}
           userFavorites={userFavorites}
@@ -110,11 +111,13 @@ function App() {
         <Route path='/cart' element={<Cart switchModal={switchModal}
           removeFromFavorites={removeFromFavorites}
           userFavorites={userFavorites}
-          authIsLoading={authIsLoading} />} />
+          authIsLoading={authIsLoading}
+          isAuth={isAuth} />} />
 
-          <Route path="/order/:order" element={ <Order /> } />
+        <Route path="/order" element={<Order />} />
+        {/* <Route path="/order/:order" element={<EditOrder />} /> */}
 
-        
+
 
         <Route path='/offlineshop' element={<OfflineShop />} />
 

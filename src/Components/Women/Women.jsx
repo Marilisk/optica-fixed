@@ -2,7 +2,7 @@ import c from './Women.module.scss';
 import { BreadCrumbs } from '../common/BreadCrumbs/BreadCrumbs';
 import { FiltersDashboard } from '../common/FiltersDashboard/FiltersDashboard';
 import { useDispatch, useSelector } from 'react-redux';
-import { clearAllFilters, fetchFilterOptions, selectFilter } from '../../redux/featuresSlice.js';
+import { clearAllFilters, fetchFilterOptions, selectFilter } from '../../redux/featuresSlice';
 import { Catalog } from '../common/Catalog/Catalog';
 import { useEffect } from 'react';
 import { filterProducts } from '../../assets/functions/filterProducts';
