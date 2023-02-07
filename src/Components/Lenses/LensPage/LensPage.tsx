@@ -24,7 +24,7 @@ interface ILensPage {
 
 export const addToCartOrLS = (isAuth:boolean, dispatch, productId:string, lens: number) => {
     if (isAuth) {
-        dispatch(fetchAddEyewearToCart({productId, cat: CatEnum.contactLens }))
+        dispatch(fetchAddEyewearToCart({productId, cat: CatEnum.contactLens, lens }))
     } else {
         let newCartItem = {productId, quantity: 1, leftLens: lens, rightLens: lens, cat: CatEnum.contactLens }
         const lastCart = JSON.parse(localStorage.getItem('cart'))
@@ -78,10 +78,14 @@ export const LensPage:FC = ({ authIsLoading }:ILensPage) => {
 
                 <div className={c.rightPart}>
                     <h2>{product.brand}</h2>
-                    <div>{product.description}</div>
-                    <div>радиус кривизны: {product.BC}</div>
+                    <div className={c.description}>{product.description}</div>
 
                     <LensPrice price={price} />
+
+                    <div>
+                        <h4>радиус кривизны: {product.BC}</h4>
+                         
+                    </div>                  
 
                     <LensChoice nums={product.prescription} setLens={setLens}  />
 

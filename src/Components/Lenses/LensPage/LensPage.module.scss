@@ -51,9 +51,11 @@ $serif-font-family: 'Playfair Display SC', serif;
         overflow-x: hidden;
         border: none;
         padding: 3vw;
-
-        //max-width: 100vw;
-        //border: 1px solid yellow;
     }
 
+}
+
+.description {
+    font-size: $small-fontSize;
+    margin-bottom: 20px;
 }

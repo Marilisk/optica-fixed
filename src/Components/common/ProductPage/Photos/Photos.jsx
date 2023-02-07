@@ -4,10 +4,10 @@ import { Preloader } from '../../../../assets/common/Preloader/Preloader';
 
 
 export const Photos = ({ imageUrl }) => {
-    
+
     const [image, setImage] = useState('main');
 
-    if (!imageUrl) {return <Preloader minFormat={true} />}
+    // if (!imageUrl) { return <Preloader minFormat={true} /> }
 
     return <div className={c.leftPart}>
 
@@ -17,16 +17,20 @@ export const Photos = ({ imageUrl }) => {
                 <img alt='' src={`http://localhost:4444${imageUrl.main}`}
                     style={image === 'main' ? { borderColor: '#57005C' } : null} />
             </div>
-            
-            <div onClick={() => setImage('side')} >
-                <img alt='' src={`http://localhost:4444${imageUrl.side}`}
-                    style={image === 'side' ? { borderColor: '#57005C' } : null} />
-            </div>
 
-            <div onClick={() => setImage('perspective')} >
-                <img alt='' src={`http://localhost:4444${imageUrl.perspective}`}
-                    style={image === 'perspective' ? { borderColor: '#57005C' } : null} />
-            </div>
+            {Boolean(imageUrl.side) &&
+                <div onClick={() => setImage('side')} >
+                    <img alt='' src={`http://localhost:4444${imageUrl.side}`}
+                        style={image === 'side' ? { borderColor: '#57005C' } : null} />
+                </div>
+            }
+
+            {Boolean(imageUrl.perspective) &&
+                <div onClick={() => setImage('perspective')} >
+                    <img alt='' src={`http://localhost:4444${imageUrl.perspective}`}
+                        style={image === 'perspective' ? { borderColor: '#57005C' } : null} />
+                </div>
+            }
 
         </div>
 
@@ -36,13 +40,16 @@ export const Photos = ({ imageUrl }) => {
                 <img alt='' src={`http://localhost:4444${imageUrl.main}`} />
             </div>
 
-            <div style={image === 'side' ? { left: '40px' } : { left: '100vw' }}>
-                <img alt='' src={`http://localhost:4444${imageUrl.side}`} />
-            </div>
-
-            <div style={image === 'perspective' ? { left: '40px' } : { left: '100vw' }}>
-                <img alt='' src={`http://localhost:4444${imageUrl.perspective}`} />
-            </div>
+            {Boolean(imageUrl.side) &&
+                <div style={image === 'side' ? { left: '40px' } : { left: '100vw' }}>
+                    <img alt='' src={`http://localhost:4444${imageUrl.side}`} />
+                </div>
+            }
+            {Boolean(imageUrl.perspective) &&
+                <div style={image === 'perspective' ? { left: '40px' } : { left: '100vw' }}>
+                    <img alt='' src={`http://localhost:4444${imageUrl.perspective}`} />
+                </div>
+            }
         </div>
 
     </div>

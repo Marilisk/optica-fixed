@@ -43,6 +43,7 @@ export const LensesAdministration = ({ }) => {
                     onSubmit={async (values, actions) => {
                         console.log('presubmit', values)
                         try {
+                            values.imageUrl = images
                             console.log('submit', values)
                             const { data } = editMode ?
                                 await instance.patch(`/lenses/${params.id}`, values)
@@ -93,8 +94,8 @@ export const LensesAdministration = ({ }) => {
 
                                 <div className={c.descriptionInputWrapper}>
                                     <label>описание
-                                        {/* <Field id='description' name='description' /> */}
-                                        <textarea id='description' name='description' />
+                                        <Field component="textarea" id='description' name='description' />
+                                        {/* <textarea id='description' name='description' /> */}
                                     </label>
                                 </div>
 
@@ -168,12 +169,14 @@ export const LensesAdministration = ({ }) => {
                                     </label>
                                 </div>
 
-                                <button className={c.submitBtn} disabled={currentProduct.isLoading === 'isLoading'} type='submit'>ОТПРАВИТЬ</button>
-                                <button className={c.resetBtn} disabled={currentProduct.isLoading}
+                                <button className={c.submitBtn} 
+                                    disabled={currentProduct.isLoading === 'isLoading' || images.main === ''} 
+                                    type='submit'>ОТПРАВИТЬ</button>
+                                {/* <button className={c.resetBtn} disabled={currentProduct.isLoading}
                                     type='button'
                                     onClick={() => actions.resetForm({ initialValues })} >
                                     ОЧИСТИТЬ
-                                </button>
+                                </button> */}
 
 
                                 {successmsg ?

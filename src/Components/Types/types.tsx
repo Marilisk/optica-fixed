@@ -85,6 +85,7 @@ export type ICartItem = {
     leftLens: number
     rightLens: number
     cat: CatEnum
+    //lens: number
 }
 export type ICartItemWithSum = {
     productId: string
@@ -253,5 +254,6 @@ export enum CatEnum {
 export type FetchAddToCartArgType = {
     productId: string
     cat: CatEnum
+    lens?: number
 }
 

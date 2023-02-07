@@ -45,7 +45,6 @@ export const CartLensCard: FC<ICartLensCardProps> = ({ cartItem, authIsLoading, 
 
         <RightLensCol product={product}
             cartItem={cartItem}
-            authIsLoading={authIsLoading}
             cartItemIndex={cartItemIndex}
             editCart={editCart}
             isAuth={isAuth}

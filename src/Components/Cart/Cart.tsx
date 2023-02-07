@@ -102,6 +102,7 @@ export const Cart: FC<CartProps> = ({ switchModal, removeFromFavorites, userFavo
             </div>
 
             <CartTotal goodsCount={goodsCount} userCartLength={userCart.length} />
+            
         </div>
 
     </>

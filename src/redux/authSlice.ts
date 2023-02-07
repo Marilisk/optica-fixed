@@ -55,13 +55,13 @@ export const fetchRemoveFromFavorites = createAsyncThunk('auth/fetchRemoveFromFa
     return response.data;
 });
 
-export const fetchAddEyewearToCart = createAsyncThunk('auth/fetchAddEyewearToCart', async ({productId, cat}:FetchAddToCartArgType ) => {
-    const response = await instance.post(`/addtocart`, { productId, cat });
+export const fetchAddEyewearToCart = createAsyncThunk('auth/fetchAddEyewearToCart', async ({productId, cat, lens = 1}:FetchAddToCartArgType ) => {
+    const response = await instance.post(`/addtocart`, { productId, cat, lens });
     return response.data;
 })
 export const fetchRemoveEyewearFromCart = createAsyncThunk('auth/fetchRemoveEyewearFromCart', async (productId: string) => {
     const response = await instance.post(`/removefromcart`, { productId });
-    return response.data;
+    return {cart: response.data, deletedProductId: productId };
 });
 
 export const fetchUpdateCart = createAppAsyncThunk('auth/fetchUpdateCart', async (_, thunkApi) => {
@@ -154,11 +154,12 @@ const authSlice = createSlice({
         },
         updateCart(state, action/* : PayloadAction<number> */) {
             if (state.loginData.data != null) {
+                console.log(action.payload)
                 state.loginData.data.cart[action.payload.cartItemIndex] = action.payload.newCartItem;
             }
         },
         pushPriceToTotal(state, action) {
-            //console.log(action.payload)
+            console.log(action)
             state.totalCartSum[action.payload.id] = action.payload.sum;
         },
 
@@ -258,10 +259,9 @@ const authSlice = createSlice({
                 state.loginData.status = 'loading';
             })
             .addCase(fetchRemoveEyewearFromCart.fulfilled, (state, action) => {
-                //console.log('in extraReducer', action.payload)
-                state.loginData.data.cart = action.payload;
+                state.loginData.data.cart = action.payload.cart;
                 state.loginData.status = 'loaded';
-
+                delete state.totalCartSum[action.payload.deletedProductId] 
             })
             .addCase(fetchRemoveEyewearFromCart.rejected, (state) => {
                 state.loginData.status = 'error';

@@ -26,13 +26,11 @@ export const CartProductCard: FC<CartProductCardProps> = ({ cartItem, authIsLoad
     useEffect(() => {
         async function fetchData() {
             const response = await instance.get(`/products/${cartItem.productId}`);
-            
-            //console.log(response)
             setProduct(response.data);
             dispatch(pushPriceToTotal({
                 id: cartItem.productId,
                 sum: (response.data.price * cartItem.quantity)
-            })) // получаем актуальную сумму товаров в корзине
+            })) // получаем актуальную сумму товаров в корзине для компонента CartTotal
         }
         fetchData();
     }, [cartItem.productId, cartItem.quantity, dispatch]);

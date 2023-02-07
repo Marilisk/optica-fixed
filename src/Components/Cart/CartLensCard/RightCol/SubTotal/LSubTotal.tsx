@@ -13,7 +13,7 @@ type LSubTotalType = {
     switchModal: (arg: Boolean) => void
     isAuth: boolean
 }
-const quantities = [1, 2, 3, ];
+const quantities = [1, 2, 3, 4, 5, 6];
 
 export const LSubTotal: FC<LSubTotalType> = ({ price, cartItem, cartItemIndex, editCart, switchModal, isAuth }:LSubTotalType) => {
     const dispatch = useAppDispatch();

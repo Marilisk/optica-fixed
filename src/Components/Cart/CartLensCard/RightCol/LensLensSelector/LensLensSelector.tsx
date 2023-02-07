@@ -21,7 +21,7 @@ export const LensLensSelector: FC<ILensLensSelector> = ({ cartItem, cartItemInde
 
     const [optionsOpened, toggleOptions] = useState(false);
 
-    const chooseOpticalPower = (value: number, side: 'left' | 'right') => {
+    const chooseOpticalPower = (value: number) => {
         if (!isAuth) {
             switchModal(true)
         } else {
@@ -34,7 +34,7 @@ export const LensLensSelector: FC<ILensLensSelector> = ({ cartItem, cartItemInde
     const leftOptions = dioptries.map((value, index) => {
         return <div className={cartItem.leftLens === value ? c.selectedFakeOPtion : c.fakeOption}
             style={{ top: index * 40 + 'px' }} key={index}
-            onClick={() => chooseOpticalPower(value, 'left')}>
+            onClick={() => chooseOpticalPower(value)}>
             {value}
         </div>
     })

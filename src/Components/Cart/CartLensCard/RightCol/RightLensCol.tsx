@@ -5,12 +5,11 @@ import { priceFormatter } from '../../../../assets/functions/priceFormatter';
 import { useAppDispatch } from '../../../../redux/hooks';
 import { fetchRemoveEyewearFromCart } from '../../../../redux/authSlice';
 import { LSubTotal } from './SubTotal/LSubTotal';
-import { ICartItem, ILensProduct } from '../../../Types/types';
+import { ICartItem, ILensProduct, LoadingStatusEnum } from '../../../Types/types';
 import { LDetails } from './LensDetails/LDetails';
 
 
 interface IRightLensColProps {
-    authIsLoading: string
     product: ILensProduct
     cartItem: ICartItem
     cartItemIndex: number
@@ -19,7 +18,7 @@ interface IRightLensColProps {
     switchModal: (arg: Boolean) => void;
 }
 
-export const RightLensCol: FC<IRightLensColProps> = ({ authIsLoading, product, cartItem, cartItemIndex, editCart, isAuth, switchModal }: IRightLensColProps) => {
+export const RightLensCol: FC<IRightLensColProps> = ({ product, cartItem, cartItemIndex, editCart, isAuth, switchModal }: IRightLensColProps) => {
     const dispatch = useAppDispatch();
 
     const price = priceFormatter (product.price)

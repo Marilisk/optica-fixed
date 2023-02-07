@@ -66,11 +66,13 @@ $serif-font-family: 'Playfair Display SC', serif;
 }
 .descriptionInputWrapper {
     input {
-        height: fit-content;
+        height: 5em;
     }
     textarea {
         border: $thin-gray-border;
-        height: 6em;
+        height: 8em;
+        padding: 4px 14px;
+        resize: vertical;
     }
 }
 
