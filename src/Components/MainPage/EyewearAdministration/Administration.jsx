@@ -19,16 +19,15 @@ export const Administration = () => {
 
     useEffect(() => {
         if (params.id) {
-            //console.log('i m in useeff administration')
             dispatch(fetchProd(params.id));
         }
     }, [params.id, dispatch]);
 
     const currentProduct = useSelector(state => state.products.currentProduct);
-    console.log('currentProduct ', currentProduct);
+    //console.log('currentProduct ', currentProduct);
     const editMode = Boolean(params.id);
 
-    const [images, setImages] = useState(editMode ? (currentProduct.item?.imageUrl || {} ) : { main: '', side: '', perspective: '' });
+    const [images, setImages] = useState(editMode ? (currentProduct.item?.imageUrl || {}) : { main: '', side: '', perspective: '' });
 
     if (editMode && currentProduct.status === 'loading') {
         return <div><Preloader /></div>
@@ -49,13 +48,14 @@ export const Administration = () => {
                 <Formik initialValues={initialValues}
                     enableReinitialize={true}
                     onSubmit={async (values, actions) => {
+                        values.gender = [values.gender]
                         try {
+                            values.imageUrl = images
                             const { data } = editMode ?
                                 await instance.patch(`/products/${params.id}`, values)
                                 : await instance.post('/products', values);
                             const id = data._id;
                             setSuccessMsg(id);
-                            console.log(data);
                             if (data.success === true || (editMode && data._id)) {
                                 alert('данные успешно внесены');
                                 actions.resetForm({ initialValues });
@@ -109,23 +109,38 @@ export const Administration = () => {
 
                                     <div className={c.inputWrapper}>
                                         <label>
-                                        <span>количество просмотров</span>
+                                            <span>количество просмотров</span>
                                             <Field type='number' name='viewsCount' />
                                         </label>
                                     </div>
 
                                     <div className={c.inputWrapper}>
                                         <label>
-                                        <span>количество покупок</span>
+                                            <span>количество покупок</span>
                                             <Field type='number' name='buyCount' />
                                         </label>
                                     </div>
 
                                 </div>
 
-                                <CreateFieldArray name='gender'
-                                    array={values.gender}
-                                    title={'Гендер'} />
+                                <div className={c.inputWrapper}>
+
+                                    <div className={c.genderEdit}>
+                                        <label >
+                                            <div className={values.gender === "Мужские" ? c.chosenJaw : c.jaw}>
+                                                Мужские
+                                            </div>
+                                            <Field type={'radio'} name="gender" value={"Мужские"} />
+                                        </label>
+                                        <label >
+                                            <div className={values.gender === "Женскиe" ? c.chosenJaw : c.jaw}>
+                                                Женскиe
+                                            </div>
+                                            <Field type={'radio'} name="gender" value={"Женскиe"} />
+                                        </label>
+
+                                    </div>
+                                </div>
 
                                 <CreateFieldArray name='features'
                                     array={values.features}
@@ -134,7 +149,6 @@ export const Administration = () => {
                                 <CreateFieldArray name='options'
                                     array={values.options}
                                     title={'Опции'} />
-
 
 
 

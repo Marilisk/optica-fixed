@@ -2,9 +2,8 @@ import c from './CustomerButtons.module.scss';
 import { Heart } from '../../../../assets/icons/Heart';
 
 
-export const CustomerButtons = ({ addToFavorites, removeFromFavorites, authIsLoading, isFavorite, productId, prodLoadingStatus, addToCart }) => {
-
-    //console.log('prodLoadingStatus', prodLoadingStatus)
+export const CustomerButtons = ({ addToFavorites, removeFromFavorites, authIsLoading, isFavorite, 
+                                    productId, prodLoadingStatus, addToCart }) => {
 
     return <div className={c.btnWrap} >
 

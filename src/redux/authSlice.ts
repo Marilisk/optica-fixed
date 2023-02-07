@@ -1,8 +1,9 @@
+import { FetchAddToCartArgType } from './../Components/Types/types';
 import { createAppAsyncThunk } from './hooks';
 import { RootState } from './redux-store';
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
-import { ICartItemWithSum, ILData, ISubscribeData, IUser, OrderType } from "../Components/Types/types";
+import { ILData, ISubscribeData, OrderType } from "../Components/Types/types";
 import instance, { API_URL } from "./API/api";
 import { IInitialValues } from '../Components/Cart/Order/Address/initialValues';
 import { orderCreate } from './functions/useOrderCreator';
@@ -11,13 +12,13 @@ import { orderCreate } from './functions/useOrderCreator';
 export const fetchAuth = createAsyncThunk('auth/fetchAuth', async (params) => {
     let response = await instance.post('/auth/login', params);
     console.log(response);
-    localStorage.setItem('token', response.data.accessToken);
+    localStorage.setItem('token', response.data.accessToken)
     return response.data;
 })
 
 export const fetchLogout = createAsyncThunk('auth/fetchLogout', async () => {
     let response = await instance.post('/auth/logout');
-    //console.log(response)
+    localStorage.removeItem('token')
     return response.data;
 })
 
@@ -25,7 +26,7 @@ export const checkAuth = createAsyncThunk('auth/checkAuth', async () => {  // re
     try {
         const response = await axios.get(`${API_URL}auth/refresh`, { withCredentials: true });
         localStorage.setItem('token', response.data.tokens.accessToken);
-        console.log(response.data.user)
+        console.log(response.data)
         return response.data.user;
     } catch (error) {
         console.log(error)
@@ -39,6 +40,7 @@ export const fetchRegister = createAsyncThunk('auth/fetchRegister', async (param
     let response = await instance.post('/auth/register', params);
     console.log(response);
     localStorage.setItem('token', response.data.accessToken)
+    localStorage.setItem('loginData', JSON.stringify(params))
     return response.data.user;
 })
 
@@ -53,8 +55,8 @@ export const fetchRemoveFromFavorites = createAsyncThunk('auth/fetchRemoveFromFa
     return response.data;
 });
 
-export const fetchAddEyewearToCart = createAsyncThunk('auth/fetchAddEyewearToCart', async (productId: string) => {
-    const response = await instance.post(`/addtocart`, { productId });
+export const fetchAddEyewearToCart = createAsyncThunk('auth/fetchAddEyewearToCart', async ({productId, cat}:FetchAddToCartArgType ) => {
+    const response = await instance.post(`/addtocart`, { productId, cat });
     return response.data;
 })
 export const fetchRemoveEyewearFromCart = createAsyncThunk('auth/fetchRemoveEyewearFromCart', async (productId: string) => {
@@ -71,18 +73,54 @@ export const fetchUpdateCart = createAppAsyncThunk('auth/fetchUpdateCart', async
 
 
 
-
-
 export const fetchCreateOrder = createAppAsyncThunk('auth/fetchCreateOrder', async (addressValues:IInitialValues, thunkApi) => {
     const state = thunkApi.getState()
     const userId = state.auth.loginData.data._id;
     const cart = state.products.currentCartWithSums.items;
     const order:OrderType = orderCreate(cart, addressValues, userId)
     const response = await instance.post(`/createorder`, order );
-    console.log(response)
+    console.log('authData', response)
     return response.data;
 })
+export const fetchAddValuesToOrder = createAppAsyncThunk('auth/fetchAddValuesToOrder', 
+        async (values:IInitialValues, thunkApi) => {
+    const state = thunkApi.getState()
+    const prevOrder:OrderType = state.products.processedOrder.order
+    const innovatedOrder:OrderType = {
+        ...prevOrder, 
+        address: values.address,
+        phoneNumber: values.phone,
+        additionalInfo: values.additional,
+        }    
+    const response = await instance.post(`/editorder`, innovatedOrder );
+    //console.log(response)
+    return response.data; 
+})
+export const fetchEditOrder = createAppAsyncThunk('auth/fetchEditOrder', 
+        async (isCardChosen:boolean, thunkApi) => {
+    const state = thunkApi.getState()
+    const prevOrder:OrderType = state.products.processedOrder.order
+    const thisPaymentWay = isCardChosen ? 'card' : 'cash'
+    const innovatedOrder = {...prevOrder, paymentWay: thisPaymentWay }    
+    const response = await instance.post(`/editorder`, innovatedOrder );
+    console.log(response)
+    return response.data; 
+})
+export const fetchConFirmOrder = createAppAsyncThunk('auth/fetchConFirmOrder', 
+        async (_, thunkApi) => {
+    const state = thunkApi.getState()
+    const prevOrder:OrderType = state.products.processedOrder.order
+    const innovatedOrder = {...prevOrder, condition: 'confirmed' }    
+    const response = await instance.post(`/confirmorder`, innovatedOrder );
+    console.log(response)
+    return response.data; 
+})
 
+export const fetchDeleteOrder = createAppAsyncThunk('auth/fetchDeleteOrder', async (orderId:string) => {  
+    const response = await instance.delete(`/order/${orderId}`);
+    console.log(response)
+    return {...response.data, orderId}; 
+})
 
 export type AuthInitStateType = {
     loginData?: ILData
@@ -180,22 +218,20 @@ const authSlice = createSlice({
                 state.loginData.status = 'loading';
             })
             .addCase(fetchAddToFavorites.fulfilled, (state, action: PayloadAction<string[]>) => {
-                //console.log(action.payload)
                 if (state.loginData.data != null) {
                     state.loginData.data.favourites = action.payload;
                     state.loginData.status = 'loaded';
                 }
             })
-            .addCase(fetchAddToFavorites.rejected, (state, action) => {
+            .addCase(fetchAddToFavorites.rejected, (state, ) => {
                 state.loginData.status = 'error';
             })
 
 
-            .addCase(fetchRemoveFromFavorites.pending, (state, action) => {
+            .addCase(fetchRemoveFromFavorites.pending, (state, ) => {
                 state.loginData.status = 'loading';
             })
             .addCase(fetchRemoveFromFavorites.fulfilled, (state, action) => {
-                //console.log(action.payload)
                 if (state.loginData.data != null) {
                     state.loginData.data.favourites = action.payload;
                     state.loginData.status = 'loaded';
@@ -222,16 +258,32 @@ const authSlice = createSlice({
                 state.loginData.status = 'loading';
             })
             .addCase(fetchRemoveEyewearFromCart.fulfilled, (state, action) => {
-                console.log('in extraReducer', action.payload)
+                //console.log('in extraReducer', action.payload)
                 state.loginData.data.cart = action.payload;
                 state.loginData.status = 'loaded';
 
             })
-            .addCase(fetchRemoveEyewearFromCart.rejected, (state, action) => {
+            .addCase(fetchRemoveEyewearFromCart.rejected, (state) => {
                 state.loginData.status = 'error';
             })
 
-            .addCase(fetchUpdateCart.pending, (state, action) => {
+            .addCase(fetchDeleteOrder.pending, (state, action) => {
+                state.loginData.status = 'loading';
+            })
+            .addCase(fetchDeleteOrder.fulfilled, (state, action) => {
+                console.log('in extraReducer', action.payload)
+                state.loginData.data.orders = state.loginData.data.orders.filter(el => el !== action.payload.orderId);
+                state.loginData.status = 'loaded';
+
+            })
+            .addCase(fetchDeleteOrder.rejected, (state) => {
+                state.loginData.status = 'error';
+            })
+
+
+            
+
+            .addCase(fetchUpdateCart.pending, (state) => {
                 state.loginData.status = 'loading';
             })
             .addCase(fetchUpdateCart.fulfilled, (state, action) => {
@@ -239,25 +291,58 @@ const authSlice = createSlice({
                 state.loginData.data.cart = action.payload;
                 state.loginData.status = 'loaded';
             })
-            .addCase(fetchUpdateCart.rejected, (state, action) => {
+            .addCase(fetchUpdateCart.rejected, (state) => {
                 state.loginData.status = 'error';
             })
 
-            .addCase(fetchCreateOrder.pending, (state, action) => {
+            .addCase(fetchCreateOrder.pending, (state) => {
                 state.loginData.status = 'loading';
             })
             .addCase(fetchCreateOrder.fulfilled, (state, action) => {
-                console.log(action)
-                state.loginData.data.orders.push(action.payload) ;
+                state.loginData.data.orders.push(action.payload._id) ;
                 state.loginData.status = 'loaded';
             })
-            .addCase(fetchCreateOrder.rejected, (state, action) => {
+            .addCase(fetchCreateOrder.rejected, (state) => {
                 state.loginData.status = 'error';
             })
 
+            .addCase(fetchAddValuesToOrder.pending, (state) => {
+                state.loginData.status = 'loading';
+            })
+            .addCase(fetchAddValuesToOrder.fulfilled, (state, action) => {
+                state.loginData.status = 'loaded';
+            })
+            .addCase(fetchAddValuesToOrder.rejected, (state) => {
+                state.loginData.status = 'error';
+            })            
+
+            .addCase(fetchEditOrder.pending, (state) => {
+                state.loginData.status = 'loading';
+            })
+            .addCase(fetchEditOrder.fulfilled, (state, action) => {
+                //state.loginData.data.orders.push(action.payload._id)
+                state.loginData.status = 'loaded';
+            })
+            .addCase(fetchEditOrder.rejected, (state) => {
+                state.loginData.status = 'error';
+            })
+
+            .addCase(fetchConFirmOrder.pending, (state) => {
+                state.loginData.status = 'loading';
+            })
+            .addCase(fetchConFirmOrder.fulfilled, (state, action) => {
+                console.log(action)
+                state.loginData.data.cart = [] 
+                state.loginData.status = 'loaded'
+            })
+            .addCase(fetchConFirmOrder.rejected, (state) => {
+                state.loginData.status = 'error';
+            })
+
+          
 
             
-
+        
     },
 
 });

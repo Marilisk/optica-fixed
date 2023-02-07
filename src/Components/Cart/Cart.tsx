@@ -1,18 +1,19 @@
 import c from './Cart.module.scss';
 import { useEffect, FC } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { CartProductCard } from './ProductCard/CartProductCard';
 import { fetchUpdateCart } from '../../redux/authSlice';
-import { ICartItem } from '../Types/types';
+import { CatEnum, ICartItem } from '../Types/types';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { CartTotal } from './CartTotal/CartTotal';
 import { PromoCodeForm } from './PromoCodeForm/PromoCodeForm';
 import { CartConfirmBtns } from './CartConfirmBtns/CartConfirmBtns';
+import { CartLensCard } from './CartLensCard/CartLensCard';
 
 interface CartProps {
-    switchModal: (arg: Boolean) => void;
-    removeFromFavorites: (arg: number) => void;
-    userFavorites: Array<number>;   //userFavorites: number[];
+    switchModal: (arg: Boolean) => void
+    removeFromFavorites: (arg: number) => void
+    userFavorites: Array<number>
     authIsLoading: string
     isAuth: boolean
 }
@@ -20,29 +21,40 @@ interface CartProps {
 export const Cart: FC<CartProps> = ({ switchModal, removeFromFavorites, userFavorites, authIsLoading, isAuth }: CartProps,) => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
-    
 
+    let userCart = useAppSelector<ICartItem[]>(state => state.auth.loginData.data?.cart)
+    const userName = useAppSelector(s => s.auth.loginData.data?.fullName);
+    if (!isAuth) {
+        userCart = JSON.parse(localStorage.getItem('cart'))
+        console.log(userCart)
+    }
     useEffect(() => {
         if (!isAuth) {
             switchModal(true);
         }
-    }, [switchModal , isAuth])
+    }, [switchModal, isAuth])
 
-    const userCart = useAppSelector<ICartItem[]>(state => state.auth.loginData.data?.cart);
-    const userName = useAppSelector(s => s.auth.loginData.data?.fullName);
 
     const editCart = () => {
         dispatch(fetchUpdateCart());
     }
 
     const confirmOrder = () => {
-        //console.log(userCart);
-        navigate(`/order`);
+        if (!isAuth) {
+            switchModal(true)
+        } else {
+            navigate(`/order`);
+        }
     }
-    if (!userCart || authIsLoading === 'loading') {
-        return <div><h2>{userName}, в вашей корзине пока нет товаров...</h2></div>;
+    if (!userCart || !userCart.length || authIsLoading === 'loading') {
+        return <div className={c.nthFound}>
+            <h2>
+                <div>{userName && `${userName}, `} Пока ничего нет...</div>
+            </h2>
+            <Link to='/'>Перейти в каталог</Link>
+        </div>
     }
-    
+
     let goodsCount: number = 0;
     userCart.forEach(elem => {
         goodsCount += elem.quantity
@@ -54,12 +66,27 @@ export const Cart: FC<CartProps> = ({ switchModal, removeFromFavorites, userFavo
         </h1>
         <div>
 
-            {userCart?.map((cartItem, i: number) => <CartProductCard key={i}
-                cartItem={cartItem}
-                authIsLoading={authIsLoading}
-                cartItemIndex={i}
-                editCart={editCart}
-            />)}
+            {userCart?.map((cartItem, i: number) => {
+
+                if (cartItem.cat === CatEnum.eyewear) {
+                    return <CartProductCard key={i}
+                        cartItem={cartItem}
+                        authIsLoading={authIsLoading}
+                        cartItemIndex={i}
+                        editCart={editCart}
+                        isAuth={isAuth}
+                        switchModal={switchModal} />
+                } else {
+                    return <CartLensCard key={i}
+                        cartItem={cartItem}
+                        authIsLoading={authIsLoading}
+                        cartItemIndex={i}
+                        editCart={editCart}
+                        isAuth={isAuth}
+                        switchModal={switchModal} />
+                }
+            }
+            )}
 
         </div>
 
@@ -70,14 +97,13 @@ export const Cart: FC<CartProps> = ({ switchModal, removeFromFavorites, userFavo
         <div className={c.beforeConfirm}>
             <div>
                 <PromoCodeForm />
-                <CartConfirmBtns confirmOrder={confirmOrder} authIsLoading={authIsLoading} navigate={navigate} />
+                <CartConfirmBtns confirmOrder={confirmOrder} authIsLoading={authIsLoading}
+                    navigate={navigate} />
             </div>
-            <CartTotal goodsCount={goodsCount} userCartLength={userCart.length} />
 
+            <CartTotal goodsCount={goodsCount} userCartLength={userCart.length} />
         </div>
 
     </>
-
-
 
 }

@@ -1,9 +1,9 @@
 import c from './LensSelector.module.scss';
 import { FC } from 'react';
-import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 import { updateCart } from '../../../../redux/authSlice';
 import { ICartItem } from '../../../Types/types';
+import { useAppDispatch } from '../../../../redux/hooks';
 
 const dioptries = [-9.0, -8.5, -8.0, -7.5, -7.0, -6.5, -6.0, -5.75, -5.5, -5.25, -5.0, -4.75, -4.5, -4.25, -4.0, -3.75, -3.5, -3.25, -3.0, -2.75, -2.5, -2.25, -2.0, -1.75, -1.5, -1.25, -1.0, -1.25, -1.0, -0.75, -0.5, -0.25, +0.25, +0.5, +0.75, +1.0, +1.25, +1.5, +1.75, +2.0, +2.25, +2.5, +2.75, +3.0, +3.25, +3.5, +3.75, +4.0, +4.25, +4.5, +4.75, +5.0, +5.25, +5.5, +5.75,];
 
@@ -11,21 +11,26 @@ interface ILensSelector {
     cartItem: ICartItem
     cartItemIndex: number
     editCart: () => void
+    isAuth: boolean
+    switchModal: (arg: Boolean) => void;
 }
 
-export const LensSelector: FC<ILensSelector> = ({ cartItem, cartItemIndex, editCart }: ILensSelector,) => {
-    const dispatch = useDispatch();
+export const LensSelector: FC<ILensSelector> = ({ cartItem, cartItemIndex, editCart, isAuth, switchModal }: ILensSelector,) => {
+    const dispatch = useAppDispatch();
 
     const [leftOptionsOpened, toggleLOptions] = useState(false);
     const [rightOptionsOpened, toggleROptions] = useState(false);
 
     const chooseOpticalPower = (value: number, side: 'left' | 'right') => {
-        const newCartItem: ICartItem = side === 'left' ?
-            { ...cartItem, leftLens: value }
-            : { ...cartItem, rightLens: value };
-        //console.log(newCartItem)         
-        dispatch(updateCart({ cartItemIndex, newCartItem }))
-        editCart()
+        if (!isAuth) {
+            switchModal(true)
+        } else {
+            const newCartItem: ICartItem = side === 'left' ?
+                { ...cartItem, leftLens: value }
+                : { ...cartItem, rightLens: value };        
+            dispatch(updateCart({ cartItemIndex, newCartItem }))
+            editCart()
+        }
     }
 
     const leftOptions = dioptries.map((value, index) => {

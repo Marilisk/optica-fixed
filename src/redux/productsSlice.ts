@@ -1,10 +1,9 @@
-import { ICartItemWithSum } from './../Components/Types/types';
+import { ICartItemWithSum, IUser } from './../Components/Types/types';
 import { createAppAsyncThunk } from './hooks';
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { LoadingStatusEnum, ProdInitialStateType } from "../Components/Types/types";
 import instance from "./API/api.js";
 import { defineSize } from "./functions/defineSize.js";
-import { IInitialValues } from '../Components/Cart/Order/Address/initialValues';
 import { cartWithSumsCreator } from './functions/useOrderCreator';
 
 export const fetchProducts = createAsyncThunk('products/fetchProducts', async () => {
@@ -15,7 +14,7 @@ export const fetchFilteredProducts = createAsyncThunk('products/fetchProducts', 
     const { data } = await instance.get('/products');
     return data;
 });
-export const fetchProd = createAsyncThunk('products/fetchProd', async (id) => {
+export const fetchProd = createAsyncThunk('products/fetchProd', async (id:string) => {
     const data = await instance.get(`/products/${id}`);
     return data.data;
 });
@@ -34,9 +33,9 @@ export const fetchSearch = createAsyncThunk('products/fetchSearch', async (query
 export const fetchCollectCartPrices = createAppAsyncThunk('products/CollectCartPrices',
     async (_, thunkApi) => {
         const state = thunkApi.getState()
-        const authData = state.auth.loginData.data;
+        const authData:IUser = state.auth.loginData.data;
         const cartWithSums:ICartItemWithSum[] = await cartWithSumsCreator(authData)
-        console.log(cartWithSums)
+        //console.log(cartWithSums)
         return cartWithSums
     })
 
@@ -59,6 +58,13 @@ const initialState: ProdInitialStateType = {
         status: LoadingStatusEnum.loaded,
     },
 
+    processedOrder: {
+        order: null,
+        status: LoadingStatusEnum.loaded,
+    },
+
+    cartInLSLength : 0,
+
 }
 
 
@@ -74,8 +80,16 @@ const productsSlice = createSlice({
         clearSearchResults(state) {
             state.searchResult.items = [];
             state.searchResult.status = LoadingStatusEnum.loaded;
-        }
+        },
 
+        setProcessedOrder(state, action) {
+            state.processedOrder.order = action.payload
+            state.processedOrder.status = LoadingStatusEnum.loaded
+        },
+
+        setCartInLSLength(state, action) {
+            state.cartInLSLength = action.payload
+        },
     },
     extraReducers: (builder) => {
         builder.addCase(fetchProducts.pending, (state) => {
@@ -132,7 +146,6 @@ const productsSlice = createSlice({
 
             })
 
-
             .addCase(fetchCollectCartPrices.pending, (state) => {
                 state.currentCartWithSums.status = LoadingStatusEnum.loading;
             })
@@ -142,18 +155,15 @@ const productsSlice = createSlice({
             })
             .addCase(fetchCollectCartPrices.rejected, (state) => {
                 state.currentCartWithSums.status = LoadingStatusEnum.error;
-
-            })
-
-
-            
-
+            })            
     },
 })
 
 export const {
     setCurrentProd,
     clearSearchResults,
+    setProcessedOrder,
+    setCartInLSLength,
 } = productsSlice.actions;
 
 export default productsSlice.reducer;

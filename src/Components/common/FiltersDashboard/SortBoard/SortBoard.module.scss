@@ -1,0 +1,138 @@
+$green: #11A834;
+$light-violet: #C899CC;
+$violet: #95009C;
+$dark-violet: #57005C;
+$thin-gray-border: 1px solid #D8D1CA;
+$light-beige-gray: #D8D1CA;
+$dark-fontcolor: #333333;
+$gray-fontcolor: #666666;
+$small-fontSize: 14px;
+$light-background: #FAFAFA;
+$serif-font-family: 'Playfair Display SC', serif;
+
+
+.sortBoard {
+    font-size: $small-fontSize;
+    flex: 1;
+    position: relative;
+
+    &:hover {
+        .iconWrapper {
+            transform: rotate(180deg);
+            transition: 300ms;
+        }
+    }
+
+    @media (max-width: 769px) {
+        //border: 1px solid $green;   
+    }
+}
+.header {
+    font-weight: 700;
+    height: 50%;
+    padding-top: 14px;
+    padding-left: 12px;
+    @media (max-width: 1024px) {
+        height: 48px;
+    }
+    @media (max-width: 854px) {
+        padding-left: 18px;
+        width: 140px;
+        
+    }
+    @media (max-width: 769px) {
+        display: none;   
+    }
+}
+
+.chosenOption {
+    z-index: 2;
+    padding-left: 10px;
+    display: flex;
+    cursor: pointer;
+    margin-top: 2px;
+
+    .iconWrapper {
+        padding-top: 1px;
+        margin-left: 6px;
+        transform: rotate(0deg);
+        transition: 300ms;
+    }
+
+    &:hover {
+        .iconWrapper {
+            transform: rotate(180deg);
+            transition: all 300ms;
+        }
+    }
+
+    @media (max-width: 854px) {
+        padding: 7px 18px;        
+    }
+    @media (max-width: 769px) {
+        width: fit-content;
+        margin: 5px 0 auto auto;
+    }
+    @media (max-width: 426px) {
+        width: 220px;
+    }
+}
+
+.accordeon {
+    position: absolute;
+    width: 62%;
+    background: $light-background;
+    box-shadow: 4px 2px 6px 2px rgba(102, 102, 102, 10%), 
+    1px 5px 6px 2px rgba(102, 102, 102, 10%);
+    top: 94px;
+    padding: 4px;
+    transition: all 700ms;
+    z-index: 1;
+    
+    &::before {
+        content: '';
+        width: 100%;
+        top: -9px;
+        left: 0px;
+        position: absolute;
+        height: 14px;
+        background: white;
+        @media (max-width: 1024px) {
+            top: -6px;
+        }
+    }
+
+    @media (max-width: 854px) {
+        top: 80px;
+        width: 32%;
+    }
+    @media (max-width: 769px) {
+        width: 62%;
+        top: 46px;
+        right: 0px;
+    }
+    @media (max-width: 626px) {
+        width: 70%;
+    }
+    @media (max-width: 536px) {
+        width: 100%;
+    }
+}
+
+.accordeonLine, .chosenAccLine {
+    margin: 8px;
+    transition: all 300ms;
+    cursor: pointer;
+    padding: 4px;
+    transition: all 300ms;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+.chosenAccLine {
+    border: 1px solid $gray-fontcolor;
+    border-radius: 6px;
+}
+
+

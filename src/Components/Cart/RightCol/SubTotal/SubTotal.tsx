@@ -10,18 +10,24 @@ type ITotal = {
     cartItem: ICartItem
     cartItemIndex: number
     editCart: () => void
+    switchModal: (arg: Boolean) => void
+    isAuth: boolean
 }
 const quantities = [1, 2, 3, ];
 
-export const SubTotal: FC<ITotal> = ({ price, cartItem, cartItemIndex, editCart }: ITotal) => {
+export const SubTotal: FC<ITotal> = ({ price, cartItem, cartItemIndex, editCart, switchModal, isAuth }: ITotal) => {
     const dispatch = useAppDispatch();
 
     const [quantityOpened, toggleQuantity] = useState(false);
 
     const chooseQuantity = (value: number) => {
-        const newCartItem = { ...cartItem, quantity: value }
-        dispatch(updateCart({ cartItemIndex, newCartItem }))
-        editCart()
+        if (!isAuth) {
+            switchModal(true)
+        } else {
+            const newCartItem = { ...cartItem, quantity: value }
+            dispatch(updateCart({ cartItemIndex, newCartItem }))
+            editCart()
+        }
     }
 
     const options = quantities.map((value, index) => {

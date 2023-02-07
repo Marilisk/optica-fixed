@@ -20,7 +20,9 @@ export const Footer = () => {
             </div>
             <div className={c.column}>
                 <h3>Информация</h3>
-                <div>Отследить заказ</div>
+                <div>
+                    <Link to={'/myoptis'}>Отследить заказ</Link>
+                </div>
                 <div>Задать вопрос</div>
 
                 {isManager && <Link to='/manage'>

@@ -24,6 +24,9 @@ import { Favourites } from './Components/Favourites/Favourites.jsx';
 import { Preloader } from './assets/common/Preloader/Preloader.jsx';
 import { Cart } from './Components/Cart/Cart';
 import { Order } from './Components/Cart/Order/Order';
+import { PrivatePage } from './Components/PrivatePage/PrivatePage';
+import { OrderConfirmed } from './Components/OrderConfirmed/OrderConfirmed';
+import { LensPage } from './Components/Lenses/LensPage/LensPage';
 
 
 function App() {
@@ -39,6 +42,8 @@ function App() {
     dispatch(setfullHeaderTheme(true));
     dispatch(fetchFilterOptions('features'));
     dispatch(fetchFilterOptions('color'));
+    dispatch(fetchFilterOptions('shape'));
+    dispatch(fetchFilterOptions('material'));
   }, [dispatch]);
 
   useEffect(() => {
@@ -52,7 +57,6 @@ function App() {
   }, [isAuth, dispatch]);
 
   const userFavorites = useSelector(state => state.auth.loginData.data?.favourites);
-  //console.log(userFavorites)
   let favoritesCount = userFavorites ? userFavorites.length : null;
   const authIsLoading = useSelector(state => state.auth.loginData.status);
 
@@ -94,7 +98,15 @@ function App() {
 
         <Route path='/children' element={<Children />} />
 
-        <Route path='/lenses' element={<Lenses authIsLoading={authIsLoading} />} />
+        <Route path='/lenses' element={<Lenses addToFavorites={addToFavorites}
+          removeFromFavorites={removeFromFavorites}
+          authIsLoading={authIsLoading}
+          userFavorites={userFavorites} />} />
+        <Route path='/lenses/:id' element={<LensPage addToFavorites={addToFavorites}
+          removeFromFavorites={removeFromFavorites}
+          authIsLoading={authIsLoading}
+          userFavorites={userFavorites} />} />
+
 
         <Route path='/login' element={<LoginPage isLoading={authIsLoading} />} />
 
@@ -106,7 +118,8 @@ function App() {
         <Route path='/favourites' element={<Favourites isAuth={isAuth}
           removeFromFavorites={removeFromFavorites}
           userFavorites={userFavorites}
-          authIsLoading={authIsLoading} />} />
+          authIsLoading={authIsLoading}
+          switchModal={switchModal} />} />
 
         <Route path='/cart' element={<Cart switchModal={switchModal}
           removeFromFavorites={removeFromFavorites}
@@ -115,8 +128,11 @@ function App() {
           isAuth={isAuth} />} />
 
         <Route path="/order" element={<Order />} />
-        {/* <Route path="/order/:order" element={<EditOrder />} /> */}
-
+        
+        <Route path="/order/:order" element={<OrderConfirmed isAuth={isAuth} authIsLoading={authIsLoading} />} />
+        <Route path="/myoptis" element={<PrivatePage switchModal={switchModal}
+          authIsLoading={authIsLoading}
+          isAuth={isAuth} />} />
 
 
         <Route path='/offlineshop' element={<OfflineShop />} />
@@ -134,21 +150,10 @@ function App() {
     </div>
     <Footer />
 
+
     {/* <CookieModal /> */}
   </>;
 }
 
 export default App;
 
-
-/* 
-<Routes>
-  <Route path="/" element={<Dashboard />}>
-    <Route
-      path="messages"
-      element={<DashboardMessages />}
-    />
-    <Route path="tasks" element={<DashboardTasks />} />
-  </Route>
-  <Route path="about" element={<AboutPage />} />
-</Routes> */

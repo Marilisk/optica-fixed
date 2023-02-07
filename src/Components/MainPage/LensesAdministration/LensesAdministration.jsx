@@ -1,17 +1,16 @@
 import { Field, Form, Formik } from 'formik';
-import c from './../EyewearAdministration/Administration.module.scss';
+import c from './LensesAdministration.module.scss';
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { NavLink, useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { NavLink, useNavigate, useParams } from 'react-router-dom';
 import { Preloader } from '../../../assets/common/Preloader/Preloader';
 import instance from '../../../redux/API/api';
-import { fetchProd } from '../../../redux/productsSlice';
 import { initValues } from './../InitValues/lensesInitvalues';
 import { FilesDownloader } from '../EyewearAdministration/FilesDownLoader';
 import { CreateFieldArray } from '../EyewearAdministration/createFieldArray';
 
 export const LensesAdministration = ({ }) => {
-    const dispatch = useDispatch();
+    const navigate = useNavigate()
     const params = useParams();
     const [successmsg, setSuccessMsg] = useState(null);
 
@@ -26,15 +25,11 @@ export const LensesAdministration = ({ }) => {
 
     const [images, setImages] = useState(editMode ? currentProduct.item?.imageUrl : { main: '', side: '', perspective: '' });
 
-    // for RTK Query:
-    //const [addProduct, {isError}] = useAddProductMutation();
-
     if (editMode && !currentProduct.item) {
         return <div><Preloader /></div>
     }
 
     const initialValues = initValues(editMode, currentProduct, images);
-
 
     return <section>
         <div className={c.header}>
@@ -44,18 +39,21 @@ export const LensesAdministration = ({ }) => {
         <div className={c.adminWrapper}>
             <div className={c.formikWrapper}>
                 <Formik initialValues={initialValues}
-                    enableReinitialize={true}
+                    /* enableReinitialize={true} */
                     onSubmit={async (values, actions) => {
+                        console.log('presubmit', values)
                         try {
+                            console.log('submit', values)
                             const { data } = editMode ?
                                 await instance.patch(`/lenses/${params.id}`, values)
                                 : await instance.post('/lenses', values);
                             const id = data._id;
                             setSuccessMsg(id);
-                            console.log(data);
+                            console.log('response ', data);
                             if (data.success === true || (editMode && data._id)) {
                                 alert('успешно!');
-                                actions.resetForm({ initialValues });
+                                actions.resetForm({initialValues})
+                                navigate(`/lenses/${params.id || id}`);
                             }
                         } catch (error) {
                             console.warn(error);
@@ -93,9 +91,10 @@ export const LensesAdministration = ({ }) => {
                                     </label>
                                 </div>
 
-                                <div className={c.inputWrapper}>
+                                <div className={c.descriptionInputWrapper}>
                                     <label>описание
-                                        <Field id='description' name='description' />
+                                        {/* <Field id='description' name='description' /> */}
+                                        <textarea id='description' name='description' />
                                     </label>
                                 </div>
 
@@ -106,6 +105,7 @@ export const LensesAdministration = ({ }) => {
                                 </div>
 
                                 <CreateFieldArray name='prescription'
+                                    className={c.prescriptionArr}
                                     array={values.prescription}
                                     title={'Оптическая сила'} />
 

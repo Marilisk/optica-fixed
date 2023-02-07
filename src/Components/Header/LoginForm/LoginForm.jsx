@@ -1,23 +1,38 @@
 import c from './LoginForm.module.scss';
 import { CustomCheckbox } from '../../../assets/form_elements/CustomCheckbox/CustomCheckbox';
 import { Field, Form, Formik } from 'formik';
-import { fetchAuth } from '../../../redux/authSlice';
+import { fetchAddEyewearToCart, fetchAuth } from '../../../redux/authSlice';
 import { validateEmail, validatePassword } from './loginValidate';
+
+const initialiseCart = async (dispatch) => {
+    let cartInLS = localStorage.getItem('cart')
+    if (cartInLS) {
+        cartInLS = JSON.parse(localStorage.getItem('cart'))
+        for (let cartItem of cartInLS) {
+            console.log('i m in initcart', cartItem)
+            await dispatch(fetchAddEyewearToCart(cartItem.productId))
+        }
+        localStorage.removeItem('cart')
+    }
+}
 
 export const LoginForm = ({ toggleLoginModalOpened, dispatch, isLoading }) => {
 
-    return <Formik initialValues={{
-        email: '6868221@gmail.com',
-        password: '123456',
-        rememberMe: true,
-    }}
+    const emailInLS = localStorage.getItem('email')
+    const initialValues = emailInLS ? { email: emailInLS, password: '', rememberMe: true }
+        : { email: '', password: '', rememberMe: true, }
+
+    return <Formik
+        initialValues={initialValues}
         onSubmit={async (values, actions) => {
             const payload = { email: values.email, password: values.password };
             const data = await dispatch(fetchAuth(payload));
-            
+
             if (!data.payload && data.error.message === 'Request failed with status code 404') {
                 alert('неверный логин или пароль');
             } else if ('accessToken' in data.payload) {
+                if (values.rememberMe) { localStorage.setItem('email', values.email) }
+                initialiseCart(dispatch)
                 actions.resetForm({
                     email: '',
                     password: '',
@@ -42,7 +57,7 @@ export const LoginForm = ({ toggleLoginModalOpened, dispatch, isLoading }) => {
                         style={errors.password && { borderColor: '#FF0000' }} />
                     {errors.password && touched.password && <p className={c.errorPassword}>{errors.password}</p>}
 
-                    <button type='submit' disabled={isLoading === 'loading' || (errors.email || errors.password) }>
+                    <button type='submit' disabled={isLoading === 'loading' || (errors.email || errors.password)}>
                         ВОЙТИ
                     </button>
 

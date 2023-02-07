@@ -1,5 +1,5 @@
 import { FieldArray, Field } from 'formik';
-import c from './Administration.module.scss';
+import c from './CreateFieldArr.module.scss';
 
 
 export const CreateFieldArray = ({ name, array, title}) => {
@@ -8,11 +8,12 @@ export const CreateFieldArray = ({ name, array, title}) => {
         <FieldArray name={name}>
 
             {({ insert, remove, push }) => (
-                <div>{title}:
+                <div>
+                    <span>{title}</span>
                     {array.length > 0 &&
                         array.map((elem, index) => (
-                            <div key={index}>
-                                <label className={c.arrayLabel}>{/* {index + 1}. */}
+                            <div key={index} className={c.line}>
+                                <label className={c.arrayLabel}>
                                     <Field name={`${name}.${index}`} type="text" />
                                 </label>
                                 <button type="button" className={c.btn} onClick={() => remove(index)}>

@@ -17,7 +17,6 @@ export const LoginButton = ({ toggleLoginModalOpened, loginModalOpened, dispatch
             onClick={!isAuth ? () => toggleLoginModalOpened(!loginModalOpened) : () => {
                 let confirm = window.confirm('Уверены, что хотите выйти?');
                 if (confirm) {
-                    localStorage.removeItem('token');
                     dispatch(fetchLogout());
                 }
             }}

@@ -1,0 +1,56 @@
+$green: #11A834;
+$light-violet: #C899CC;
+$violet: #95009C;
+$dark-violet: #57005C;
+$thin-gray-border: 1px solid #D8D1CA;
+$light-beige-gray: #D8D1CA;
+$dark-fontcolor: #333333;
+$gray-fontcolor: #666666;
+$small-fontSize: 14px;
+$light-background: #FAFAFA;
+$serif-font-family: 'Playfair Display SC', serif;
+
+.numsWrapper {
+    margin-top: 40px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+    max-width: 86%;
+    
+
+    @media (max-width: 824px) {
+        grid-template-columns: repeat(4, 1fr); 
+    }
+    @media (max-width: 768px) {
+        margin: 0 auto;
+        grid-template-columns: repeat(7, 1fr); 
+    }
+    @media (max-width: 579px) {
+        grid-template-columns: repeat(7, 1fr);
+        max-width: none; 
+    }
+    @media (max-width: 480px) {
+        grid-template-columns: repeat(6, 1fr);
+        max-width: none; 
+    }
+}
+
+.cellWrap {
+    border: 2px solid #ececec;
+    border-radius: 8px;
+    transition: 300ms;
+    cursor: pointer;
+    &:hover {
+        border-color: $light-violet;
+    }
+}
+
+.cell {
+    font-size: $small-fontSize;
+    font-weight: 700;
+    margin: 8px auto;
+    width: fit-content;
+}

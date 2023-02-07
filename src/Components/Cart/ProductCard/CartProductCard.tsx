@@ -13,17 +13,22 @@ interface CartProductCardProps {
     authIsLoading: string
     cartItemIndex: number
     editCart: () => void
+    isAuth: boolean
+    switchModal: (arg: Boolean) => void
 }
 
-export const CartProductCard: FC<CartProductCardProps> = ({ cartItem, authIsLoading, cartItemIndex, editCart }: CartProductCardProps,) => {
+export const CartProductCard: FC<CartProductCardProps> = ({ cartItem, authIsLoading, cartItemIndex, 
+                                                            editCart, isAuth, switchModal }: CartProductCardProps,) => {
     const dispatch = useAppDispatch();
     const [product, setProduct] = useState<IProduct | null>();
+    
 
     useEffect(() => {
         async function fetchData() {
             const response = await instance.get(`/products/${cartItem.productId}`);
+            
+            //console.log(response)
             setProduct(response.data);
-            //console.log(response.data.price)
             dispatch(pushPriceToTotal({
                 id: cartItem.productId,
                 sum: (response.data.price * cartItem.quantity)
@@ -45,7 +50,9 @@ export const CartProductCard: FC<CartProductCardProps> = ({ cartItem, authIsLoad
             cartItem={cartItem}
             authIsLoading={authIsLoading}
             cartItemIndex={cartItemIndex}
-            editCart={editCart} />
+            editCart={editCart}
+            isAuth={isAuth}
+            switchModal={switchModal} />
 
     </div>
 }

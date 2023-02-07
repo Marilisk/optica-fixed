@@ -15,9 +15,11 @@ interface IRightCol {
     cartItem: ICartItem
     cartItemIndex: number
     editCart: () => void
+    isAuth: boolean
+    switchModal: (arg: Boolean) => void;
 }
 
-export const RightCol: FC<IRightCol> = ({ authIsLoading, product, cartItem, cartItemIndex, editCart }: IRightCol,) => {
+export const RightCol: FC<IRightCol> = ({ authIsLoading, product, cartItem, cartItemIndex, editCart, isAuth, switchModal }: IRightCol,) => {
     const dispatch = useAppDispatch();
 
     const price = priceFormatter(product.price)
@@ -27,24 +29,23 @@ export const RightCol: FC<IRightCol> = ({ authIsLoading, product, cartItem, cart
 
         <div className={c.firstLine}>
             <h2>{product.name} {product.code}</h2>
-            <div className={c.deleteLink}
+            {isAuth && <div className={c.deleteLink}
                 onClick={() => dispatch(fetchRemoveEyewearFromCart(product._id))}>
                 удалить
-            </div>
+            </div>}
+
         </div>
 
-        <LensSelector cartItem={cartItem} cartItemIndex={cartItemIndex} editCart={editCart} />
+        <LensSelector cartItem={cartItem} cartItemIndex={cartItemIndex}
+            editCart={editCart} isAuth={isAuth} switchModal={switchModal} />
 
         <Details price={price} />
 
-        <SubTotal cartItem={cartItem} price={totalPrice} cartItemIndex={cartItemIndex} editCart={editCart}  />
+        <SubTotal cartItem={cartItem} price={totalPrice} cartItemIndex={cartItemIndex}
+            editCart={editCart} switchModal={switchModal} isAuth={isAuth} />
 
 
-        <div className={c.cart}>
-            {/* <CartIcon color={'#95009C'} size={'18px'}
-                onClickCB={() => dispatch(fetchRemoveEyewearFromCart(product._id))}
-                disabled={authIsLoading === 'loading'} /> */}
-        </div>
+        
     </div>
 
 }

@@ -7,8 +7,6 @@ export const fetchFilterOptions = createAsyncThunk('filters/fetchFilterOptions',
     return {data, filterName};
 })
 
-
-
 const initialState:FeaturesInitialStateType = {
     features: [
         {
@@ -31,7 +29,7 @@ const initialState:FeaturesInitialStateType = {
             id: 4,
             label: 'Форма',
             name: 'shape',
-            options: ['круги', 'прямоугольные', 'золото', 'серебро', 'белый'],
+            options: ['круглые', 'прямоугольные', 'квадратные', 'авиаторы', 'cat eye'],
             chosenOptions: [],
             isSelected: false,
         },
@@ -39,7 +37,7 @@ const initialState:FeaturesInitialStateType = {
             id: 5,
             label: 'Материал',
             name: 'material',
-            options: ['пластик', 'металл'],
+            options: ['пластик', 'сталь'],
             chosenOptions: [],
             isSelected: false,
         },
@@ -55,13 +53,25 @@ const initialState:FeaturesInitialStateType = {
             id: 7,
             label: 'Особенности',
             name: 'features',
-            options: ['чёрный', 'красный', 'золото', 'серебро', 'белый'],
+            options: ['подростковые', 'офисные',],
             chosenOptions: [],
             isSelected: false,
         },
     ],
 
+    sortTags: {
+        tags: [
+            { id: 1, label: 'по релевантности', name: 'byRelevance' },
+            { id: 2, label: 'по уменьшению цены', name: 'priceHighToLow' },
+            { id: 3, label: 'по увеличению цены', name: 'priceLowToHigh' },
+            { id: 4, label: 'по количеству продаж', name: 'bestsellers' },
+        ],
+        chosenTag: 1, 
+    } ,
+
     status: '',
+    goodsAmount: 0,
+    filteredProducts: [],
 
 }
 
@@ -71,22 +81,32 @@ const featuresSlice = createSlice({
     reducers: {
         selectFilter(state, action) {
             const item = state.features.find((el) => el.id === action.payload.feature);
-            let isOptionChosen = item.chosenOptions.includes(action.payload.option);
+            let thisIndex:number = state.features.indexOf(item);
+            let isOptionChosen = state.features[thisIndex].chosenOptions.includes(action.payload.option);
+            
             if (isOptionChosen) {
-                item.chosenOptions = item.chosenOptions.filter(chosenOption => chosenOption !== action.payload.option);
-                item.options.push(action.payload.option);
-                item.isSelected = Boolean(item.chosenOptions.length);
+                state.features[thisIndex].chosenOptions = state.features[thisIndex].chosenOptions.filter(chosenOption => chosenOption !== action.payload.option);
+                state.features[thisIndex].options.push(action.payload.option);
+                state.features[thisIndex].isSelected = Boolean(state.features[thisIndex].chosenOptions.length);
             } else {
-                item.chosenOptions.push(action.payload.option);
-                item.options = item.options.filter(opt => opt !== action.payload.option);
-                item.isSelected = Boolean(item.chosenOptions.length);
-            }
+                state.features[thisIndex].chosenOptions.push(action.payload.option);
+                state.features[thisIndex].options = state.features[thisIndex].options.filter(opt => opt !== action.payload.option);
+                state.features[thisIndex].isSelected = Boolean(state.features[thisIndex].chosenOptions.length);
+            }            
         },
         clearAllFilters(state, action) {
             for (let filter of state.features) {
-                filter.chosenOptions = [];
+                if(filter.isSelected) {
+                    filter.options.concat(filter.chosenOptions)
+                    filter.chosenOptions = [];
+                    filter.isSelected = false;
+                }   
             }
         },
+        setSortTag(state, action) {
+            state.sortTags.chosenTag = action.payload
+        },
+       
     },
         extraReducers: (builder) => {
             builder.addCase( fetchFilterOptions.pending, (state) => {
@@ -102,5 +122,5 @@ const featuresSlice = createSlice({
         },
 })
 
-export const { selectFilter, clearAllFilters } = featuresSlice.actions;
+export const { selectFilter, clearAllFilters, setSortTag} = featuresSlice.actions;
 export default featuresSlice.reducer;

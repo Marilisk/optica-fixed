@@ -8,8 +8,6 @@ interface IOrderHeader {
 
 export const OrderHeader: FC<IOrderHeader> = (props : IOrderHeader) => {
 
-    
-
     return <h1 className={c.header}>
             {props.children}
         </h1>

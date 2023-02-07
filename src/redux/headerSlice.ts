@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { HeaderInitialStateType } from "../Components/Types/types";
+import { HeaderInitialStateType, MainMenuFilterEnum } from "../Components/Types/types";
 
 
 const initialState:HeaderInitialStateType = {
@@ -10,6 +10,7 @@ const initialState:HeaderInitialStateType = {
             {
                 name: 'Женщины',
                 url: `women`,
+                filter: MainMenuFilterEnum.women,
                 links: [
                     { label: 'Все оправы', to: '/women' },
                     { label: 'Очки для чтения', to: '/women', featureFilter: 'для чтения' },
@@ -18,6 +19,7 @@ const initialState:HeaderInitialStateType = {
             {
                 name: 'Мужчины',
                 url: `men`,
+                filter: MainMenuFilterEnum.men,
                 links: [
                     { label: 'Все оправы', to: '/men' },
                     { label: 'Очки для чтения', to: '/men', featureFilter: 'для чтения' },
@@ -26,6 +28,7 @@ const initialState:HeaderInitialStateType = {
             {
                 name: 'Дети',
                 url: `children`,
+                filter: MainMenuFilterEnum.children,
                 links: [
                     { label: 'Все оправы', to: '/children' },
                     { label: 'Для самых маленьких', to: '/children', featureFilter: 'Для самых маленьких' },
@@ -34,6 +37,7 @@ const initialState:HeaderInitialStateType = {
             {
                 name: 'Линзы',
                 url: `lenses`,
+                filter: MainMenuFilterEnum.lenses,
                 links: [
                     { label: 'Все линзы', to: '/lenses' },
                     { label: 'Однодневные', to: '/lenses', featureFilter: 'однодневные' },

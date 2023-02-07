@@ -7,12 +7,10 @@ interface CartConfirmBtnsProps {
     navigate: (arg: string) => void
 }
 
-export const CartConfirmBtns: FC<CartConfirmBtnsProps> = ({ authIsLoading, confirmOrder, navigate }: CartConfirmBtnsProps) => {
-
+export const CartConfirmBtns: FC<CartConfirmBtnsProps> = ({ authIsLoading, confirmOrder, navigate, }: CartConfirmBtnsProps) => {
 
 
     return <div className={c.btnWrap} >
-
 
         <button type='button' className={c.favBtn}
             disabled={authIsLoading === 'loading'}
@@ -21,12 +19,12 @@ export const CartConfirmBtns: FC<CartConfirmBtnsProps> = ({ authIsLoading, confi
 
         </button>
 
-
         <button type='button' className={c.addBtn}
             disabled={authIsLoading === 'loading'}
             onClick={() => navigate('/')}>
             в каталог
         </button>
+
     </div>
 
 

@@ -8,7 +8,7 @@ export type IUser = {
     email: string,
     favourites: string[],
     fullName: string,
-    orders: OrderType[]
+    orders: string[]
     isActivated: boolean,
     password: string,
     role: string,
@@ -20,8 +20,8 @@ export type IUser = {
 
 export interface IImageUrl {
     main: string,
-    side: string,
-    perspective: string,
+    side?: string,
+    perspective?: string,
 }
 
 
@@ -76,7 +76,7 @@ export interface ILensProduct {
     oxygen: number
     material: string
     user?: object
-    imageUrl: object
+    imageUrl: IImageUrl
 }
 
 export type ICartItem = {
@@ -84,6 +84,7 @@ export type ICartItem = {
     quantity: number
     leftLens: number
     rightLens: number
+    cat: CatEnum
 }
 export type ICartItemWithSum = {
     productId: string
@@ -91,6 +92,7 @@ export type ICartItemWithSum = {
     leftLens: number
     rightLens: number
     price: number
+    cat: CatEnum
 }
 
 export type ILData = {
@@ -102,19 +104,20 @@ export type ISubscribeData = {
     responseMsg: string
 }
 
-
-
-
 export type OrderType = {
-    cart: Array<ICartItemWithSum>,
+    _id?: string
+    cart: Array<ICartItemWithSum>
     address: string
-    phoneNumber: number
+    phoneNumber: string
     paymentMade: boolean
     paymentWay: string
     user?: object 
     userId: string
     condition?: string
-};
+    createdAt?: Date
+    updatedAt?: Date
+    additionalInfo?: string
+}
 
 export type DadataSuggestionType = {
     data: object
@@ -127,10 +130,16 @@ export type MainMenuLinkItemType = {
     to: string
     featureFilter?: string
 }
-
+export enum MainMenuFilterEnum {
+    women = 'женские',
+    men = 'мужские',
+    children = 'детские',
+    lenses = 'линзы',
+}
 export type MainMenuItemType = {
     name: string
     url: string,
+    filter: MainMenuFilterEnum,
     links: MainMenuLinkItemType[]
 }
 export type HeaderInitialStateType = {
@@ -141,17 +150,30 @@ export type HeaderInitialStateType = {
 }
 
 
-type FeatureType = {
+export type FeatureType = {
     id: number
     label: string
     name: string
     options: string[]
     chosenOptions: string[],
     isSelected: boolean
+    worked?: boolean
+}
+export type SortTagType = {
+    id: number 
+    label: string
+    name: string
+}
+type SortType = {
+    tags: SortTagType[]
+    chosenTag: number
 }
 export type FeaturesInitialStateType = {
     features: FeatureType[]
+    sortTags: SortType
     status: string
+    filteredProducts: IProduct[]
+    goodsAmount: number
 }
 
 
@@ -176,12 +198,18 @@ type CartItemWithSumType = {
     items: ICartItemWithSum[]
     status: LoadingStatusEnum
 }
+type ProcessedOrderType = {
+    order: OrderType
+    status: LoadingStatusEnum
+}
 export type ProdInitialStateType = {
     products: ProductsType
     currentProduct: CurrentProductType
     searchResult: SearchResultType
     tags: object
     currentCartWithSums: CartItemWithSumType
+    processedOrder: ProcessedOrderType
+    cartInLSLength: number
 }
 
 type FieldType = {
@@ -204,4 +232,26 @@ export type CategotiesInitialStateType = {
 }
 
 
+export type LensProductsType = {
+    items: ILensProduct[]
+    status: LoadingStatusEnum
+}
+export type CurrentLensType = {
+    item: ILensProduct
+    status: LoadingStatusEnum
+}
+export type LensesInitialStateType = {
+    products: LensProductsType
+    currentProduct: CurrentLensType
+}
+
+
+export enum CatEnum {
+    eyewear = 'eyewear',
+    contactLens = 'contactLens'
+}
+export type FetchAddToCartArgType = {
+    productId: string
+    cat: CatEnum
+}
 

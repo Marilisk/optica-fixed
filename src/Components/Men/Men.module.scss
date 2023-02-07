@@ -54,8 +54,9 @@ $serif-font-family: 'Playfair Display SC', serif;
     flex: 2;
     width: 100%;
     background: url('./../../assets/men/man-optic-shop.jpg') no-repeat;
-    background-size: cover;
+    background-size: contain;
     background-position: center center;
+    
     //border: 2px solid pink;
     overflow: hidden;
     @media (max-width: 1200px) {
@@ -67,8 +68,9 @@ $serif-font-family: 'Playfair Display SC', serif;
     }
     @media (max-width: 533px) {
         display: block;  
-        background-position: 40% 34%;
+        background-position: 70% 32%;
         background-size: 230%;
+        background-size: 200%;
         min-height: 60vw;
     }
     

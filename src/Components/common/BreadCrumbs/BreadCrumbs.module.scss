@@ -3,14 +3,20 @@ $thin-gray-border: 1px solid #D8D1CA;
 $dark-violet: #64E80C; 
 $gray-fontcolor: #666666; 
 
-
-.breadCrumb {
-    display: flex;
+.wrapper {
+    width: 100vw;
     border-bottom: $thin-gray-border;
     background: $background-gray;
+
+}
+.breadCrumb {
+    display: flex;
+    width: 92%;
+    
     color: $gray-fontcolor;
     height: 46px;
-    width: 100vw;
+    margin: 0 auto;
+
     @media (max-width: 533px) {
         display: none;
     }

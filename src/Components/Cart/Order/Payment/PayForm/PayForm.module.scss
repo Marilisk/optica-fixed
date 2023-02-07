@@ -25,24 +25,26 @@ $serif-font-family: 'Playfair Display SC', serif;
 .header {
     display: flex;
     margin-top: 20px;
-    
-
 }
 .stringsWrap {
     flex: 4;
 }
 .iconWrap {
     flex: 1;
-    border: 1px solid pink;
-
+    cursor: pointer;
+    svg {
+        display: block;
+    }
 }
 
 .formLine {
     position: relative;
     margin-top: 20px;
 
-
-
+    .errorInput {
+        //background: #11A834;
+        border: 2px solid #F00000;
+    }
 
     input {
         font-family: inherit;
@@ -50,19 +52,80 @@ $serif-font-family: 'Playfair Display SC', serif;
         font-size: 16px;
         border: 2px solid #D8D1CA;
         border-radius: 4px;
-
         padding: .4em .6em;
         color: inherit;
 
         &:focus {
             outline: none;
+            border-color: $dark-violet;
         }
     }
-    
+    span {
+        display: block;
+    }
 
-    
-
+    &:last-of-type {
+        //display: flex;
+        //border: 1px solid fuchsia;
+        span {
+            //margin-right: 20px;
+        }
+    }
 }
+
+.formFlex {
+    display: flex;
+    justify-content: space-between;
+
+    & > div:last-of-type {
+        input {
+            width: 60px;
+        }
+    }
+}
+.formFlexLine {
+    display: flex;
+    //border: 1px solid fuchsia;
+    margin-bottom: 20px;
+}
+
+.validityLine {
+
+    input {
+        width: 62px;
+        
+    }
+    input:first-of-type {
+        margin-right: 5px;
+    }
+    input:last-of-type {
+        margin-left: 5px;
+    }
+    
+}
+
+.error {
+    color: #F00000;
+}
+
+.btnLine {
+    width: 92%;
+    margin: 0 auto;
+}
+
+.rulesLink {
+    color: $gray-fontcolor;
+    font-size: 14px;
+    width: 92%;
+    margin: 20px auto;
+    text-align: center;
+
+    a {
+        color: $dark-violet;
+        text-decoration: underline;
+    }
+}
+
 
 
 

@@ -27,10 +27,19 @@ export const Specifications = ({ product, dispatch, IsManager }) => {
                         <span>Форма:</span> {product.shape}
                     </div>
                     <div className={c.line}>
-                        <span>Материал:</span> {product.material}
+                        <span>Материал:</span> {product.material.length > 1 ? product.material.map( (el, i) => {
+                            if (i%2 === 0) {
+                                return <div className={c.text} key={i}>{el}/</div>
+                            } else {return <div className={c.text} key={i}>{el}</div> }
+                        }) : product.material}
                     </div>
                     <div className={c.line}>
-                        <span>Цвет:</span> {product.color}
+                        <span>Цвет:</span> {product.color.length > 1 ? product.color.map( (el, i) => {
+                            if ( i%2 === 0 ) {
+                                return <div className={c.text} key={i}>{el}/</div>
+                            } else {return <div className={c.text} key={i}>{el}</div>}
+                            
+                        } ) : product.color}
                     </div>
                 </div>
 

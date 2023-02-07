@@ -1,27 +1,24 @@
 import c from './Address.module.scss';
-import { FC, useCallback, useContext, useEffect, useState } from 'react';
-import { Field, Form, Formik, useField, useFormikContext } from 'formik';
+import { FC, useCallback, useEffect, useState } from 'react';
+import { Formik, useFormikContext } from 'formik';
 import { IInitialValues, initValues } from './initialValues';
 import dadataFetch from '../../../../redux/API/dadataApi';
-import snowFlake from './../../../../assets/icons/snowflake.png';
-import errorInput from './../../../../assets/icons/errorInput.png';
-import check from './../../../../assets/icons/check.png';
+//import snowFlake from './../../../../assets/icons/snowflake.png';
+//import errorInput from './../../../../assets/icons/errorInput.png';
+//import check from './../../../../assets/icons/check.png';
 import { DadataSuggestionType } from '../../../Types/types';
 import { useAppDispatch } from '../../../../redux/hooks';
-import { fetchCreateOrder } from '../../../../redux/authSlice';
-import { fetchCollectCartPrices } from '../../../../redux/productsSlice';
+import { fetchAddValuesToOrder, fetchCreateOrder, fetchEditOrder } from '../../../../redux/authSlice';
+import { fetchCollectCartPrices, setProcessedOrder } from '../../../../redux/productsSlice';
 import { OrderHeader } from '../OrderHeader/OrderHeader';
+import { activeColEnum } from '../Order';
+import InputMask from 'react-input-mask';
 
-interface IAddress {
-    userName: string
-    setActiveCol: (arg: 'payment') => void
-}
+
 interface IGetDadataHints {
     statePart: string
     setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void
 }
-
-
 export const GetDadataHints: FC<IGetDadataHints> = ({ statePart, setFieldValue }: IGetDadataHints) => {
     const { values } = useFormikContext()
     const query = JSON.stringify({ query: values[statePart] })
@@ -31,7 +28,6 @@ export const GetDadataHints: FC<IGetDadataHints> = ({ statePart, setFieldValue }
     const getHints = useCallback(async () => {
         const responce = await dadataFetch.post('', query);
         if (responce.data.suggestions) {
-            //console.log(responce.data)
             const vals = [];
             responce.data.suggestions.forEach((el: DadataSuggestionType) => vals.push(el.value))
             setHints(vals)
@@ -45,44 +41,61 @@ export const GetDadataHints: FC<IGetDadataHints> = ({ statePart, setFieldValue }
 
     if (!hints.length) { return null }
 
-    return <>
+    return <div className={c.hintsWrap} >
         {hints.map((el, i) => {
-            return <div className={c.hintsWrap} >
-                <div onClick={() => { setFieldValue(statePart, el); setHints([]) }}
-                    key={i} className={c.hint}>
+            return <div key={i} onClick={() => { setFieldValue(statePart, el); setHints([]) }}
+                    className={c.hint} style={ {top: 30*i + 'px'}}>
                     {el}
                 </div>
-            </div>
+            
         })}
-    </>
+        </div>
 }
 
+interface IAddress {
+    userName: string
+    setActiveCol: (arg: activeColEnum) => void
+    activeCol: activeColEnum
+}
 
-export const Address: FC<IAddress> = ({ userName, setActiveCol }: IAddress) => {
+export const Address: FC<IAddress> = ({ userName, setActiveCol, activeCol }: IAddress) => {
     const iValues: IInitialValues = initValues(userName);
     const dispatch = useAppDispatch()
 
+    const editOrder = async () => {
+        const cart = await dispatch(fetchCollectCartPrices())
+        if (cart.meta.requestStatus === 'fulfilled') {
+            try {
+                try {
+                    const order = await dispatch(fetchCreateOrder(iValues))
+                    dispatch(setProcessedOrder(order.payload))
+                } catch (error) {
+                    console.log('error in setting processed Order', error)
+                }
+            } catch (error) {
+                console.log('error in prices collecting', error)
+            }
+        }
+    }
+    useEffect( () => {
+        editOrder()
+    }, [])
+
     return <>
         <OrderHeader>
-            <div>Доставка</div>
+            <div onClick={() => setActiveCol(activeColEnum.address)} >Доставка</div>
         </OrderHeader>
         <div className={c.wrap}>
 
             <Formik initialValues={iValues}
                 onSubmit={async (values: IInitialValues, actions: any) => {
-                    const cart = await dispatch(fetchCollectCartPrices())
-                    if (cart.meta.requestStatus === 'fulfilled') {
-                        try {
-                            //dispatch(fetchCreateOrder(values))
-                            setActiveCol('payment')
-
-                        } catch (error) {
-
-                        }
+                    try {
+                        await dispatch(fetchAddValuesToOrder(values))
+                        setActiveCol(activeColEnum.payment)
+                    } catch (error) {
+                        console.log('error in order editing', error)
                     }
-
                 }}
-
             >
 
                 {props => (
@@ -97,11 +110,11 @@ export const Address: FC<IAddress> = ({ userName, setActiveCol }: IAddress) => {
                         </div>
 
                         <div className={c.formLine} >
-                            <input type="text" placeholder='номер телефона'
-                                onChange={props.handleChange}
+                            <InputMask mask='+7 (999) 999 99 99' maskChar='*'
+                                onChange={ props.handleChange}
+                                name='phone'
                                 value={props.values.phone}
-                                name="phone"
-                            />
+                                placeholder='номер телефона' />
                         </div>
 
                         <div className={c.formLine} >
@@ -117,22 +130,24 @@ export const Address: FC<IAddress> = ({ userName, setActiveCol }: IAddress) => {
                         <div className={c.formLine} >
                             <input type="text" placeholder='дополнительная информация'
                                 onChange={props.handleChange}
-                                value={props.values.building}
-                                name="building"
+                                value={props.values.additional}
+                                name="additional"
                             />
                         </div>
 
-                        <div className={c.formLine} >
+                        {/* <div className={c.formLine} >
                             <input type="text" placeholder='квартира'
                                 onChange={props.handleChange}
                                 value={props.values.apartment}
                                 name="apartment"
                             />
-                        </div>
+                        </div> */}
 
                         <div className={c.formLine}>
                             <button type='submit' className={c.submitBtn}
-                            /* disabled={props.values.phone.length < 9} */ >
+                                style={activeCol === activeColEnum.address ? null : { display: 'none' }}
+                                disabled={props.values.phone.length !== 18 || 
+                                          props.values.phone.includes('*') } >
                                 применить
                             </button>
                         </div>

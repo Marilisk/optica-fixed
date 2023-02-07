@@ -10,6 +10,16 @@ $small-fontSize: 14px;
 $light-background: #FAFAFA;
 $serif-font-family: 'Playfair Display SC', serif;
 
+.nthFound {
+    width: 62%;
+    margin: 20px auto;
+    text-align: center;
+    a {
+        color: $dark-violet;
+        text-decoration: underline;
+        cursor: pointer;
+    }
+}
 .catGrid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);

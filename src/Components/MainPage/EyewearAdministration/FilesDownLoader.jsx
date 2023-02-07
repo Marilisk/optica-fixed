@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { LoadingDots } from '../../../assets/common/Preloader/LoadingDots/LoadingDots';
-import { Preloader } from '../../../assets/common/Preloader/Preloader';
 import instance from '../../../redux/API/api';
 import c from './FilesDownLoader.module.scss';
 
@@ -10,12 +9,23 @@ export const FilesDownloader = ({ images, setImages }) => {
     //console.log(images);
     
     const handleChangeFile = async (e, currentImg) => {
+        
         try {
             const formData = new FormData();
             const file = e.target.files[0];
             formData.append('image', file);
             setDownloadStatus({ ...downloadStatus, [currentImg]: 'pending' })
+            //alert('i m in reycatch handlechfile', currentImg)
             const { data } = await instance.post('/upload', formData);
+            /* if (data.url) {
+                console.log(data)
+                alert(data.url)
+                const newI = { ...images, [currentImg]: data.url }
+                setImages(newI);
+                setDownloadStatus({ ...downloadStatus, [currentImg]: null })
+            } else {
+                alert('ALEEERT!')
+            } */
             const newI = { ...images, [currentImg]: data.url }
             setImages(newI);
             setDownloadStatus({ ...downloadStatus, [currentImg]: null })

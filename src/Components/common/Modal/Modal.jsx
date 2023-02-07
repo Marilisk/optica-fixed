@@ -1,8 +1,5 @@
-
 import c from './Modal.module.scss';
-import { NavLink } from 'react-router-dom';
-
-
+import { Link } from 'react-router-dom';
 
 export const Modal = ({ switchModal }) => {
 
@@ -17,19 +14,17 @@ export const Modal = ({ switchModal }) => {
                 <div className={c.btnsWrapper}>
 
                     <button type='button' className={c.yesBtn}>
-                        <NavLink to='/login' >Войти</NavLink>
+                        <Link to='/login' >Войти</Link>
                     </button>
 
                     <button type='button'
                         className={c.cancelBtn}
                         onClick={() => switchModal(false)}>
-                        Отмена
+                        не хочу
                     </button>
                 </div>
 
             </div>
-
-
         </div>
 
     </>

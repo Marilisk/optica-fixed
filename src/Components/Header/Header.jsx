@@ -23,8 +23,7 @@ export const Header = ({ fullHeader, favoritesCount }) => {
             onMouseOver={() => dispatch(toggleMenuOpened(btn.name))}
             onMouseLeave={() => dispatch(toggleMenuOpened(null))} >
 
-            <div className={c.navItem}  >
-
+            <div className={c.navItem} >
                 <span>
                     <NavLink to={btn.url}>
                         {btn.name}
@@ -35,7 +34,6 @@ export const Header = ({ fullHeader, favoritesCount }) => {
                         <MenuOptions links={btn.links} />
                     </div>
                 }
-
             </div>
         </div>
     })

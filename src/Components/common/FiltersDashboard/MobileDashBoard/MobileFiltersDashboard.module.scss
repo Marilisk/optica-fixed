@@ -39,7 +39,7 @@ $serif-font-family: 'Playfair Display SC', serif;
 }
 
 .selectedfilters {
-    margin: 10px auto;
+    margin: 0px auto;
     width: 86%;
 }
 
@@ -49,6 +49,8 @@ $serif-font-family: 'Playfair Display SC', serif;
     cursor: pointer;
     display: block;
     background: white;
+
+
 }
 
 
@@ -58,13 +60,13 @@ $serif-font-family: 'Playfair Display SC', serif;
     font-weight: 700;
     color: $gray-fontcolor;
     width: 100%;
+    
 }
 
 .filterName {
     display: block;
     width: 86%;
     margin: 0 auto;
-    //height: 80px;
 }
 
 

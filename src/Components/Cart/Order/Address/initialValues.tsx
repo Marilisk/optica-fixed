@@ -1,8 +1,8 @@
 export interface IInitialValues {
     name: string 
     address: string 
-    building: string 
-    apartment: string
+    additional: string 
+    apartment?: string
     phone: string
 }
 
@@ -11,7 +11,7 @@ export const initValues = (name:string) => {
         name: name, 
         phone: '',
         address: '', 
-        building: '', 
+        additional: '', 
         apartment: '', 
     } 
     return values;

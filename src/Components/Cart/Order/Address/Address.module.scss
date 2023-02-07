@@ -13,30 +13,25 @@ $serif-font-family: 'Playfair Display SC', serif;
 .wrap {
     //display: flex;
     //border: 1px solid green; 
-    color: $gray-fontcolor; 
+    color: $gray-fontcolor;
 
-    @media (max-width: 1024px) {
-        
-    } 
+    @media (max-width: 1024px) {}
 
-    @media (max-width: 768px) {
-        
-    }
+    @media (max-width: 768px) {}
 
-    @media (max-width: 533px) {
-        
-    }
+    @media (max-width: 533px) {}
 }
 
 
 .formLine {
     width: 92%;
-    margin: 0 auto; 
+    margin: 0 auto;
     position: relative;
 
 
 
-    input, textarea {
+    input,
+    textarea {
         font-family: inherit;
         width: 100%;
         margin-bottom: 20px;
@@ -49,6 +44,7 @@ $serif-font-family: 'Playfair Display SC', serif;
             outline: none;
         }
     }
+
     textarea {
         resize: none;
         //height: auto;
@@ -62,34 +58,56 @@ $serif-font-family: 'Playfair Display SC', serif;
     }
 
 }
-/* .addressInput {
-    
-} */
+
 .hintsWrap {
     position: absolute;
     top: 80px;
     width: 100%;
-    //max-height: 20vh;
     overflow-y: visible;
-    overflow-x: hidden;
     background: white;
-    border: 1px solid #767676;
-    box-shadow: 0 0 6px 2px rgba(218, 218, 218, 10%);
-    z-index: 10;
-    height: 200px;
-    
+    box-shadow: 1px 1px 8px 3px rgba(218, 218, 218, 80%);
+    z-index: 9;
+
 }
 
 .hint {
+    display: block;
     font-size: 14px;
-    margin: 10px 10px 20px 10px;
+    padding: 0 10px;
+    margin: 10px 0;
     cursor: pointer;
     height: fit-content;
-    border: 1px solid green;
-    display: block;
+    width: 100%;
 
 }
 
+
+
 .submitBtn {
+    color: $violet;
+    background: white;
+    display: flex;
+    justify-content: center;
+    margin-right: 6px;
+    border: 3px solid $light-violet;
     width: 100%;
+    font-size: 16px;
+    font-weight: 900;
+    text-transform: uppercase;
+    padding: 16px;
+    transition: 300ms;
+    min-width: 180px;
+
+    &:hover {
+        border-color: $violet;
+    }
+
+    span {
+        margin: 0;
+    }
+
+    &:disabled {
+        border-color: #D8D1CA;
+        color: $light-beige-gray;
+    }
 }

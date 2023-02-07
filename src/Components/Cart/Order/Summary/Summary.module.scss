@@ -10,8 +10,9 @@ $small-fontSize: 14px;
 $light-background: #FAFAFA;
 $serif-font-family: 'Playfair Display SC', serif;
 
-.flex {
-    display: flex;
+.wrap {
+    width: 92%;
+    margin: 0 auto;
     
 
     @media (max-width: 1024px) {
@@ -24,6 +25,17 @@ $serif-font-family: 'Playfair Display SC', serif;
 
     @media (max-width: 533px) {
         
+    }
+}
+
+
+.cost {
+    div {
+        margin: 20px;
+        text-align: right;
+        span {
+            font-weight: 700;
+        }
     }
 }
 

@@ -22,5 +22,5 @@
     },
     "include": [
         "src"
-    ]
+, "src/Components/common/FiltersDashboard/SelectedFilters/.jsx", "src/Components/common/FiltersDashboard/SelectedFilters/.jsx"    ]
 }

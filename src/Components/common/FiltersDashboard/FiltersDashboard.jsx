@@ -1,13 +1,21 @@
 import c from './FiltersDashboard.module.scss';
-import sortDownIcon from './../../../assets/icons/sortDown.svg';
-import sortUpIcon from './../../../assets/icons/sortUp.svg';
-import smallCross from './../../../assets/icons/smallCross.svg';
-
+import settings from './../../../assets/icons/settings.png';
 import { useState } from 'react';
 import { MobileFiltersDashboard } from './MobileDashBoard/MobileFiltersDashboard';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectFilter } from '../../../redux/featuresSlice';
+import { FiltersOptions } from './FiltersOptions/FiltersOptions';
+import { SelectedFilters } from './SelectedFilters/SelectedFilters';
+import { SortBoard } from './SortBoard/SortBoard';
 
 
-export const FiltersDashboard = ({ filters, onSelectFilter, goodsAmount }) => {
+export const FiltersDashboard = () => {
+    const dispatch = useDispatch()
+
+    const filters = useSelector(state => state.filters.features)
+    const onSelectFilter = (feature, option) => {
+        dispatch(selectFilter({ feature, option }))
+    }
 
     const [filterOpened, toggleFilterOpened] = useState(null);
     const onHover = (filterId) => {
@@ -17,79 +25,40 @@ export const FiltersDashboard = ({ filters, onSelectFilter, goodsAmount }) => {
     const [mobileFiltersSwitched, switchMobileFilters] = useState(false);
 
     return <>
-        <div className={c.mobileFiltersSwitcher} onClick={() => switchMobileFilters(!mobileFiltersSwitched)}>
-            Фильтры
-            <img alt='' src={mobileFiltersSwitched ? sortUpIcon : sortDownIcon} />
+        <div className={c.mobileFiltersSwitcher}>
+
+            <div className={c.mobileHeader} 
+                onClick={() => switchMobileFilters(!mobileFiltersSwitched)} >
+                    Фильтры
+                <img alt='' src={settings} />
+            </div>
+
+            <SortBoard />
+
         </div>
 
         <div className={c.mobileDashBoard}>
             <MobileFiltersDashboard filters={filters}
                 onSelectFilter={onSelectFilter}
-                goodsAmount={goodsAmount}
                 mobileFiltersSwitched={mobileFiltersSwitched} />
         </div>
 
         <div className={c.menuBar}>
 
             <div className={c.filters}>
-                <div className={c.selectedfilters}>
-                    {goodsAmount} товаров:
-                    {filters.filter(elem => elem.isSelected).map((elem, index) => {
-                        if (elem.name !== 'gender') {
-                            return <div key={elem.id}>
-                                {elem.label}: {elem.chosenOptions.map((el, ind) => {
-                                    return <span key={ind}>{el} <img alt='' src={smallCross} onClick={() => onSelectFilter(elem.id, el)} /> </span>
-                                }
-                                )}
-                            </div>
-                        } else {
-                            return null;
-                        }
-                    })}
-                </div>
 
-                <div className={c.filtersOptions}>
-                    {filters.map((elem, index) => {
-                        if (index > 0) {
-                            return <div key={elem.name}
-                                className={filterOpened === elem.id ? c.filterName : c.otherFilterName}
-                                onMouseOver={() => onHover(elem.id)} onMouseLeave={() => onHover(null)}
-                                onClick={() => onHover(elem.id)} >
+                <SelectedFilters filters={filters} onSelectFilter={onSelectFilter} />
 
-                                {elem.label} <img alt='' src={filterOpened === elem.id ? sortUpIcon : sortDownIcon} />
+                <FiltersOptions filters={filters} onSelectFilter={onSelectFilter}
+                    filterOpened={filterOpened}
+                    onHover={onHover} />
 
-                                <div key={elem.name + 'd'}>
-                                    <div key={elem.name + 'e'}
-                                        className={filterOpened === elem.id ? c.accordeon : c.hiddenAccordeon} >
-
-                                        {elem.options?.map(el => {
-                                            return <div key={el + 'c'} className={c.filterCheckBoxWrapper}>
-                                                <label className={c.filterCheckBoxLabel}>
-                                                    <input type={'checkbox'}
-                                                        name={'checkbox'}
-                                                        checked={elem.chosenOptions.find(it => it === el)}
-                                                        onChange={() => onSelectFilter(elem.id, el)} />
-                                                    {el}
-                                                </label>
-                                            </div>
-                                        })}
-                                    </div>
-                                </div>
-                            </div>
-                        } else {
-                            return null;
-                        }
-                    })}
-                </div>
             </div>
+            <SortBoard />
         </div>
 
-        <div className={c.sortBoard}>
-            <div></div>
-            <div></div>
-            <div></div>
-
-        </div>
+        
+        
 
     </>
 }

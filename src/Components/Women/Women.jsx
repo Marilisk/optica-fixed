@@ -5,35 +5,21 @@ import { useDispatch, useSelector } from 'react-redux';
 import { clearAllFilters, fetchFilterOptions, selectFilter } from '../../redux/featuresSlice';
 import { Catalog } from '../common/Catalog/Catalog';
 import { useEffect } from 'react';
-import { filterProducts } from '../../assets/functions/filterProducts';
+import { Preloader } from '../../assets/common/Preloader/Preloader';
 
-export const Women = ({addToFavorites, removeFromFavorites, userFavorites, authIsLoading}) => {
-    const products = useSelector(state => state.products.products);
-    const goodsAmount = products.items.length;
-
-    //console.log(products.items);
-
-    const areProdsLoading = products.status === 'loading';
-    const filters = useSelector(state => state.filters.features);
-    const selectedFilters = useSelector(state => state.filters.features.filter(elem => elem.isSelected));
-
+export const Women = ({ addToFavorites, removeFromFavorites, userFavorites, authIsLoading }) => {
     const dispatch = useDispatch();
-    const onSelectFilter = (feature, option) => {
-        //console.log({feature, option})
-        dispatch(selectFilter({feature, option}) )
-    }
-    /* const addToFavorite = (productId) => {
-        console.log(productId)
-    } */
-    const filtered = filterProducts(products.items, selectedFilters);
+    const products = useSelector(state => state.products.products);
+    const areProdsLoading = products.status === 'loading';
 
-    useEffect( ()=> {
-        //dispatch(fetchProducts());
-        dispatch(fetchFilterOptions('features'));
-        dispatch(fetchFilterOptions('color'));
-        dispatch(clearAllFilters());
-        dispatch(selectFilter({feature: 2, option: 'женские'}) )
-    }, [dispatch]);
+    useEffect(() => {
+        dispatch(clearAllFilters())
+    })
+
+    if (!products) {
+        return <Preloader minFormat={false} />
+    }
+    const genderFilteredProducts = products.items.filter(el => el.gender.includes('Женские'))    
 
     return <>
         <BreadCrumbs text={'Женские очки'} />
@@ -49,21 +35,18 @@ export const Women = ({addToFavorites, removeFromFavorites, userFavorites, authI
                     </p>
                 </div>
             </div>
-            <div className={c.mainImgBlock}>
-                {/* <img alt='' src={mainImg} className={c.mainImg} /> */}
-            </div>
-
+            <div className={c.mainImgBlock} />
         </section>
 
-        <FiltersDashboard filters={filters} onSelectFilter={onSelectFilter} goodsAmount={goodsAmount} />
+        <FiltersDashboard />
 
-        <Catalog dispatch={dispatch} 
-                products={filtered}
-                areProdsLoading={areProdsLoading}
-                addToFavorites={addToFavorites}
-                removeFromFavorites={removeFromFavorites}
-                userFavorites={userFavorites}
-                authIsLoading={authIsLoading} />
+        <Catalog dispatch={dispatch}
+            products={genderFilteredProducts}
+            areProdsLoading={areProdsLoading}
+            addToFavorites={addToFavorites}
+            removeFromFavorites={removeFromFavorites}
+            userFavorites={userFavorites}
+            authIsLoading={authIsLoading} />
 
     </>
 }

@@ -22,6 +22,7 @@ export const RegisterForm = ({dispatch, toggleLoginModalOpened, isLoading, /* na
             if (!response.payload) {
                 alert(response.error.message);
             } else if ('email' in response.payload) {
+                if (values.rememberMe) { localStorage.setItem('email', values.email) } 
                 actions.resetForm({
                     fullName: '',
                     email: '',

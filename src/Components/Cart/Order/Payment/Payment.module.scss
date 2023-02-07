@@ -11,12 +11,18 @@ $light-background: #FAFAFA;
 $serif-font-family: 'Playfair Display SC', serif;
 
 .wrap {
-    //height: 100%;
+    //border: 1px solid darkcyan;
+    img {
+        display: block;
+        width: 110px;
+        margin: 20px auto;
+    }
 }
-.card {
+/* .card {
     cursor: pointer;
     box-shadow: 1px 1px 12px 3px rgba(218, 218, 218, 50%);
     width: 100%;
+    width: 92%;
     border: $thin-gray-border;
     border-radius: 10px;
     display: flex;
@@ -32,7 +38,7 @@ $serif-font-family: 'Playfair Display SC', serif;
         flex: 4;
     }
 
-}
+} */
 
 .imgWrapper {
     flex: 1;
@@ -51,4 +57,10 @@ $serif-font-family: 'Playfair Display SC', serif;
 }
 .smallText {
     font-size: 14px;
+}
+
+.btnWrap {
+    width: 92%;
+    margin: 20px auto;
+    //margin-top: 150px;
 }

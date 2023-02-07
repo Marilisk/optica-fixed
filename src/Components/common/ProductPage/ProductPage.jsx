@@ -1,7 +1,7 @@
 import c from './ProductPage.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProd } from '../../../redux/productsSlice';
-import { fetchAddEyewearToCart, selectIsManager } from '../../../redux/authSlice';
+import { selectIsAuth, selectIsManager } from '../../../redux/authSlice';
 import { BreadCrumbs } from '../BreadCrumbs/BreadCrumbs';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
@@ -12,6 +12,7 @@ import { Price } from './Price/Price';
 import { Preloader } from '../../../assets/common/Preloader/Preloader';
 import { CustomerButtons } from './CustomerButtons/CustomerButtons';
 import { priceFormatter } from '../../../assets/functions/priceFormatter';
+import { addToCartOrLS } from '../ProductCard/ProductCard';
 
 
 export const ProductPage = ({ addToFavorites, removeFromFavorites, userFavorites, authIsLoading }) => {
@@ -20,13 +21,14 @@ export const ProductPage = ({ addToFavorites, removeFromFavorites, userFavorites
     const status = useSelector(state => state.products.currentProduct.status);
     const product = useSelector(state => state.products.currentProduct.item);
 
-    const IsManager = useSelector(selectIsManager);
+    const IsManager = useSelector(selectIsManager)
+    const isAuth = useSelector(selectIsAuth)
 
     const params = useParams();
     const isFavorite = userFavorites?.includes(params.id);
 
     const addToCart = () => {
-        dispatch(fetchAddEyewearToCart(product._id))
+        addToCartOrLS(isAuth, dispatch, product._id)
     }
 
     useEffect(() => {

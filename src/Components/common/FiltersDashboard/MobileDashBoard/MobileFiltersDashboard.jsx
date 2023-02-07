@@ -5,7 +5,7 @@ import smallCross from './../../../../assets/icons/smallCross.svg';
 import { useState } from 'react';
 
 
-export const MobileFiltersDashboard = ({ filters, onSelectFilter, goodsAmount, mobileFiltersSwitched }) => {
+export const MobileFiltersDashboard = ({ filters, onSelectFilter, mobileFiltersSwitched }) => {
 
     const [filterOpened, toggleFilterOpened] = useState(null);
     const onOpen = (filterId) => {
@@ -16,30 +16,30 @@ export const MobileFiltersDashboard = ({ filters, onSelectFilter, goodsAmount, m
         }
     }
 
-
-
     return <>
                 
-        <div className={mobileFiltersSwitched ? c.menuBar : c.hiddenMenuBar}
-            /* style={mobileFiltersSwitched ? null : {display: 'none'} } */>
+        <div className={mobileFiltersSwitched ? c.menuBar : c.hiddenMenuBar}>
+
             <div className={c.filters}>
                 <div className={c.selectedfilters}>
-                    {goodsAmount} товаров:
-                    {filters.filter(elem => elem.isSelected).map(elem => {
-                        return <div key={elem.id}>
+                    
+                    {filters.filter((elem) => elem.isSelected).map((elem, i) => {
+                        return <div key={i}>
                             {elem.label}: {elem.chosenOptions.map((el, ind) => {
-                                return <span key={ind}>{el} <img alt='' src={smallCross} onClick={() => onSelectFilter(elem.id, el)} /> </span>
+                                return <span key={ind}>{el} <img alt='' src={smallCross} 
+                                            onClick={() => onSelectFilter(elem.id, el)} /> </span>
                             }
                             )}
                         </div>
                     })}
                 </div>
 
-
-
                 <div className={c.filtersOptions}>
-                    {filters.map(elem => {
-                        return <div key={elem.name}
+                    {filters.map((elem, i) => {
+                        if (elem.name === 'gender') {
+                            return null
+                        } else {
+                            return <div key={i}
                             className={filterOpened === elem.id ? c.filterName : c.otherFilterName}
                             onClick={() => onOpen(elem.id)} >
 
@@ -49,34 +49,25 @@ export const MobileFiltersDashboard = ({ filters, onSelectFilter, goodsAmount, m
                                 <div key={elem.name + 'e'}
                                     className={filterOpened === elem.id ? c.accordeon : c.hiddenAccordeon} >
 
-                                    {elem.options?.map(el => {
-                                        return <div key={el + 'c'} className={c.filterCheckBoxWrapper}>
-                                            <label className={c.filterCheckBoxLabel}>
-                                                <input type={'checkbox'}
-                                                    name={'checkbox'}
-                                                    checked={elem.chosenOptions.find(it => it === el)}
-                                                    onChange={() => onSelectFilter(elem.id, el)} />
+                                    {elem.options?.map((el, i) => {
+                                        return <div key={i} className={c.filterCheckBoxWrapper}>
+                                            <div className={c.filterCheckBoxLabel}
+                                                    onClick={() => onSelectFilter(elem.id, el)}>                                                  
                                                     
                                                 <span>{el}</span>
-                                            </label>
+                                            </div>
                                         </div>
                                     })}
                                 </div>
                             </div>
                         </div>
+                        }
+                        
                     })}
                 </div>
             </div>
         </div>
 
-       {/*  <div className={c.sortBoard}>
-            <div></div>
-            <div></div>
-            <div></div>
-
-        </div>
-
-
-        <div></div> */}
+       
     </>
 }

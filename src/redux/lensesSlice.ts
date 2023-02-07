@@ -1,8 +1,8 @@
-import { LoadingStatusEnum, ILensProduct } from './../Components/Types/types';
+import { LoadingStatusEnum, LensesInitialStateType } from './../Components/Types/types';
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import instance from "./API/api.js";
 
-export const fetchLenses = createAsyncThunk('lenses/fetchProducts', async () => {
+export const fetchLenses = createAsyncThunk('lenses/fetchLenses', async () => {
     const { data } = await instance.get('/lenses');
     return data;
 });
@@ -10,37 +10,19 @@ export const fetchFilteredProducts = createAsyncThunk('lenses/fetchProducts', as
     const { data } = await instance.get('/lenses');
     return data;
 });
-export const fetchProd = createAsyncThunk('lenses/fetchProd', async (id:string) => { 
+export const fetchLens = createAsyncThunk('lenses/fetchLens', async (id:string) => { 
     const data = await instance.get(`/lenses/${id}`);
+    //console.log(data)
     return data.data;
 });
-export const fetchDeleteProd = createAsyncThunk('lenses/fetchDeleteProd', async (id:string) => {
+export const fetchDeleteLens = createAsyncThunk('lenses/fetchDeleteLens', async (id:string) => {
     const data = await instance.delete(`/lenses/` + id);
     console.log(data);
-    if (data.data.success === 'true') {
-    }
     return {data: data.data, id};
 });
 
-/* export const fetchSearch = createAsyncThunk('lenses/fetchSearch', async (query:string) => {
-    const response = await instance.post(`/lenses/search`, { query });
-    return response.data;
-}); */
-
-export type LensProductsType = {
-    items: ILensProduct[]
-    status: LoadingStatusEnum
-}
-export type CurrentProductType = {
-    item: ILensProduct
-    status: LoadingStatusEnum
-}
-export type LensesInitialStateType = {
-    products: LensProductsType
-    currentProduct: CurrentProductType
-}
-
-const initialState:LensesInitialStateType = {
+ 
+const initialState:LensesInitialStateType  = {
     products: {
         items: [ ],
         status: LoadingStatusEnum.loaded,
@@ -53,16 +35,10 @@ const lensesSlice = createSlice({
     name: 'lenses',
     initialState,
     reducers: {
-      
         setCurrentProd(state, action) {
             state.currentProduct.item = action.payload;
             state.currentProduct.status = LoadingStatusEnum.loaded;
         },
-
-        /* clearSearchResults(state) {
-            state.searchResult.items = [];
-            state.searchResult.status = LoadingStatusEnum.loaded;
-        } */
 
     },
     extraReducers: (builder) => {
@@ -80,42 +56,29 @@ const lensesSlice = createSlice({
         })
 
 
-        .addCase(fetchDeleteProd.pending, (state) => {
+        .addCase(fetchDeleteLens.pending, (state) => {
             state.products.status = LoadingStatusEnum.loading;
         })
-        .addCase(fetchDeleteProd.fulfilled, (state, action) => {
+        .addCase(fetchDeleteLens.fulfilled, (state, action) => {
             state.products.items = state.products.items.filter( prod => prod._id !== action.payload.id );
             state.currentProduct.status = LoadingStatusEnum.loaded;
         })
-        .addCase(fetchDeleteProd.rejected, (state) => {
+        .addCase(fetchDeleteLens.rejected, (state) => {
             state.products.status = LoadingStatusEnum.error;
         })
 
 
-        .addCase(fetchProd.pending, (state) => {
+        .addCase(fetchLens.pending, (state) => {
             state.currentProduct.status = LoadingStatusEnum.loading;
         })
-        .addCase(fetchProd.fulfilled, (state, action) => {
+        .addCase(fetchLens.fulfilled, (state, action) => {
             state.currentProduct.item = action.payload;
-            
             state.currentProduct.status = LoadingStatusEnum.loaded;
         })
-        .addCase(fetchProd.rejected, (state) => {
+        .addCase(fetchLens.rejected, (state) => {
             state.currentProduct.status = LoadingStatusEnum.error;
         })
 
-        /* .addCase(fetchSearch.pending, (state ) => {
-            state.searchResult.status = LoadingStatusEnum.loading;
-        })
-        .addCase(fetchSearch.fulfilled, (state, action) => {
-            state.searchResult.items = action.payload;
-            state.searchResult.status = LoadingStatusEnum.loaded;
-        })
-        .addCase(fetchSearch.rejected, (state) => {
-            state.searchResult.status = LoadingStatusEnum.error;
-        }) */
-        
-        
     },
 })
 

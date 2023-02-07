@@ -17,16 +17,12 @@ $serif-font-family: 'Playfair Display SC', serif;
 }
 
 .adminWrapper {
-    //display: flex;
     margin-bottom: 60px;
-    //border: 1px solid green;
     min-width: 768px;
 }
 .formikWrapper {
-    //width: 50%;
     width: 670px;
     margin: 0px auto;
-    //border: 1px solid green;
 
 }
 
@@ -75,15 +71,47 @@ $serif-font-family: 'Playfair Display SC', serif;
     .arrayLabel {
         display: inline-block;
         width: 38%;
-        //padding: 0;
         input {
             width: 100%;
-            //border: 1px solid rebeccapurple;
             margin-left: -14px;
-
         }
     }
 }
+.genderEdit {
+    //border: 1px solid darkcyan;
+    width: 50%;
+    display: flex;
+    justify-content: space-between;
+    height: 40px;
+    label {
+        width: 24%;
+        position: relative;
+        display: inline-block;        
+    }
+    input {
+        display: inline-block;
+        visibility: hidden;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+    }
+}
+.jaw, .chosenJaw {
+    cursor: pointer;
+    width: 100%;
+    border: $thin-gray-border;
+    height: 38px;
+    position: absolute;
+    background: white;
+    border-radius: 10px;
+    padding: 9px 4px;
+}
+.chosenJaw {
+    border-color: $gray-fontcolor;
+    color: $gray-fontcolor;
+    background: $light-beige-gray;
+}
+
 
 .submitBtn, .resetBtn {
     border: 3px solid #C899CC;
@@ -134,3 +162,5 @@ $serif-font-family: 'Playfair Display SC', serif;
     font-weight: 600;
     text-decoration: underline;
 }
+
+

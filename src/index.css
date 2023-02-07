@@ -22,10 +22,10 @@ a {
 section {
   margin: 0 auto;
   max-width: 1440px; 
-  /* border: 1px solid red; */
 }
-input, button {
+input, button, textarea {
   font-family: 'Mulish', sans-serif;
+
 }
 button {
   cursor: pointer;

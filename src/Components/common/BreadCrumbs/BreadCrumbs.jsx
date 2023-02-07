@@ -8,6 +8,7 @@ import { NavLink } from 'react-router-dom';
 export const BreadCrumbs = ({ text }) => {
 
     return <>
+    <div className={c.wrapper}>
         <div className={c.breadCrumb}>
             <NavLink to='/' className={c.iconWrapper}>
                     <img alt='' src={homeIcon} className={c.icon} />
@@ -17,6 +18,7 @@ export const BreadCrumbs = ({ text }) => {
             </div>
             <p>{text}</p>
 
+        </div>
         </div>
 
     </>

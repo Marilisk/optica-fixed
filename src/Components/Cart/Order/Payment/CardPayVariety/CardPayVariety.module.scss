@@ -10,22 +10,20 @@ $small-fontSize: 14px;
 $light-background: #FAFAFA;
 $serif-font-family: 'Playfair Display SC', serif;
 
-.wrap {
-    
-}
+
 .card {
     cursor: pointer;
-    box-shadow: 1px 1px 12px 3px rgba(218, 218, 218, 50%);
+    //box-shadow: 1px 1px 12px 3px rgba(218, 218, 218, 50%);
     width: 100%;
+    width: 92%;
+    margin: 0 auto;
     border: $thin-gray-border;
     border-radius: 10px;
     display: flex;
     justify-content: flex-start;
     transition: 300ms;
     &:hover {
-        box-shadow: 1px 1px 12px 3px rgba(218, 218, 218, 80%);
-
-        
+        box-shadow: 1px 1px 12px 3px rgba(218, 218, 218, 50%);
     }
     .stringsWrapper {
         margin: 20px;
@@ -36,10 +34,15 @@ $serif-font-family: 'Playfair Display SC', serif;
 
 .imgWrapper {
     flex: 1;
+    //border: 1px solid forestgreen;
+    padding-top: 4px;
     img {
         height: 34px; 
-        margin: 26px auto;
+        max-width: 34px;
+        margin: 0px auto;
+        margin-top: 20px;
         display: block;
+        //border: 1px solid forestgreen;
     }
 }
 

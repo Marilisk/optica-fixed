@@ -2,12 +2,35 @@ import c from './ProductCard.module.scss';
 import defaultGlasses from './../../../assets/common/defaultGlasses.webp';
 import { Heart } from './../../../assets/icons/Heart.jsx';
 import { NavLink } from 'react-router-dom';
-import { setCurrentProd } from '../../../redux/productsSlice';
+import { setCartInLSLength, setCurrentProd } from '../../../redux/productsSlice';
 import { priceFormatter } from '../../../assets/functions/priceFormatter';
 import { useState } from 'react';
 import { CartIcon } from '../../../assets/header/icons/CartIcon';
-import { fetchAddEyewearToCart } from '../../../redux/authSlice';
+import { fetchAddEyewearToCart, selectIsAuth } from '../../../redux/authSlice';
+import { useSelector } from 'react-redux';
+import { CatEnum } from '../../Types/types';
 
+export const addToCartOrLS = (isAuth, dispatch, productId) => {
+    if (isAuth) {
+        dispatch(fetchAddEyewearToCart({productId, cat: CatEnum.eyewear }))
+    } else {
+        let newCartItem = {productId, quantity: 1, leftLens: 1, rightLens: 1, cat: CatEnum.eyewear}
+        const lastCart = JSON.parse(localStorage.getItem('cart'))
+        if (lastCart) {
+            const good = lastCart.find(elem => elem.productId === productId)
+            if (good) {
+                good.quantity += 1;
+            } else {
+                lastCart.push(newCartItem)
+            }            
+            localStorage.setItem('cart', JSON.stringify(lastCart))
+            dispatch(setCartInLSLength(lastCart.length))
+        } else {
+            localStorage.setItem('cart', JSON.stringify([newCartItem])) 
+            dispatch(setCartInLSLength(1))
+        }
+    }
+}
 
 export const ProductCard = ({ dispatch, 
                                 product, 
@@ -21,7 +44,10 @@ export const ProductCard = ({ dispatch,
     const isFavorite = userFavorites?.includes(product._id)
     const isInCart = inCartArray.includes(product._id)
 
+    const isAuth = useSelector(selectIsAuth)
+
     const [isHovered, setIsHovered] = useState(null)
+    
 
     return <div className={c.wrap} 
                 onClick={() => dispatch(setCurrentProd(product))}
@@ -60,7 +86,7 @@ export const ProductCard = ({ dispatch,
                 <div>в корзине</div>
                 :
                 <CartIcon color={'#95009C'} size={'24px'}
-                          onClickCB={() => dispatch(fetchAddEyewearToCart(product._id))}
+                          onClickCB={() => addToCartOrLS(isAuth, dispatch, product._id)}
                           disabled={authIsLoading === 'loading'} />
             }
 

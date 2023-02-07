@@ -14,9 +14,9 @@ $serif-font-family: 'Playfair Display SC', serif;
 
 .header {
     display: block;
-    //border-bottom: $thin-gray-border;
     height: 110px;
     margin: 0;
+    cursor: pointer;
     div {
         font-size: 22px;
         position: relative;

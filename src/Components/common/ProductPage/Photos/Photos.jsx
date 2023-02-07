@@ -17,7 +17,7 @@ export const Photos = ({ imageUrl }) => {
                 <img alt='' src={`http://localhost:4444${imageUrl.main}`}
                     style={image === 'main' ? { borderColor: '#57005C' } : null} />
             </div>
-
+            
             <div onClick={() => setImage('side')} >
                 <img alt='' src={`http://localhost:4444${imageUrl.side}`}
                     style={image === 'side' ? { borderColor: '#57005C' } : null} />

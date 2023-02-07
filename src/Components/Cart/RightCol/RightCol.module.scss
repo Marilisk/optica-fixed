@@ -39,7 +39,7 @@ $serif-font-family: 'Playfair Display SC', serif;
     font-size: 16px;
 }
 
-.price {
+/* .price {
     position: absolute;
     bottom: 5%;
     left: 5%;
@@ -50,24 +50,10 @@ $serif-font-family: 'Playfair Display SC', serif;
         bottom: 2%;
         left: 6%;
     }
-}
+} */
 
-.like, .cart {
-    position: absolute;
-    right: 10%;
-    top: 5%;
-    //height: 50px;
-    @media (min-width: 1024px) {
-        right: 8%;
-        top: 5%;
-    }
 
-}
 
-.cart {
-    top: auto;
-    bottom: 5%;
-}
 
 
 
