@@ -1,9 +1,11 @@
 import axios from "axios";
 
+// 'https://backend-optics-without-packlo.onrender.com'
 const instance = axios.create({
-    baseURL: process.env.REACT_APP_API_URL,   //- for deploy
+    baseURL: 'https://backend-optics-without-packlo.onrender.com',   //- for deploy
     //baseURL: API_URL, //- for develope
     withCredentials: true,
+       
     
 })
 
@@ -22,7 +24,7 @@ instance.interceptors.response.use( (config) => {
         originalRequest._isRetry = true;
         try {
             //const response = await axios.get(`${API_URL}auth/refresh`, { withCredentials: true });
-            const response = await axios.get(`${process.env.REACT_APP_API_URL}auth/refresh`, { withCredentials: true });
+            const response = await axios.get(`https://backend-optics-without-packlo.onrender.com/auth/refresh`, { withCredentials: true });
             localStorage.setItem('token', response.data.tokens.accessToken);  
             //console.log('in interceptors response ', originalRequest);
             return instance.request(originalRequest); 

@@ -14,20 +14,20 @@ export const Photos = ({ imageUrl }) => {
         <div className={c.miniPhotos}>
 
             <div onClick={() => setImage('main')} >
-                <img alt='' src={`process.env.REACT_APP_API_URL${imageUrl.main}`}
+                <img alt='' src={`https://backend-optics-without-packlo.onrender.com${imageUrl.main}`}
                     style={image === 'main' ? { borderColor: '#57005C' } : null} />
             </div>
 
             {Boolean(imageUrl.side) &&
                 <div onClick={() => setImage('side')} >
-                    <img alt='' src={`process.env.REACT_APP_API_URL${imageUrl.side}`}
+                    <img alt='' src={`https://backend-optics-without-packlo.onrender.com${imageUrl.side}`}
                         style={image === 'side' ? { borderColor: '#57005C' } : null} />
                 </div>
             }
 
             {Boolean(imageUrl.perspective) &&
                 <div onClick={() => setImage('perspective')} >
-                    <img alt='' src={`process.env.REACT_APP_API_URL${imageUrl.perspective}`}
+                    <img alt='' src={`https://backend-optics-without-packlo.onrender.com${imageUrl.perspective}`}
                         style={image === 'perspective' ? { borderColor: '#57005C' } : null} />
                 </div>
             }
@@ -37,17 +37,17 @@ export const Photos = ({ imageUrl }) => {
 
         <div className={c.carausel}>
             <div style={image === 'main' ? { left: '40px' } : { left: '-100vw' }} >
-                <img alt='' src={`process.env.REACT_APP_API_URL${imageUrl.main}`} />
+                <img alt='' src={`https://backend-optics-without-packlo.onrender.com${imageUrl.main}`} />
             </div>
 
             {Boolean(imageUrl.side) &&
                 <div style={image === 'side' ? { left: '40px' } : { left: '100vw' }}>
-                    <img alt='' src={`process.env.REACT_APP_API_URL${imageUrl.side}`} />
+                    <img alt='' src={`https://backend-optics-without-packlo.onrender.com${imageUrl.side}`} />
                 </div>
             }
             {Boolean(imageUrl.perspective) &&
                 <div style={image === 'perspective' ? { left: '40px' } : { left: '100vw' }}>
-                    <img alt='' src={`process.env.REACT_APP_API_URL${imageUrl.perspective}`} />
+                    <img alt='' src={`https://backend-optics-without-packlo.onrender.com${imageUrl.perspective}`} />
                 </div>
             }
         </div>
