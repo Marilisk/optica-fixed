@@ -1,16 +1,26 @@
-import c from './Women.module.scss';
-import { BreadCrumbs } from '../common/BreadCrumbs/BreadCrumbs';
+import c from './Children.module.scss';
 import { FiltersDashboard } from '../common/FiltersDashboard/FiltersDashboard';
-import { useDispatch, useSelector } from 'react-redux';
-import { clearAllFilters } from '../../redux/featuresSlice';
 import { Catalog } from '../common/Catalog/Catalog';
-import { useEffect } from 'react';
+import { BreadCrumbs } from '../common/BreadCrumbs/BreadCrumbs';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { LoadingStatusEnum } from '../Types/types';
+import { FC, useEffect } from 'react';
+import { clearAllFilters } from '../../redux/featuresSlice';
 import { Preloader } from '../../assets/common/Preloader/Preloader';
 
-export const Women = ({ addToFavorites, removeFromFavorites, userFavorites, authIsLoading }) => {
-    const dispatch = useDispatch();
-    const products = useSelector(state => state.products.products);
-    const areProdsLoading = products.status === 'loading';
+interface IChildrenProps {
+    addToFavorites: (arg: string) => void
+    removeFromFavorites: (arg: string) => void
+    userFavorites: string[]
+    authIsLoading: LoadingStatusEnum
+
+}
+
+export const Children:FC<IChildrenProps> = ({addToFavorites, removeFromFavorites, userFavorites, authIsLoading}:IChildrenProps) => {
+
+    const dispatch = useAppDispatch();
+    const products = useAppSelector(state => state.products.products);
+    const areProdsLoading = products.status === LoadingStatusEnum.loading;
 
     useEffect(() => {
         dispatch(clearAllFilters())
@@ -19,10 +29,10 @@ export const Women = ({ addToFavorites, removeFromFavorites, userFavorites, auth
     if (!products) {
         return <Preloader minFormat={false} />
     }
-    const genderFilteredProducts = products.items.filter(el => el.gender.includes('Женские'))    
+    const genderFilteredProducts = products.items.filter(el => el.features.includes('детские') || el.features.includes('подростковые')) 
 
     return <>
-        <BreadCrumbs text={'Женские очки'} />
+        <BreadCrumbs text={'Детские очки'} />
 
         <section className={c.mainSection}>
             <div className={c.mainDescription}>
@@ -47,6 +57,5 @@ export const Women = ({ addToFavorites, removeFromFavorites, userFavorites, auth
             removeFromFavorites={removeFromFavorites}
             userFavorites={userFavorites}
             authIsLoading={authIsLoading} />
-
     </>
 }

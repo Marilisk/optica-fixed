@@ -51,7 +51,7 @@ $serif-font-family: 'Playfair Display SC', serif;
     width: 500px;
     height: 300px;
     opacity: .99;
-    z-index: 5;
+    z-index: 7;
     font-weight: 700;
     //border: 1px solid pink;
     img {
@@ -59,24 +59,60 @@ $serif-font-family: 'Playfair Display SC', serif;
         margin: 26px auto;
         display: block;
     }
-    @media (max-width: 768px) {
-        width: 90vw;
+    @media (max-width: 1152px) {
+        width: 40vw;
         img {
-            width: 30vw;
+            width: 10vw;
             margin: 7vw auto;
         }
 
+    }
+    @media (max-width: 952px) {
+        width: 50vw;
+        right: 3vw;
+        img {
+            width: 16vw;
+            margin: 7vw auto;
+        }
+
+    }
+    @media (max-width: 768px) {
+        width: 60vw;
+        right: 20vw;
+        top: 760px;
+        img {
+            width: 16vw;
+            margin: 7vw auto;
+        }
+    }
+    @media (max-width: 575px) {
+        width: 80vw;
+        right: 10vw;
+        top: 740px;
+        img {
+            width: 26vw;
+            margin: 7vw auto;
+        }
+    }
+    @media (max-width: 420px) {
+        width: 90vw;
+        right: 5vw;
+        top: 740px;
+        img {
+            width: 26vw;
+            margin: 7vw auto;
+        }
     }
 }
 
 .darkBack {
     background-color: rgba(0, 0, 0, .5);
-    width: 200vw;
+    min-width: 200vw;
     height: 200vh;
     position: fixed;
     top: -2vh;
     left: -2vw;
-    z-index: 0;
+    z-index: 1;
     opacity: .99;
 }
 .modalHead {

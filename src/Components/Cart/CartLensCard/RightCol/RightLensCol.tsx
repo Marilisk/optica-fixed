@@ -5,7 +5,7 @@ import { priceFormatter } from '../../../../assets/functions/priceFormatter';
 import { useAppDispatch } from '../../../../redux/hooks';
 import { fetchRemoveEyewearFromCart } from '../../../../redux/authSlice';
 import { LSubTotal } from './SubTotal/LSubTotal';
-import { ICartItem, ILensProduct, LoadingStatusEnum } from '../../../Types/types';
+import { ICartItem, ILensProduct } from '../../../Types/types';
 import { LDetails } from './LensDetails/LDetails';
 
 

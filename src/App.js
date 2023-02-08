@@ -150,8 +150,8 @@ function App() {
     </div>
     <Footer />
 
-
     {/* <CookieModal /> */}
+
   </>;
 }
 

@@ -4,6 +4,7 @@ import ruler from './ruler.svg';
 import frame from './frame.png';
 
 export const EyewearSize = ({ size }) => {
+    
     const [modalOpened, changeModalOpened] = useState(false);
 
     return <div className={c.flex}>

@@ -13,7 +13,7 @@ export const LDetails: FC<IDetailsType> = ({ price }: IDetailsType) => {
 
         <div className={c.subLine}>
             <div>
-                <p>Цена оправы</p>
+                <p>Цена упаковки</p>
             </div>
             <div><p className={c.empty}>o</p></div>
             <div><p>{price}</p></div>

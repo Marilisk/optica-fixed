@@ -94,7 +94,7 @@ const featuresSlice = createSlice({
                 state.features[thisIndex].isSelected = Boolean(state.features[thisIndex].chosenOptions.length);
             }            
         },
-        clearAllFilters(state, action) {
+        clearAllFilters(state) {
             for (let filter of state.features) {
                 if(filter.isSelected) {
                     filter.options.concat(filter.chosenOptions)
