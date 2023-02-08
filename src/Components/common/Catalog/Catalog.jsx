@@ -4,7 +4,7 @@ import { Preloader } from '../../../assets/common/Preloader/Preloader';
 import { useSelector } from 'react-redux';
 import { useFilterProducts } from '../../../assets/functions/useFilterProducts';
 import { useSortProducts } from '../../../assets/functions/useSortProducts';
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { LensCard } from '../LensCard/LensCard';
 
 

@@ -1,12 +1,9 @@
 import axios from "axios";
 
-// 'https://backend-optics-without-packlo.onrender.com'
+
 const instance = axios.create({
-    baseURL: 'https://backend-optics-without-packlo.onrender.com',   //- for deploy
-    //baseURL: API_URL, //- for develope
-    withCredentials: true,
-       
-    
+    baseURL: 'https://backend-optics-without-packlo.onrender.com',  
+    withCredentials: true,    
 })
 
 instance.interceptors.request.use( (config) => {

@@ -11,7 +11,6 @@ import { orderCreate } from './functions/useOrderCreator';
 
 export const fetchAuth = createAsyncThunk('auth/fetchAuth', async (params) => {
     let response = await instance.post('/auth/login', params);
-    console.log(response);
     localStorage.setItem('token', response.data.accessToken)
     return response.data;
 })
@@ -24,7 +23,7 @@ export const fetchLogout = createAsyncThunk('auth/fetchLogout', async () => {
 
 export const checkAuth = createAsyncThunk('auth/checkAuth', async () => {  // refreshes tokens and login data
     try {
-        const response = await axios.get(`${'https://backend-optics-without-packlo.onrender.com'}auth/refresh`, { withCredentials: true });
+        const response = await axios.get(`https://backend-optics-without-packlo.onrender.com/auth/refresh`, { withCredentials: true });
         localStorage.setItem('token', response.data.tokens.accessToken);
         console.log(response.data)
         return response.data.user;
