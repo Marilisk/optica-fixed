@@ -4,7 +4,7 @@ import { RootState } from './redux-store';
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
 import { ILData, ISubscribeData, OrderType } from "../Components/Types/types";
-import instance, { API_URL } from "./API/api";
+import instance from "./API/api";
 import { IInitialValues } from '../Components/Cart/Order/Address/initialValues';
 import { orderCreate } from './functions/useOrderCreator';
 
@@ -24,7 +24,7 @@ export const fetchLogout = createAsyncThunk('auth/fetchLogout', async () => {
 
 export const checkAuth = createAsyncThunk('auth/checkAuth', async () => {  // refreshes tokens and login data
     try {
-        const response = await axios.get(`${API_URL}auth/refresh`, { withCredentials: true });
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}auth/refresh`, { withCredentials: true });
         localStorage.setItem('token', response.data.tokens.accessToken);
         console.log(response.data)
         return response.data.user;
