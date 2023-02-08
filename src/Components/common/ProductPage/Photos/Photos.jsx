@@ -37,7 +37,7 @@ export const Photos = ({ imageUrl }) => {
 
         <div className={c.carausel}>
             <div style={image === 'main' ? { left: '40px' } : { left: '-100vw' }} >
-                <img alt='' src={`https://backend-optics-without-packlo.onrender.com${imageUrl.main}`} />
+                <img alt='' src={`http://localhost:4444${imageUrl.main}`} />
             </div>
 
             {Boolean(imageUrl.side) &&
