@@ -33,7 +33,7 @@ export const FavoriteProductCard = ({ id, removeFromFavorites, authIsLoading, in
     return <div className={c.wrap} onClick={() => dispatch(setCurrentProd(product))} >
 
         <NavLink to={`/product/${product._id}`}>
-            <img src={product.imageUrl?.main ? `http://localhost:4444${product.imageUrl.main}` : defaultGlasses} alt='' />
+            <img src={product.imageUrl?.main ? `https://backend-optics-without-packlo.onrender.com${product.imageUrl.main}` : defaultGlasses} alt='' />
             <div className={c.price}>
                 {price}
             </div>
