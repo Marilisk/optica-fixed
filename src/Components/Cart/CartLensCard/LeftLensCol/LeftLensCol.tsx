@@ -10,13 +10,12 @@ interface ILeftLensCol {
 }
 
 export const LeftLensCol: FC<ILeftLensCol> = ({ productId, imageUrlMain  }: ILeftLensCol,) => {
-    //const dispatch = useAppDispatch();
     
 
     return <div className={c.wrap} /* onClick={() => dispatch(setCurrentProd(productId))} */ >
             <div>
                 <NavLink to={`/product/${productId}`}>
-                    <img src={`http://localhost:4444${imageUrlMain}`} alt='' />
+                    <img src={`https://backend-optics-without-packlo.onrender.com${imageUrlMain}`} alt='' />
                 </NavLink>
             </div>
         </div>

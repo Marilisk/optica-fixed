@@ -32,9 +32,6 @@ export const Catalog = ({dispatch, products, areProdsLoading,
         });
     }
 
-    
-
-
     if (!filteredProducts.length) {
         return <div className={c.emptyNote}>Ничего не нашлось. Измените фильтры</div>
     } else if (location.pathname !== '/lenses') {

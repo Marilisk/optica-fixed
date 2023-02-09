@@ -31,7 +31,7 @@ export const LensCard:FC = ({ product, addToFavorites, removeFromFavorites, user
                 onMouseLeave={() => setIsHovered(null)} >
         
         <NavLink to={`/lenses/${product._id}`}>
-            <img src={`http://localhost:4444${product.imageUrl.main}`} alt='' />
+            <img src={`https://backend-optics-without-packlo.onrender.com${product.imageUrl.main}`} alt='' />
             <div className={c.price}>
                 {price}
             </div>

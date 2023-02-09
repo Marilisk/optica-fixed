@@ -26,9 +26,9 @@ export const Children:FC<IChildrenProps> = ({addToFavorites, removeFromFavorites
         dispatch(clearAllFilters())
     })
 
-    if (!products) {
+    /* if (!products) {
         return <Preloader minFormat={false} />
-    }
+    } */
     const genderFilteredProducts = products.items.filter(el => el.features.includes('детские') || el.features.includes('подростковые')) 
 
     return <>

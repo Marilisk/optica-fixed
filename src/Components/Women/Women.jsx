@@ -6,19 +6,20 @@ import { clearAllFilters } from '../../redux/featuresSlice';
 import { Catalog } from '../common/Catalog/Catalog';
 import { useEffect } from 'react';
 import { Preloader } from '../../assets/common/Preloader/Preloader';
+import { LoadingStatusEnum } from '../Types/types';
 
 export const Women = ({ addToFavorites, removeFromFavorites, userFavorites, authIsLoading }) => {
     const dispatch = useDispatch();
     const products = useSelector(state => state.products.products);
-    const areProdsLoading = products.status === 'loading';
+    const areProdsLoading = products.status === LoadingStatusEnum.loading;
 
     useEffect(() => {
         dispatch(clearAllFilters())
     })
 
-    if (!products) {
+    /* if (!products) {
         return <Preloader minFormat={false} />
-    }
+    } */
     const genderFilteredProducts = products.items.filter(el => el.gender.includes('Женские'))    
 
     return <>

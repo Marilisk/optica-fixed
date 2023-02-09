@@ -75,7 +75,7 @@ function App() {
   }
 
   if (localStorage.getItem('token') && !isAuth) {
-    return <Preloader minFormat={true} />;
+    return <Preloader minFormat={false} />;
   }
 
   return <>

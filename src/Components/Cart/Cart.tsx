@@ -9,6 +9,7 @@ import { CartTotal } from './CartTotal/CartTotal';
 import { PromoCodeForm } from './PromoCodeForm/PromoCodeForm';
 import { CartConfirmBtns } from './CartConfirmBtns/CartConfirmBtns';
 import { CartLensCard } from './CartLensCard/CartLensCard';
+import { Preloader } from '../../assets/common/Preloader/Preloader';
 
 interface CartProps {
     switchModal: (arg: Boolean) => void
@@ -46,7 +47,9 @@ export const Cart: FC<CartProps> = ({ switchModal, removeFromFavorites, userFavo
             navigate(`/order`);
         }
     }
-    if (!userCart || !userCart.length || authIsLoading === 'loading') {
+    if (authIsLoading === 'loading') {
+        return <Preloader minFormat={true} />
+    } else if (!userCart || !userCart.length) {
         return <div className={c.nthFound}>
             <h2>
                 <div>{userName && `${userName}, `} Пока ничего нет...</div>
@@ -102,7 +105,7 @@ export const Cart: FC<CartProps> = ({ switchModal, removeFromFavorites, userFavo
             </div>
 
             <CartTotal goodsCount={goodsCount} userCartLength={userCart.length} />
-            
+
         </div>
 
     </>
