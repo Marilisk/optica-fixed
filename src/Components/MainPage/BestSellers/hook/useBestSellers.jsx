@@ -39,7 +39,7 @@ export const useBestSellers = () => {
                     { left: '200vw' }
                     : { left: (34.9 * (ind - decrement)) + '%' }} >
 
-                <img alt='' src={`http://localhost:4444${item.imageUrl?.main}`} />
+                <img alt='' src={`https://backend-optics-without-packlo.onrender.com${item.imageUrl?.main}`} />
                 <p className={c.price}>
                     {price}
                 </p>
@@ -58,7 +58,7 @@ export const useBestSellers = () => {
                         { left: 0 + 'vw' }
                         : { display: 'none' }} >
 
-                    <img alt='' src={`http://localhost:4444${item.imageUrl?.main}`} />
+                    <img alt='' src={`https://backend-optics-without-packlo.onrender.com${item.imageUrl?.main}`} />
                     <p className={c.price}>
                         {price}
                     </p>

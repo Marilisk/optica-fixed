@@ -26,7 +26,7 @@ export const Cart: FC<CartProps> = ({ switchModal, removeFromFavorites, userFavo
     const userName = useAppSelector(s => s.auth.loginData.data?.fullName);
     if (!isAuth) {
         userCart = JSON.parse(localStorage.getItem('cart'))
-        console.log(userCart)
+        //console.log(userCart)
     }
     useEffect(() => {
         if (!isAuth) {

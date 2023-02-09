@@ -7,7 +7,7 @@ export const Photos = ({ imageUrl }) => {
 
     const [image, setImage] = useState('main');
 
-    // if (!imageUrl) { return <Preloader minFormat={true} /> }
+    if (!imageUrl) { return <Preloader minFormat={true} /> }
 
     return <div className={c.leftPart}>
 
@@ -37,7 +37,7 @@ export const Photos = ({ imageUrl }) => {
 
         <div className={c.carausel}>
             <div style={image === 'main' ? { left: '40px' } : { left: '-100vw' }} >
-                <img alt='' src={`http://localhost:4444${imageUrl.main}`} />
+                <img alt='' src={`https://backend-optics-without-packlo.onrender.com${imageUrl.main}`} />
             </div>
 
             {Boolean(imageUrl.side) &&

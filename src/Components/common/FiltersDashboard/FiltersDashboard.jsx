@@ -54,7 +54,9 @@ export const FiltersDashboard = () => {
                     onHover={onHover} />
 
             </div>
+
             <SortBoard />
+            
         </div>
 
         

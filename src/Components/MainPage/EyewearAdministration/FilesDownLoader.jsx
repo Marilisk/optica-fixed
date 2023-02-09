@@ -15,17 +15,7 @@ export const FilesDownloader = ({ images, setImages }) => {
             const file = e.target.files[0];
             formData.append('image', file);
             setDownloadStatus({ ...downloadStatus, [currentImg]: 'pending' })
-            //alert('i m in reycatch handlechfile', currentImg)
             const { data } = await instance.post('/upload', formData);
-            /* if (data.url) {
-                console.log(data)
-                alert(data.url)
-                const newI = { ...images, [currentImg]: data.url }
-                setImages(newI);
-                setDownloadStatus({ ...downloadStatus, [currentImg]: null })
-            } else {
-                alert('ALEEERT!')
-            } */
             const newI = { ...images, [currentImg]: data.url }
             setImages(newI);
             setDownloadStatus({ ...downloadStatus, [currentImg]: null })
@@ -37,12 +27,10 @@ export const FilesDownloader = ({ images, setImages }) => {
         }
     }
 
-    /* if (!images) {
-        return <Preloader minFormat={true} />
-    } */
+    
 
     return <div className={c.downloader}>
-        {/* <h2>Выберите файлы:</h2> */}
+        
         <div>
             <label>
                 <span>главное фото</span>
@@ -52,7 +40,7 @@ export const FilesDownloader = ({ images, setImages }) => {
             </label>
             
                 {images.main && <div className={c.imgWrapper}>
-                    <img src={`http://localhost:4444${images.main}`} alt='' />
+                    <img src={`https://backend-optics-without-packlo.onrender.com${images.main}`} alt='' />
                     </div>}
                 {downloadStatus.main ? <LoadingDots /> : null}
             
@@ -66,7 +54,7 @@ export const FilesDownloader = ({ images, setImages }) => {
             </label>
             
                 {images.side && <div className={c.imgWrapper}>
-                    <img src={`http://localhost:4444${images.side}`} alt='' />
+                    <img src={`https://backend-optics-without-packlo.onrender.com${images.side}`} alt='' />
                     </div>}
                     
                 {downloadStatus.side ? <LoadingDots /> : null}
@@ -82,7 +70,7 @@ export const FilesDownloader = ({ images, setImages }) => {
             </label>
 
             {images.perspective && <div className={c.imgWrapper}>
-                <img src={`http://localhost:4444${images.perspective}`} alt='' />
+                <img src={`https://backend-optics-without-packlo.onrender.com${images.perspective}`} alt='' />
             </div>}
             {downloadStatus.perspective ? <LoadingDots /> : null} 
 

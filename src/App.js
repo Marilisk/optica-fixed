@@ -27,6 +27,8 @@ import { Order } from './Components/Cart/Order/Order';
 import { PrivatePage } from './Components/PrivatePage/PrivatePage';
 import { OrderConfirmed } from './Components/OrderConfirmed/OrderConfirmed';
 import { LensPage } from './Components/Lenses/LensPage/LensPage';
+import { CookieModal } from './Components/common/CookieModal/CookieModal.jsx';
+import { GoodsGrid } from './Components/GoodsGrid/GoodsGrid';
 
 
 function App() {
@@ -85,6 +87,8 @@ function App() {
       <Routes>
 
         <Route path='/' element={<MainPage />} />
+
+        <Route path='/shopby/:slug' element={<GoodsGrid />} />
 
         <Route path='/women' element={<Women addToFavorites={addToFavorites}
           removeFromFavorites={removeFromFavorites}
@@ -150,7 +154,7 @@ function App() {
     </div>
     <Footer />
 
-    {/* <CookieModal /> */}
+    <CookieModal />
 
   </>;
 }

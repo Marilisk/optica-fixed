@@ -1,5 +1,4 @@
 import c from './FavoriteProductCard.module.scss';
-import defaultGlasses from './../../../assets/common/defaultGlasses.webp';
 import { NavLink } from 'react-router-dom';
 import { setCurrentProd } from '../../../redux/productsSlice';
 import { useEffect, useState } from 'react';
@@ -33,7 +32,7 @@ export const FavoriteProductCard = ({ id, removeFromFavorites, authIsLoading, in
     return <div className={c.wrap} onClick={() => dispatch(setCurrentProd(product))} >
 
         <NavLink to={`/product/${product._id}`}>
-            <img src={product.imageUrl?.main ? `https://backend-optics-without-packlo.onrender.com${product.imageUrl.main}` : defaultGlasses} alt='' />
+            <img src={`https://backend-optics-without-packlo.onrender.com${product.imageUrl.main}`} alt='' />
             <div className={c.price}>
                 {price}
             </div>

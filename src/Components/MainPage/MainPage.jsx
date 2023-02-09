@@ -19,7 +19,6 @@ import { useInView } from 'react-intersection-observer';
 export const MainPage = () => {
     const dispatch = useDispatch();
     useEffect(() => {
-        //console.log('i m in MainPage UseEffect');
         dispatch(fetchProducts());
     }, [dispatch]);
 
@@ -61,12 +60,14 @@ export const MainPage = () => {
             <div className={inView ? c.animatedText1 : null}
                 style={inView ? null : { opacity: 0 }}>
                 <img alt='' src={shopByStyle} />
-                <p  >
+                <p>
                     Подбор по форме оправы
                 </p>
                 <div className={c.shopByLink}>
-                    <span>Cмотреть</span>
-                    <AngleIcon color={'#03424C'} size={14} margin={'9px auto auto 4px'} />
+                    <Link to={'/shopby/eyewearform'}>
+                        <span>Cмотреть</span>
+                        <AngleIcon showAnother={() => null} color={'#03424C'} size={14} margin={'9px auto auto 4px'} />
+                    </Link>
                 </div>
             </div>
 
@@ -75,8 +76,10 @@ export const MainPage = () => {
                 <img alt='' src={shopByColor} />
                 <p>Подбор по цвету</p>
                 <div className={c.shopByLink}>
-                    <span>Cмотреть</span>
-                    <AngleIcon color={'#03424C'} size={14} margin={'9px auto auto 4px'} />
+                    <Link to={'/shopby/color'}>
+                        <span>Cмотреть</span>
+                        <AngleIcon showAnother={() => null} color={'#03424C'} size={14} margin={'9px auto auto 4px'} />
+                    </Link>
                 </div>
             </div>
 
@@ -85,8 +88,10 @@ export const MainPage = () => {
                 <img alt='' src={shopByFace} />
                 <p>Подбор по форме лица</p>
                 <div className={c.shopByLink}>
-                    <span>Cмотреть</span>
-                    <AngleIcon color={'#03424C'} size={14} margin={'9px auto auto 4px'} />
+                    <Link to={'/shopby/faceshape'}>
+                        <span>Cмотреть</span>
+                        <AngleIcon showAnother={() => null} color={'#03424C'} size={14} margin={'9px auto auto 4px'} />
+                    </Link>
                 </div>
             </div>
 
@@ -99,7 +104,7 @@ export const MainPage = () => {
                 <h2>Женские очки</h2>
                 <div className={c.bestSellers}>
                     <span>Бестселлеры</span>
-                    <AngleIcon color={'#11A834'} size={14} margin={'6px auto auto 4px'} />
+                    <AngleIcon showAnother={() => null} color={'#11A834'} size={14} margin={'6px auto auto 4px'} />
                 </div>
             </div>
 
@@ -109,7 +114,7 @@ export const MainPage = () => {
                 <h2>Мужские очки</h2>
                 <div className={c.bestSellers}>
                     <span>Бестселлеры</span>
-                    <AngleIcon color={'#11A834'} size={10} margin={'6px auto auto 4px'} />
+                    <AngleIcon showAnother={() => null} color={'#11A834'} size={10} margin={'6px auto auto 4px'} />
                 </div>
             </div>
 

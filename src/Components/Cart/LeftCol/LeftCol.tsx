@@ -16,7 +16,7 @@ export const LeftCol: FC<ILeftCol> = ({ productId, imageUrlMain  }: ILeftCol,) =
     return <div className={c.wrap} /* onClick={() => dispatch(setCurrentProd(productId))} */ >
             <div>
                 <NavLink to={`/product/${productId}`}>
-                    <img src={`http://localhost:4444${imageUrlMain}`} alt='' />
+                    <img src={`https://backend-optics-without-packlo.onrender.com${imageUrlMain}`} alt='' />
                 </NavLink>
             </div>
         </div>
