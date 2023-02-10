@@ -1,21 +1,17 @@
 import c from './MobileHeader.module.scss';
-//import logo from './../../assets/header/dark-violet-logo.png';
-import violetLogo from './../../assets/header/darkViolet-logo.png';
 import greenLogo from './../../assets/header/green-logo.png';
-
-import shopLocation from './../../assets/header/icons/shopLocation.svg';
 import heart from './../../assets/header/icons/heart.svg';
 import cart from './../../assets/header/icons/cart.svg';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { LoginButton } from './LoginButton/LoginButton';
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
-//import menuBurger from './../../assets/icons/menu-burger.svg';
 import menuBurger from './../../assets/icons/menu-gradientBurger.png';
-import { Cross } from '../../assets/icons/Cross';
+import { FavouritesBtn } from './FavouritesBtn/FavouritesBtn';
+import { CartBtn } from './CartBtn/CartBtn';
 
 
-export const MobileHeader = ({ mainMenu, toggleLoginModalOpened, loginModalOpened, dispatch }) => {
+export const MobileHeader = ({ mainMenu, toggleLoginModalOpened, loginModalOpened, dispatch, favoritesCount }) => {
     const fullHeader = useSelector(state => state.header.fullHeader);
 
     const [mobileMenu, toggleMobMenu] = useState(false);
@@ -31,18 +27,14 @@ export const MobileHeader = ({ mainMenu, toggleLoginModalOpened, loginModalOpene
     })
 
 
-    return <div className={c.mainWrapper} style={fullHeader ? null : { border: 'none' }} >
+    return <div className={c.mainWrapper} style={fullHeader ? null : { border: 'none' }} 
+                /* onClick={() => toggleMobMenu(!mobileMenu)} */ >
 
         <div className={c.burgerWrap} onClick={() => toggleMobMenu(!mobileMenu)}>
-            
-                <img alt='' src={menuBurger} style={ 
-                    mobileMenu ? {transform: 'none'} : {transform: 'rotate(90deg)' }}  />
-            
 
-            {/* {mobileMenu ?
-                <Cross size={50} color={'#11A834'} margin={0} transform={'none'} /> :
-                <img alt='' src={menuBurger}  />
-            } */}
+            <img alt='' src={menuBurger} style={
+                mobileMenu ? { transform: 'none' } : { transform: 'rotate(90deg)' }} />
+
         </div>
         {mobileMenu && <div className={c.navLinkWrap}>
 
@@ -60,21 +52,17 @@ export const MobileHeader = ({ mainMenu, toggleLoginModalOpened, loginModalOpene
 
         <div className={c.logoWrap} style={fullHeader ? null : { border: 'none' }}>
             <NavLink to={`/`}>
-                {/* <img src={violetLogo} alt="" className={c.logo} /> */}
                 <img src={greenLogo} alt="" className={c.logo} />
             </NavLink>
         </div>
 
 
-        <div className={c.menuWrap}>
+        <div className={c.menuWrap} onClick={() => toggleMobMenu(false)}>
 
-            <div className={c.menuItem}>
-                <img alt='' src={heart} />
-            </div>
+            <FavouritesBtn favoritesCount={favoritesCount} />
 
-            <div className={c.menuItem} style={fullHeader ? null : { border: 'none' }}>
-                <img alt='' src={cart} />
-            </div>
+            <CartBtn fullHeader={fullHeader} />
+            
         </div>
 
     </div>

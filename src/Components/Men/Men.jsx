@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { clearAllFilters } from '../../redux/featuresSlice';
 import { Catalog } from '../common/Catalog/Catalog';
 import { useEffect } from 'react';
-import { Preloader } from '../../assets/common/Preloader/Preloader';
 import { LoadingStatusEnum } from '../Types/types';
 
 
@@ -19,13 +18,7 @@ export const Men = ({addToFavorites, removeFromFavorites, userFavorites, authIsL
         dispatch(clearAllFilters());
     })
 
-
-    /* if (!products) {
-        return <Preloader minFormat={false} />
-    } */
-    //console.log('всего продуктов ', products.items.length)
     const genderFilteredProducts = products.items.filter(el => el.gender.includes('Мужские'))
-
 
     return <>
         <BreadCrumbs text={'Мужские очки'} />

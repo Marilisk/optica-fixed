@@ -17,7 +17,6 @@ export const Catalog = ({dispatch, products, areProdsLoading,
     let filteredProducts = useFilterProducts(products)
     const sortedProducts = useSortProducts(filteredProducts)
     const location = useLocation()
-    //console.log(location.pathname)
         
     const userCart = useSelector(s => s.auth.loginData.data?.cart)
       
@@ -33,7 +32,7 @@ export const Catalog = ({dispatch, products, areProdsLoading,
     }
 
     if (!filteredProducts.length) {
-        return <div className={c.emptyNote}>Ничего не нашлось. Измените фильтры</div>
+        return <div className={c.emptyNote}>Таких очков пока не завезли. Измените фильтры.</div>
     } else if (location.pathname !== '/lenses') {
         return <div className={c.catGrid}>
         {sortedProducts.map(product => <ProductCard 

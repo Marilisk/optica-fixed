@@ -1,55 +1,37 @@
 import c from './Photos.module.scss';
 import { useState } from 'react';
-import { Preloader } from '../../../../assets/common/Preloader/Preloader';
+import { ImgWrapper } from './ImgWrapper';
+import { MinImgWrapper } from './MinImgWrapper';
+import { LoadingDots } from '../../../../assets/common/Preloader/LoadingDots/LoadingDots';
 
 
 export const Photos = ({ imageUrl }) => {
 
     const [image, setImage] = useState('main');
 
-    if (!imageUrl) { return <Preloader minFormat={true} /> }
+    /* if (!imageUrl) { return <LoadingDots /> } */
 
     return <div className={c.leftPart}>
 
         <div className={c.miniPhotos}>
 
-            <div onClick={() => setImage('main')} >
-                <img alt='' src={`https://backend-optics-without-packlo.onrender.com${imageUrl.main}`}
-                    style={image === 'main' ? { borderColor: '#57005C' } : null} />
-            </div>
+            <MinImgWrapper onClickHandler={() => setImage('main')} url={imageUrl.main} isActive={image === 'main'} />
 
-            {Boolean(imageUrl.side) &&
-                <div onClick={() => setImage('side')} >
-                    <img alt='' src={`https://backend-optics-without-packlo.onrender.com${imageUrl.side}`}
-                        style={image === 'side' ? { borderColor: '#57005C' } : null} />
-                </div>
-            }
+            <MinImgWrapper onClickHandler={() => setImage('side')} url={imageUrl.side} isActive={image === 'side'} />
 
-            {Boolean(imageUrl.perspective) &&
-                <div onClick={() => setImage('perspective')} >
-                    <img alt='' src={`https://backend-optics-without-packlo.onrender.com${imageUrl.perspective}`}
-                        style={image === 'perspective' ? { borderColor: '#57005C' } : null} />
-                </div>
-            }
+            <MinImgWrapper onClickHandler={() => setImage('perspective')} url={imageUrl.perspective} isActive={image === 'perspective'} />
 
         </div>
 
 
         <div className={c.carausel}>
-            <div style={image === 'main' ? { left: '40px' } : { left: '-100vw' }} >
-                <img alt='' src={`https://backend-optics-without-packlo.onrender.com${imageUrl.main}`} />
-            </div>
 
-            {Boolean(imageUrl.side) &&
-                <div style={image === 'side' ? { left: '40px' } : { left: '100vw' }}>
-                    <img alt='' src={`https://backend-optics-without-packlo.onrender.com${imageUrl.side}`} />
-                </div>
-            }
-            {Boolean(imageUrl.perspective) &&
-                <div style={image === 'perspective' ? { left: '40px' } : { left: '100vw' }}>
-                    <img alt='' src={`https://backend-optics-without-packlo.onrender.com${imageUrl.perspective}`} />
-                </div>
-            }
+            <ImgWrapper isActive={image === 'main'} leftTrue={'40px'} leftFalse={'-100vw'} url={imageUrl.main} />
+
+            <ImgWrapper isActive={image === 'side'} leftTrue={'40px'} leftFalse={'100vw'} url={imageUrl.side} />
+
+            <ImgWrapper isActive={image === 'perspective'} leftTrue={'40px'} leftFalse={'100vw'} url={imageUrl.perspective} />
+
         </div>
 
     </div>

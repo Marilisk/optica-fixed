@@ -15,7 +15,6 @@ $serif-font-family: 'Playfair Display SC', serif;
     font-size: $small-fontSize;
     flex: 1;
     position: relative;
-
     &:hover {
         .iconWrapper {
             transform: rotate(180deg);
@@ -24,7 +23,6 @@ $serif-font-family: 'Playfair Display SC', serif;
     }
 
     @media (max-width: 769px) {
-        //border: 1px solid $green;   
     }
 }
 .header {
@@ -88,6 +86,8 @@ $serif-font-family: 'Playfair Display SC', serif;
     padding: 4px;
     transition: all 700ms;
     z-index: 1;
+    //border: 1px solid $green;   
+    min-width: 138px;
     
     &::before {
         content: '';

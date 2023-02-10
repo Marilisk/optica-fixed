@@ -28,7 +28,7 @@ import { PrivatePage } from './Components/PrivatePage/PrivatePage';
 import { OrderConfirmed } from './Components/OrderConfirmed/OrderConfirmed';
 import { LensPage } from './Components/Lenses/LensPage/LensPage';
 import { CookieModal } from './Components/common/CookieModal/CookieModal.jsx';
-import { GoodsGrid } from './Components/GoodsGrid/GoodsGrid';
+import { ShopByPage } from './Components/GoodsGrid/ShopByPage';
 
 
 function App() {
@@ -88,7 +88,11 @@ function App() {
 
         <Route path='/' element={<MainPage />} />
 
-        <Route path='/shopby/:slug' element={<GoodsGrid />} />
+        <Route path='/shopby/:slug' element={<ShopByPage addToFavorites={addToFavorites}
+          removeFromFavorites={removeFromFavorites}
+          userFavorites={userFavorites}
+          authIsLoading={authIsLoading}
+        />} />
 
         <Route path='/women' element={<Women addToFavorites={addToFavorites}
           removeFromFavorites={removeFromFavorites}
@@ -132,7 +136,7 @@ function App() {
           isAuth={isAuth} />} />
 
         <Route path="/order" element={<Order />} />
-        
+
         <Route path="/order/:order" element={<OrderConfirmed isAuth={isAuth} authIsLoading={authIsLoading} />} />
         <Route path="/myoptis" element={<PrivatePage switchModal={switchModal}
           authIsLoading={authIsLoading}

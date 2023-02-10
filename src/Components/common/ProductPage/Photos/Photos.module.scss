@@ -16,7 +16,6 @@ $serif-font-family: 'Playfair Display SC', serif;
     width: 50%;
     display: flex;
     min-height: 500px;
-    //border: 1px solid teal;
     overflow: hidden;
     @media (max-width: 1024px) {
         display: inline-block;
@@ -26,7 +25,6 @@ $serif-font-family: 'Playfair Display SC', serif;
         width: 100%;
     }
     @media (max-width: 533px) {
-        //border: 1px solid blueviolet;
         min-height: auto;
         height: 44vh;
     }
@@ -46,7 +44,7 @@ $serif-font-family: 'Playfair Display SC', serif;
     img {
         width: 60px;
         display: inline-block;
-        border: 1px solid $light-violet;
+        border: 1px solid $dark-violet;
         padding: 16px 4px;
         margin-bottom: 12px;
         cursor: pointer;

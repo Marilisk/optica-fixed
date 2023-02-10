@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router-dom';
-import c from './../Header.module.scss';
+//import c from './../Header.module.scss';
+import c from './../FavouritesBtn/FavBtn.module.scss';
 import cart from './../../../assets/header/icons/cart.svg';
 import { FC, useEffect, useState } from 'react';
 import { useAppSelector } from '../../../redux/hooks';

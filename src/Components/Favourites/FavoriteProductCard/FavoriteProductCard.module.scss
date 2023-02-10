@@ -30,7 +30,6 @@ $serif-font-family: 'Playfair Display SC', serif;
         }
         @media (max-width: 533px) {
             margin: 13vw auto;
-          
         }
     }
 }
@@ -52,7 +51,7 @@ $serif-font-family: 'Playfair Display SC', serif;
     position: absolute;
     right: 10%;
     top: 5%;
-    //height: 50px;
+
     @media (min-width: 1024px) {
         right: 8%;
         top: 5%;
@@ -60,6 +59,10 @@ $serif-font-family: 'Playfair Display SC', serif;
     &::hover {
         height: 50px;
         width: 50px;
+    }
+    @media (max-width: 533px) {
+        right: 10%;
+        top: 5%;
     }
 }
 
@@ -71,6 +74,14 @@ $serif-font-family: 'Playfair Display SC', serif;
         
         font-size: 14px;
         color: $violet;
+    }
+
+    @media (max-width: 533px) {
+        right: 6%;
+        top: auto;
+        bottom: 2%;
+        //left: 6%;
+
     }
 }
 

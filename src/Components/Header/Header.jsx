@@ -42,7 +42,8 @@ export const Header = ({ fullHeader, favoritesCount }) => {
         <MobileHeader mainMenu={mainMenu}
             toggleLoginModalOpened={(value) => dispatch(toggleLoginModalOpened(value))}
             loginModalOpened={loginModalOpened}
-            dispatch={dispatch} />
+            dispatch={dispatch}
+            favoritesCount={favoritesCount} />
 
         <div className={c.wideWrapper}>
             <div className={c.mainWrapper} style={fullHeader ? null : { border: 'none' }} >

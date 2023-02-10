@@ -22,5 +22,5 @@
     },
     "include": [
         "src"
-, "src/Components/common/FiltersDashboard/SelectedFilters/.jsx", "src/Components/common/FiltersDashboard/SelectedFilters/.jsx"    ]
+, "src/Components/common/FiltersDashboard/SelectedFilters/.jsx", "src/Components/common/FiltersDashboard/SelectedFilters/.jsx", "src/Components/GoodsGrid/ShapeChoose/ShapeChoose.tsx", "src/Components/GoodsGrid/ShapeChoose/.tsx", "src/Components/common/ProductPage/Photos/.jsx", "src/Components/common/ProductPage/Photos/.jsx"    ]
 }

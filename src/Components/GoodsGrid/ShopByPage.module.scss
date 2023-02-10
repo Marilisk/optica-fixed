@@ -10,24 +10,20 @@ $light-background: #FAFAFA;
 $serif-font-family: 'Playfair Display SC', serif;
 
 
-.firstLine, .shapeChoseWrap {
+.wrapper {
+    
+}
+.box {
     width: 96%;
     margin: 0 auto;
+
 }
 .firstLine {
-    
-}
-
-.shapeChoseWrap {
-    
-    border: $thin-gray-border;
-    border-left: none;
-    border-right: none;
-    display: flex;
-    justify-content: space-between;
-
-    img {
-        height: 30px;
+    margin-top: 40px;
+    h2 {
+        font-size: 24px;
     }
 }
+
+
 

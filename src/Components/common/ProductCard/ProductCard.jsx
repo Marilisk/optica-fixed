@@ -8,7 +8,7 @@ import { useState } from 'react';
 import { CartIcon } from '../../../assets/header/icons/CartIcon';
 import { fetchAddEyewearToCart, selectIsAuth } from '../../../redux/authSlice';
 import { useSelector } from 'react-redux';
-import { CatEnum } from '../../Types/types';
+import { CatEnum, LoadingStatusEnum } from '../../Types/types';
 
 export const addToCartOrLS = (isAuth, dispatch, productId) => {
     if (isAuth) {
@@ -71,8 +71,8 @@ export const ProductCard = ({ dispatch,
                     </svg>
                 </div>
                 :
-                <div onClick={() => addToFavorites(product._id)} >
-                    <Heart color={'#C899CC'} size={'18px'} />
+                <div onClick={() => authIsLoading === 'loading' ? false : addToFavorites(product._id)} >
+                    <Heart color={authIsLoading === 'loading' ? '#fff' : '#C899CC'} size={'18px'} />
                 </div>
             }
 

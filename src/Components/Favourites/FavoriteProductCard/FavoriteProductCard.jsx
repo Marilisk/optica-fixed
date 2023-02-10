@@ -8,6 +8,7 @@ import { Preloader } from '../../../assets/common/Preloader/Preloader';
 import { CartIcon } from '../../../assets/header/icons/CartIcon';
 import { fetchAddEyewearToCart } from '../../../redux/authSlice';
 import { priceFormatter } from '../../../assets/functions/priceFormatter';
+import { LoadingDots } from '../../../assets/common/Preloader/LoadingDots/LoadingDots';
 
 
 export const FavoriteProductCard = ({ id, removeFromFavorites, authIsLoading, inCartArray }) => {
@@ -24,7 +25,8 @@ export const FavoriteProductCard = ({ id, removeFromFavorites, authIsLoading, in
     }, [id]);
 
     if (!Object.keys(product).length) {
-        return <Preloader minFormat={true} />;
+        //return <Preloader minFormat={true} />;
+        return <LoadingDots />;
     }
     const price = priceFormatter(product.price) 
     const isInCart = inCartArray.includes(id) 

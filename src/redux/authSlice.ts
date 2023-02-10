@@ -25,7 +25,6 @@ export const checkAuth = createAsyncThunk('auth/checkAuth', async () => {  // re
     try {
         const response = await axios.get(`https://backend-optics-without-packlo.onrender.com/auth/refresh`, { withCredentials: true });
         localStorage.setItem('token', response.data.tokens.accessToken);
-        console.log(response.data)
         return response.data.user;
     } catch (error) {
         console.log(error)
@@ -164,7 +163,8 @@ const authSlice = createSlice({
 
     },
     extraReducers: (builder) => {
-        builder.addCase(fetchAuth.pending, (state) => {
+        builder.addCase(fetchAuth.pending, (state, action/* :PayloadAction<string[]> */) => {
+            //action.meta.requestId
             state.loginData.status = 'loading';
             //state.loginData.data = null;
         })
