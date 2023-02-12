@@ -26,10 +26,11 @@ $serif-font-family: 'Playfair Display SC', serif;
 
 }
 
-.inputGroup {
+.inputGroup, .numberInputGroup {
     border: 2px solid $light-beige-gray;
     border-radius: 10px;
 }
+
 .inputWrapper, .arrayWrapper {
     display: flex;
     margin: 0 auto;
@@ -64,6 +65,19 @@ $serif-font-family: 'Playfair Display SC', serif;
     }
 }
 
+.numberInputGroup {
+    .inputWrapper {
+        label {
+            //border: 1px solid pink;
+            width: 50%;
+        }
+        
+    }
+    input {
+        max-width: 80px;
+    }
+}
+
 .arrayWrapper {
     &>div {
         width: 100%;
@@ -80,6 +94,7 @@ $serif-font-family: 'Playfair Display SC', serif;
 .genderEdit {
     //border: 1px solid darkcyan;
     width: 50%;
+    margin-top: 20px;
     display: flex;
     justify-content: space-between;
     height: 40px;

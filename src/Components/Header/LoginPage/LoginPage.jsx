@@ -2,7 +2,7 @@ import c from './LoginPage.module.scss';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setfullHeaderTheme } from '../../../redux/headerSlice';
-import { selectIsAuth, submitLoginForm } from '../../../redux/authSlice';
+import { selectIsAuth } from '../../../redux/authSlice';
 import { useState } from 'react';
 import { LoginForm } from '../LoginForm/LoginForm';
 import { RegisterForm } from '../RegisterForm/RegisterForm';
@@ -17,7 +17,7 @@ export const LoginPage = ({isLoading}) => {
 
     useEffect(() => {
         dispatch(setfullHeaderTheme(false))
-    }, [])
+    }, [dispatch])
 
     let navigate  = useNavigate();
    
@@ -28,7 +28,6 @@ export const LoginPage = ({isLoading}) => {
     if (isAuth) {
         //dispatch(setfullHeaderTheme(true)); // когда включено, не работает возврат корректный на страницу товара
         navigate(-2);   // проверить надо
-
     }
 
    
@@ -45,6 +44,7 @@ export const LoginPage = ({isLoading}) => {
         {isLoginTab ?  <LoginForm dispatch={dispatch} 
                                   toggleLoginModalOpened={toggleLoginModalOpened}
                                   isLoading={isLoading} /> :
+
              <RegisterForm dispatch={dispatch} 
                     toggleLoginModalOpened={toggleLoginModalOpened} 
                     navigate={navigate}

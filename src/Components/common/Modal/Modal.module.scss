@@ -14,7 +14,6 @@ $serif-font-family: 'Playfair Display SC', serif;
     position: absolute;
     position: fixed;
     background-color: rgba(0, 0, 0, .5);
-
     content: '';
     top: 0;
     left: 0;
@@ -24,16 +23,18 @@ $serif-font-family: 'Playfair Display SC', serif;
     height: 100%;
 
 
-
     &>div {
         position: absolute;
         background: white;
         top: 10vh;
         border-radius: 10px;
         padding: 20px;
-        left: 46vw;
+        left: 40vw;
         width: 24vw;
-        
+        min-width: 220px;
+        @media (max-width: 767px) {
+            left: calc(50% - 110px) ;
+        }
     }
 }
 .notification {

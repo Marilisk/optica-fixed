@@ -42,19 +42,6 @@ $serif-font-family: 'Playfair Display SC', serif;
             border: 2px solid $violet;
         }
     }
-
-
-   /*  button {
-        width: 100%;
-        background: $gray-fontcolor;
-        border: none;
-        height: 50px;
-        color: white;
-        font-size: 18px;
-        font-weight: 600;
-        margin-bottom: 1.3em;
-        cursor: pointer;
-    } */
 }
 
 .tabWrap {
@@ -84,6 +71,10 @@ $serif-font-family: 'Playfair Display SC', serif;
             width: 100%;
             transition: width 600ms;
         }
+    }
+
+    @media (max-width: 492px) {
+        font-size: 14px;
     }
 }
 

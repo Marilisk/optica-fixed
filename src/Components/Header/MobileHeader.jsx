@@ -1,8 +1,6 @@
 import c from './MobileHeader.module.scss';
 import greenLogo from './../../assets/header/green-logo.png';
-import heart from './../../assets/header/icons/heart.svg';
-import cart from './../../assets/header/icons/cart.svg';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { LoginButton } from './LoginButton/LoginButton';
 import { useSelector } from 'react-redux';
 import { useState } from 'react';

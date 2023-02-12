@@ -64,7 +64,7 @@ export const MainPage = () => {
                     Подбор по форме оправы
                 </p>
                 <div className={c.shopByLink}>
-                    <Link to={'/shopby/eyewearform'}>
+                    <Link to={'/shopby/eyewearform'} preventScrollReset={true}>
                         <span>Cмотреть</span>
                         <AngleIcon showAnother={() => null} color={'#03424C'} size={14} margin={'9px auto auto 4px'} />
                     </Link>
@@ -76,7 +76,7 @@ export const MainPage = () => {
                 <img alt='' src={shopByColor} />
                 <p>Подбор по цвету</p>
                 <div className={c.shopByLink}>
-                    <Link to={'/shopby/color'}>
+                    <Link to={'/shopby/color'} preventScrollReset={true}>
                         <span>Cмотреть</span>
                         <AngleIcon showAnother={() => null} color={'#03424C'} size={14} margin={'9px auto auto 4px'} />
                     </Link>
@@ -88,7 +88,7 @@ export const MainPage = () => {
                 <img alt='' src={shopByFace} />
                 <p>Подбор по форме лица</p>
                 <div className={c.shopByLink}>
-                    <Link to={'/shopby/faceshape'}>
+                    <Link to={'/shopby/faceshape'} preventScrollReset={true}>
                         <span>Cмотреть</span>
                         <AngleIcon showAnother={() => null} color={'#03424C'} size={14} margin={'9px auto auto 4px'} />
                     </Link>

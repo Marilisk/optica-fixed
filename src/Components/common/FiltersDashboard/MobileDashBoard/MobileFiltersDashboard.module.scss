@@ -37,6 +37,20 @@ $serif-font-family: 'Playfair Display SC', serif;
     display: block;
     font-weight: 700;
 }
+.selectedfilters {
+    //border: 1px solid salmon;
+
+}
+.selectedfilters div {
+    span {
+        border: 1px solid $gray-fontcolor;
+        padding: 6px;
+        margin: 6px;
+        border-radius: 4px;
+        display: inline-block;
+    }
+
+}
 
 .selectedfilters {
     margin: 0px auto;
@@ -49,8 +63,6 @@ $serif-font-family: 'Playfair Display SC', serif;
     cursor: pointer;
     display: block;
     background: white;
-
-
 }
 
 
@@ -60,27 +72,30 @@ $serif-font-family: 'Playfair Display SC', serif;
     font-weight: 700;
     color: $gray-fontcolor;
     width: 100%;
-    
+    border: 1px solid transparent;  
+    border: $thin-gray-border;
+    border-left: none;
+    border-right: none;
+
 }
 
 .filterName {
     display: block;
     width: 86%;
     margin: 0 auto;
+    font-weight: 800;    
+    border-color: transparent;
+
+
 }
 
 
 .otherFilterName {
     display: block;
     margin: 0;
-    height: 18px;
-    border: none;
     height: 50px;
-    border: 1px solid transparent;
-    border-top: $thin-gray-border;
 
     p {
-        //border: 1px solid salmon;
         width: 86%;
         display: flex;
         margin: 14px auto;
@@ -94,11 +109,6 @@ $serif-font-family: 'Playfair Display SC', serif;
     }
 
 }
-
-.otherFilterName:first-child {
-    //border-bottom: $thin-gray-border;
-}
-
 
 .filters img {
     margin-bottom: -5px;

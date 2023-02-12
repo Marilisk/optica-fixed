@@ -38,12 +38,6 @@ $serif-font-family: 'Playfair Display SC', serif;
     flex-wrap: nowrap;
     overflow-x: hidden;
 
-    img {
-        height: 46px;
-        display: block;
-        margin: 10px auto;
-    }
-
     @media (max-width: 737px) {
         margin: 0 auto;
     }
@@ -51,6 +45,14 @@ $serif-font-family: 'Playfair Display SC', serif;
         max-width: 222px;
     }
 
+}
+.colorPad {
+    height: 46px;
+    width: 46px;
+    border: 1px solid transparent;
+    border-radius: 50%;
+    display: block;
+    margin: 10px auto;
 }
 
 .adaptiveFlex {

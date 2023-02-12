@@ -127,13 +127,13 @@ export const Administration = () => {
 
                                     <div className={c.genderEdit}>
                                         <label >
-                                            <div className={values.gender === "Мужские" ? c.chosenJaw : c.jaw}>
+                                            <div className={values.gender.includes("Мужские") ? c.chosenJaw : c.jaw}>
                                                 Мужские
                                             </div>
                                             <Field type={'radio'} name="gender" value={"Мужские"} />
                                         </label>
                                         <label >
-                                            <div className={values.gender === "Женскиe" ? c.chosenJaw : c.jaw}>
+                                            <div className={values.gender.includes("Женскиe") ? c.chosenJaw : c.jaw}>
                                                 Женскиe
                                             </div>
                                             <Field type={'radio'} name="gender" value={"Женскиe"} />
@@ -160,7 +160,7 @@ export const Administration = () => {
                                     array={values.color}
                                     title={'Цвет'} />
 
-                                <div className={c.inputGroup}>
+                                <div className={c.numberInputGroup}>
 
                                     <div className={c.inputWrapper}>
                                         <label>расстояние между зрачками
@@ -220,8 +220,6 @@ export const Administration = () => {
                                 <CreateFieldArray name='material'
                                     array={values.material}
                                     title={'Материал'} />
-
-
 
 
                                 <button className={c.submitBtn} disabled={currentProduct.isLoading === 'isLoading'} type='submit'>ОТПРАВИТЬ</button>

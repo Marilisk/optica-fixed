@@ -8,6 +8,7 @@ import { Catalog } from '../common/Catalog/Catalog';
 import { LoadingStatusEnum } from '../Types/types';
 import { Preloader } from '../../assets/common/Preloader/Preloader';
 import { FaceShapeChoose } from './FaceShapeChoose/FaceShapeChoose';
+import { ColorChoose } from './ColorChoose/ColorChoose';
 
 
 
@@ -37,6 +38,7 @@ export const ShopByPage: FC<IShopByPageProps> = ({ addToFavorites, removeFromFav
 
     const [shape, chooseShape] = useState('круглые')
     const [faceShape, chooseFaceShape] = useState('для круглого лица')
+    const [color, chooseColor] = useState('чёрный')
 
     const [filteredProducts, setFilteredProducts] = useState([])
     useEffect(() => {
@@ -57,16 +59,15 @@ export const ShopByPage: FC<IShopByPageProps> = ({ addToFavorites, removeFromFav
             case '/shopby/color':
                 setPage(PageEnum.color)
                 setTitle('Подбор по цвету')
+                const filteredByC = products.filter(product => product.color.includes(color))
+                setFilteredProducts(filteredByC)
                 break;
         }
-    }, [location.pathname, shape, products])
+    }, [location.pathname, shape, products, faceShape, color])
 
     if (areProdsLoading) {
         return <Preloader minFormat={true} />
-    } /* else if (!filteredProducts.length) {
-        return </>
-    } */
-
+    } 
 
     return <div className={c.wrapper}>
 
@@ -79,6 +80,10 @@ export const ShopByPage: FC<IShopByPageProps> = ({ addToFavorites, removeFromFav
             {page === PageEnum.glassesShape && <ShapeChoose shape={shape} chooseShape={chooseShape} />}
 
             {page === PageEnum.faceShape && <FaceShapeChoose amount={filteredProducts.length} shape={faceShape} chooseShape={chooseFaceShape} />}
+            
+            {page === PageEnum.color && <ColorChoose amount={filteredProducts.length} 
+                        color={color} 
+                        chooseColor={chooseColor} />}
 
         </div>
 
