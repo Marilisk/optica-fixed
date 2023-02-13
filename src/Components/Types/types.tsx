@@ -145,8 +145,9 @@ export type MainMenuItemType = {
 }
 export type HeaderInitialStateType = {
     fullHeader: boolean 
-    menuOpened: string,
-    loginModalOpened: boolean,
+    menuOpened: string
+    loginModalOpened: boolean
+    authOfferModalOpened: boolean
     mainMenu: MainMenuItemType[]    
 }
 

@@ -9,10 +9,12 @@ import { LoadingStatusEnum } from '../Types/types';
 
 
 
-export const Men = ({addToFavorites, removeFromFavorites, userFavorites, authIsLoading}) => {
+export const Men = () => {
     const dispatch = useDispatch();
     const products = useSelector(state => state.products.products);
-    const areProdsLoading = products.status === LoadingStatusEnum.loading;
+    const areProdsLoading = products.status === 'loading';
+    const authIsLoading = useSelector(state => state.auth.loginData.status === 'loading')
+    const userFavorites = useSelector(state => state.auth.loginData.data?.favourites);
 
     useEffect(() => {
         dispatch(clearAllFilters());
@@ -43,8 +45,6 @@ export const Men = ({addToFavorites, removeFromFavorites, userFavorites, authIsL
         <Catalog dispatch={dispatch} 
                 products={genderFilteredProducts}
                 areProdsLoading={areProdsLoading}
-                addToFavorites={addToFavorites}
-                removeFromFavorites={removeFromFavorites}
                 userFavorites={userFavorites}
                 authIsLoading={authIsLoading} />
 

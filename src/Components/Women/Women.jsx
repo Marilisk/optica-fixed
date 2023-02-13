@@ -5,21 +5,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import { clearAllFilters } from '../../redux/featuresSlice';
 import { Catalog } from '../common/Catalog/Catalog';
 import { useEffect } from 'react';
-import { Preloader } from '../../assets/common/Preloader/Preloader';
-import { LoadingStatusEnum } from '../Types/types';
 
-export const Women = ({ addToFavorites, removeFromFavorites, userFavorites, authIsLoading }) => {
+export const Women = () => {
     const dispatch = useDispatch();
     const products = useSelector(state => state.products.products);
-    const areProdsLoading = products.status === LoadingStatusEnum.loading;
-
+    const areProdsLoading = products.status === 'loading';
+    const authIsLoading = useSelector(state => state.auth.loginData.status === 'loading')
+    const userFavorites = useSelector(state => state.auth.loginData.data?.favourites);
+   
     useEffect(() => {
         dispatch(clearAllFilters())
     })
 
-    /* if (!products) {
-        return <Preloader minFormat={false} />
-    } */
     const genderFilteredProducts = products.items.filter(el => el.gender.includes('Женские'))    
 
     return <>
@@ -44,8 +41,6 @@ export const Women = ({ addToFavorites, removeFromFavorites, userFavorites, auth
         <Catalog dispatch={dispatch}
             products={genderFilteredProducts}
             areProdsLoading={areProdsLoading}
-            addToFavorites={addToFavorites}
-            removeFromFavorites={removeFromFavorites}
             userFavorites={userFavorites}
             authIsLoading={authIsLoading} />
 

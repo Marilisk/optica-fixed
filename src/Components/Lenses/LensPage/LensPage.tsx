@@ -28,8 +28,9 @@ export const addToCartOrLS = (isAuth:boolean, dispatch, productId:string, lens: 
     } else {
         let newCartItem = {productId, quantity: 1, leftLens: lens, rightLens: lens, cat: CatEnum.contactLens }
         const lastCart = JSON.parse(localStorage.getItem('cart'))
+        //console.log(lastCart)
         if (lastCart) {
-            const good = lastCart.find(elem => elem.productId === productId)
+            const good = lastCart.find(elem => elem.productId === productId && elem.leftLens === lens)
             if (good) {
                 good.quantity += 1;
             } else {

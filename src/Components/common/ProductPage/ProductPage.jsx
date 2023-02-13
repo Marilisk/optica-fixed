@@ -1,7 +1,7 @@
 import c from './ProductPage.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProd } from '../../../redux/productsSlice';
-import { selectIsAuth, selectIsManager } from '../../../redux/authSlice';
+import { fetchAddToFavorites, fetchRemoveFromFavorites, selectIsAuth, selectIsManager } from '../../../redux/authSlice';
 import { BreadCrumbs } from '../BreadCrumbs/BreadCrumbs';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
@@ -13,9 +13,10 @@ import { Preloader } from '../../../assets/common/Preloader/Preloader';
 import { CustomerButtons } from './CustomerButtons/CustomerButtons';
 import { priceFormatter } from '../../../assets/functions/priceFormatter';
 import { addToCartOrLS } from '../ProductCard/ProductCard';
+import { switchAuthOfferModal } from '../../../redux/headerSlice';
 
 
-export const ProductPage = ({ addToFavorites, removeFromFavorites, userFavorites, authIsLoading }) => {
+export const ProductPage = ({ /* addToFavorites, removeFromFavorites,  */userFavorites, authIsLoading }) => {
     const dispatch = useDispatch();
 
     const status = useSelector(state => state.products.currentProduct.status);
@@ -26,6 +27,17 @@ export const ProductPage = ({ addToFavorites, removeFromFavorites, userFavorites
 
     const params = useParams();
     const isFavorite = userFavorites?.includes(params.id);
+
+    const addToFavorites = (productId) => {
+        if (!isAuth) {
+            dispatch(switchAuthOfferModal(true))
+        } else {
+            dispatch(fetchAddToFavorites(productId))
+        }
+    } 
+    const removeFromFavorites = (productId) => {
+        dispatch(fetchRemoveFromFavorites(productId))
+    } 
 
     const addToCart = () => {
         addToCartOrLS(isAuth, dispatch, product._id)

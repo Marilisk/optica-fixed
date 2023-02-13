@@ -4,14 +4,14 @@ import { setCurrentProd } from '../../../redux/productsSlice';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import instance from '../../../redux/API/api';
-import { Preloader } from '../../../assets/common/Preloader/Preloader';
 import { CartIcon } from '../../../assets/header/icons/CartIcon';
-import { fetchAddEyewearToCart } from '../../../redux/authSlice';
 import { priceFormatter } from '../../../assets/functions/priceFormatter';
 import { LoadingDots } from '../../../assets/common/Preloader/LoadingDots/LoadingDots';
+import { addToCartOrLS } from '../../common/ProductCard/ProductCard';
+import { Preloader } from '../../../assets/common/Preloader/Preloader';
 
 
-export const FavoriteProductCard = ({ id, removeFromFavorites, authIsLoading, inCartArray }) => {
+export const FavoriteProductCard = ({ id, removeFromFavorites, authIsLoading, inCartArray, isAuth }) => {
     const dispatch = useDispatch();
 
     const [product, setProduct] = useState({});
@@ -26,7 +26,7 @@ export const FavoriteProductCard = ({ id, removeFromFavorites, authIsLoading, in
 
     if (!Object.keys(product).length) {
         //return <Preloader minFormat={true} />;
-        return <LoadingDots />;
+        return <div className={c.preloaderWrap}><LoadingDots /></div>;
     }
     const price = priceFormatter(product.price) 
     const isInCart = inCartArray.includes(id) 
@@ -54,7 +54,7 @@ export const FavoriteProductCard = ({ id, removeFromFavorites, authIsLoading, in
             {isInCart ? <div>в корзине</div>
              : 
              <CartIcon color={'#95009C'} size={'24px'}
-                      onClickCB={() => dispatch(fetchAddEyewearToCart(id))}
+                      onClickCB={() => addToCartOrLS(isAuth, dispatch, product._id)}
                       disabled={authIsLoading === 'loading'} />}
 
         </div>

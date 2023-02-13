@@ -31,7 +31,7 @@ export const SearchBar = () => {
         if (debouncedSearch) {
             dispatch(fetchSearch(debouncedSearch));
         }
-    }, [debouncedSearch])
+    }, [debouncedSearch, dispatch])
 
     const onExit = () => {
         setTouched(false);

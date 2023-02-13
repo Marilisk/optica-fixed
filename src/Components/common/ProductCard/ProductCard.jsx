@@ -8,13 +8,12 @@ import { useState } from 'react';
 import { CartIcon } from '../../../assets/header/icons/CartIcon';
 import { fetchAddEyewearToCart, selectIsAuth } from '../../../redux/authSlice';
 import { useSelector } from 'react-redux';
-import { CatEnum, LoadingStatusEnum } from '../../Types/types';
 
 export const addToCartOrLS = (isAuth, dispatch, productId) => {
     if (isAuth) {
-        dispatch(fetchAddEyewearToCart({productId, cat: CatEnum.eyewear }))
+        dispatch(fetchAddEyewearToCart({productId, cat: "eyewear" }))
     } else {
-        let newCartItem = {productId, quantity: 1, leftLens: 1, rightLens: 1, cat: CatEnum.eyewear}
+        let newCartItem = {productId, quantity: 1, leftLens: 1, rightLens: 1, cat: "eyewear"}
         const lastCart = JSON.parse(localStorage.getItem('cart'))
         if (lastCart) {
             const good = lastCart.find(elem => elem.productId === productId)
@@ -46,8 +45,7 @@ export const ProductCard = ({ dispatch,
 
     const isAuth = useSelector(selectIsAuth)
 
-    const [isHovered, setIsHovered] = useState(null)
-    
+    const [isHovered, setIsHovered] = useState(null)   
 
     return <div className={c.wrap} 
                 onClick={() => dispatch(setCurrentProd(product))}
@@ -71,7 +69,7 @@ export const ProductCard = ({ dispatch,
                     </svg>
                 </div>
                 :
-                <div onClick={() => authIsLoading === 'loading' ? false : addToFavorites(product._id)} >
+                <div onClick={() => /* authIsLoading === 'loading' ? false :  */addToFavorites(product._id)} >
                     <Heart color={authIsLoading === 'loading' ? '#fff' : '#C899CC'} size={'18px'} />
                 </div>
             }

@@ -17,10 +17,6 @@ $serif-font-family: 'Playfair Display SC', serif;
     padding: 20px;
     font-weight: 700;
     background: white;
-    @media (max-width: 533px) {
-        display: block;
-    }
-
 }
 
 
@@ -30,6 +26,10 @@ $serif-font-family: 'Playfair Display SC', serif;
     width: 50%;
     //border: 1px solid gray;
     padding-top: 12px;
+    @media (max-width: 420px) {
+        width: fit-content;
+        padding-right: 20px;
+    }
 }
 
 .sideFlex {

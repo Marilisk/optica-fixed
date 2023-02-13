@@ -9,13 +9,13 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { LoadingStatusEnum } from '../Types/types';
 
 interface ILensesProps {
-    addToFavorites: (arg: string) => void
-    removeFromFavorites: (arg: string) => void
+    /* addToFavorites: (arg: string) => void
+    removeFromFavorites: (arg: string) => void */
     authIsLoading: LoadingStatusEnum
     userFavorites: string[]
 }
 
-export const Lenses:FC<ILensesProps> = ({authIsLoading, addToFavorites, removeFromFavorites, userFavorites}:ILensesProps) => {
+export const Lenses:FC<ILensesProps> = ({authIsLoading, /* addToFavorites, removeFromFavorites,  */userFavorites}:ILensesProps) => {
     const products = useAppSelector(state => state.lenses.products)
     const areProdsLoading = products.status === LoadingStatusEnum.loading;
     const dispatch = useAppDispatch();
@@ -50,8 +50,8 @@ export const Lenses:FC<ILensesProps> = ({authIsLoading, addToFavorites, removeFr
                 products={products.items}
                 areProdsLoading={areProdsLoading}
                 authIsLoading={authIsLoading}
-                addToFavorites={addToFavorites}
-                removeFromFavorites={removeFromFavorites}
+                /* addToFavorites={addToFavorites}
+                removeFromFavorites={removeFromFavorites} */
                 userFavorites={userFavorites} />
 
         

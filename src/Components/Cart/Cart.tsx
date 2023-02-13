@@ -2,7 +2,7 @@ import c from './Cart.module.scss';
 import { useEffect, FC } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { CartProductCard } from './ProductCard/CartProductCard';
-import { fetchUpdateCart } from '../../redux/authSlice';
+import { fetchUpdateCart, selectIsAuth } from '../../redux/authSlice';
 import { CatEnum, ICartItem } from '../Types/types';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { CartTotal } from './CartTotal/CartTotal';
@@ -10,18 +10,19 @@ import { PromoCodeForm } from './PromoCodeForm/PromoCodeForm';
 import { CartConfirmBtns } from './CartConfirmBtns/CartConfirmBtns';
 import { CartLensCard } from './CartLensCard/CartLensCard';
 import { Preloader } from '../../assets/common/Preloader/Preloader';
+import { switchAuthOfferModal } from '../../redux/headerSlice';
 
 interface CartProps {
     switchModal: (arg: Boolean) => void
     removeFromFavorites: (arg: number) => void
     userFavorites: Array<number>
     authIsLoading: string
-    isAuth: boolean
 }
 
-export const Cart: FC<CartProps> = ({ switchModal, removeFromFavorites, userFavorites, authIsLoading, isAuth }: CartProps,) => {
+export const Cart: FC<CartProps> = ({ switchModal, removeFromFavorites, userFavorites, authIsLoading }: CartProps,) => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
+    const isAuth = useAppSelector(selectIsAuth)
 
     let userCart = useAppSelector<ICartItem[]>(state => state.auth.loginData.data?.cart)
     const userName = useAppSelector(s => s.auth.loginData.data?.fullName);
@@ -31,9 +32,9 @@ export const Cart: FC<CartProps> = ({ switchModal, removeFromFavorites, userFavo
     }
     useEffect(() => {
         if (!isAuth) {
-            switchModal(true);
+            dispatch(switchAuthOfferModal(true));
         }
-    }, [switchModal, isAuth])
+    }, [dispatch, isAuth])
 
 
     const editCart = () => {

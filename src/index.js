@@ -1,16 +1,10 @@
-import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import { BrowserRouter, createBrowserRouter, createRoutesFromElements, ScrollRestoration } from "react-router-dom";
-import App from './App';
-import {store} from './redux/redux-store.ts';
+import { RouterProvider } from "react-router-dom";
+import { store } from './redux/redux-store.ts';
 import { Provider } from 'react-redux';
-
-/* const router = createBrowserRouter(
-  createRoutesFromElements
-) */
-
+import { router } from './router';
 
 
 const root = ReactDOM.createRoot(
@@ -18,10 +12,7 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <Provider store={store} >
-    <BrowserRouter>
-    {/* <ScrollRestoration /> */}
-      <App />
-    </BrowserRouter>
+    <RouterProvider router={router} />
   </Provider>
 );
 

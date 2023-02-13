@@ -27,7 +27,7 @@ export const LoginPage = ({isLoading}) => {
     }
     if (isAuth) {
         //dispatch(setfullHeaderTheme(true)); // когда включено, не работает возврат корректный на страницу товара
-        navigate(-2);   // проверить надо
+        navigate(-1);   // проверить надо
     }
 
    

@@ -1,23 +1,33 @@
 import c from './Favourites.module.scss';
 import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { FavoriteProductCard } from './FavoriteProductCard/FavoriteProductCard';
 import { Link, useNavigate } from 'react-router-dom';
+import { switchAuthOfferModal } from '../../redux/headerSlice';
+import { fetchRemoveFromFavorites, selectIsAuth } from '../../redux/authSlice';
 
 
-export const Favourites = ({ isAuth, removeFromFavorites, userFavorites, authIsLoading, switchModal }) => {
-    //console.log(userFavorites);
+export const Favourites = () => {
+    const userFavorites = useSelector(s => s.auth.loginData.data?.favourites);
+    const authIsLoading = useSelector(s => s.auth.loginData.status);
+    const isAuth = useSelector(selectIsAuth)
     const navigate = useNavigate();
+    const dispatch = useDispatch()
 
     useEffect(() => {
         if (!isAuth) {
-            switchModal(true)
+            dispatch(switchAuthOfferModal(true))
             navigate('/');
         }
-    })
+    }, [isAuth, dispatch, navigate])
+
     const cart = useSelector(s => s.auth.loginData.data?.cart);
 
-    if (!userFavorites || !userFavorites.length) {
+    const removeFromFavorites = (productId) => {
+        dispatch(fetchRemoveFromFavorites(productId))
+    } 
+
+    if (!userFavorites || !userFavorites.length /* || authIsLoading === 'loading' */) {
         return <div className={c.nthFound}>
             <h2>
                 <div>Пока ничего нет...</div>
@@ -40,7 +50,8 @@ export const Favourites = ({ isAuth, removeFromFavorites, userFavorites, authIsL
             {userFavorites.map(product => <FavoriteProductCard key={product} id={product}
                 removeFromFavorites={removeFromFavorites}
                 authIsLoading={authIsLoading}
-                inCartArray={inCartArray} />)}
+                inCartArray={inCartArray}
+                isAuth={isAuth} />)}
 
 
         </div>

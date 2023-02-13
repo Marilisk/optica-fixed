@@ -3,6 +3,7 @@ import { FC, useState } from 'react';
 import { ICartItem } from '../../../Types/types';
 import { updateCart } from '../../../../redux/authSlice';
 import { useAppDispatch } from '../../../../redux/hooks';
+import { switchAuthOfferModal } from '../../../../redux/headerSlice';
 
 
 type ITotal = {
@@ -22,7 +23,7 @@ export const SubTotal: FC<ITotal> = ({ price, cartItem, cartItemIndex, editCart,
 
     const chooseQuantity = (value: number) => {
         if (!isAuth) {
-            switchModal(true)
+            dispatch(switchAuthOfferModal(true))
         } else {
             const newCartItem = { ...cartItem, quantity: value }
             dispatch(updateCart({ cartItemIndex, newCartItem }))

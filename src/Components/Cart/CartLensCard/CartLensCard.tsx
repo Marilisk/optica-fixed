@@ -26,10 +26,10 @@ export const CartLensCard: FC<ICartLensCardProps> = ({ cartItem, authIsLoading, 
         async function fetchData() {
             const response = await instance.get(`/lenses/${cartItem.productId}`);
             setProduct(response.data);
-            dispatch(pushPriceToTotal({
+            dispatch(pushPriceToTotal({ // получаем актуальную сумму товаров в корзине
                 id: cartItem.productId,
                 sum: (response.data.price * cartItem.quantity)
-            })) // получаем актуальную сумму товаров в корзине
+            })) 
         }
         fetchData();
     }, [cartItem.productId, cartItem.quantity, dispatch]);

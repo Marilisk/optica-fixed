@@ -4,13 +4,19 @@ import { Field, Form, Formik } from 'formik';
 import { fetchAddEyewearToCart, fetchAuth } from '../../../redux/authSlice';
 import { validateEmail, validatePassword } from './loginValidate';
 
-const initialiseCart = async (dispatch) => {
+export const initialiseCart = async (dispatch) => {
     let cartInLS = localStorage.getItem('cart')
     if (cartInLS) {
         cartInLS = JSON.parse(localStorage.getItem('cart'))
         for (let cartItem of cartInLS) {
             console.log('i m in initcart', cartItem)
-            await dispatch(fetchAddEyewearToCart(cartItem.productId))
+            if (cartItem.cat === "eyewear") {
+                await dispatch(fetchAddEyewearToCart({productId: cartItem.productId, cat: "eyewear" }))
+            } else {
+                await dispatch(fetchAddEyewearToCart({
+                    productId: cartItem.productId, cat: 'contactLens', lens: cartItem.leftLens
+                }))
+            }
         }
         localStorage.removeItem('cart')
     }
@@ -22,10 +28,10 @@ export const LoginForm = ({ toggleLoginModalOpened, dispatch, isLoading }) => {
     const initialValues = emailInLS ? { email: emailInLS, password: '', rememberMe: true }
         : { email: '', password: '', rememberMe: true, }
 
-    return <Formik
-        initialValues={initialValues}
+    return <Formik initialValues={initialValues}
         onSubmit={async (values, actions) => {
             const payload = { email: values.email, password: values.password };
+            
             const data = await dispatch(fetchAuth(payload));
 
             if (!data.payload && data.error.message === 'Request failed with status code 404') {

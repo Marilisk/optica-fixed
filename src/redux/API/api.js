@@ -23,7 +23,6 @@ instance.interceptors.response.use( (config) => {
             //const response = await axios.get(`${API_URL}auth/refresh`, { withCredentials: true });
             const response = await axios.get(`https://backend-optics-without-packlo.onrender.com/auth/refresh`, { withCredentials: true });
             localStorage.setItem('token', response.data.tokens.accessToken);  
-            //console.log('in interceptors response ', originalRequest);
             return instance.request(originalRequest); 
         } catch (error) {
             console.log('not authorised')

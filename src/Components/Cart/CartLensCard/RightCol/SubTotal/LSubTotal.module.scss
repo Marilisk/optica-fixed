@@ -17,6 +17,11 @@ $serif-font-family: 'Playfair Display SC', serif;
     justify-content: space-between;
     padding-left: 10px;
 
+    @media (max-width: 460px) {
+        & > p {
+            display: none;
+        }
+    }
 }
 
 

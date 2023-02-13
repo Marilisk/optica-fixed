@@ -152,12 +152,10 @@ const authSlice = createSlice({
         },
         updateCart(state, action/* : PayloadAction<number> */) {
             if (state.loginData.data != null) {
-                console.log(action.payload)
                 state.loginData.data.cart[action.payload.cartItemIndex] = action.payload.newCartItem;
             }
         },
         pushPriceToTotal(state, action) {
-            console.log(action)
             state.totalCartSum[action.payload.id] = action.payload.sum;
         },
 

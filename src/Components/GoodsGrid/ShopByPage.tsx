@@ -19,14 +19,14 @@ enum PageEnum {
 }
 
 interface IShopByPageProps {
-    addToFavorites: (arg: string) => void
-    removeFromFavorites: (arg: string) => void
+    /* addToFavorites: (arg: string) => void
+    removeFromFavorites: (arg: string) => void */
     userFavorites: string[]
     authIsLoading: LoadingStatusEnum
 
 }
 
-export const ShopByPage: FC<IShopByPageProps> = ({ addToFavorites, removeFromFavorites, userFavorites, authIsLoading }: IShopByPageProps) => {
+export const ShopByPage: FC<IShopByPageProps> = ({  userFavorites, authIsLoading }: IShopByPageProps) => {
     const dispatch = useAppDispatch()
     const products = useAppSelector(s => s.products.products.items)
     const areProdsLoading = useAppSelector(s => s.products.products.status === LoadingStatusEnum.loading)
@@ -90,8 +90,8 @@ export const ShopByPage: FC<IShopByPageProps> = ({ addToFavorites, removeFromFav
         <Catalog dispatch={dispatch}
             products={filteredProducts}
             areProdsLoading={areProdsLoading}
-            addToFavorites={addToFavorites}
-            removeFromFavorites={removeFromFavorites}
+            /* addToFavorites={addToFavorites}
+            removeFromFavorites={removeFromFavorites} */
             userFavorites={userFavorites}
             authIsLoading={authIsLoading} />
 
