@@ -17,7 +17,7 @@ $serif-font-family: 'Playfair Display SC', serif;
     padding: 20px;
     font-weight: 700;
     background: white;
-    @media (max-width: 406px) {
+    @media (max-width: 440px) {
         //display: block;
     }
 }
@@ -34,7 +34,7 @@ $serif-font-family: 'Playfair Display SC', serif;
         width: fit-content;
         font-size: 14px;
     }
-    @media (max-width: 406px) {
+    @media (max-width: 440px) {
          padding-top: 12px;
          //margin: 0 auto;
          margin-bottom: 14px;
@@ -46,12 +46,22 @@ $serif-font-family: 'Playfair Display SC', serif;
 .sideFlex {
     display: flex;
     color: $gray-fontcolor;
-    @media (max-width: 406px) {
-        display: block;
-        margin-left: 30px;
+    
+
+    @media (max-width: 440px) {
+        //display: block;
+        margin-left: 20px;
     }
 }
-
+.oneSelectorWrap {
+    margin-left: 14px;
+    //border: 1px solid blue;
+    display: flex;
+    @media (max-width: 440px) {
+        display: block;
+        
+    }
+}
 .sideName {
     font-size: 16px;
     margin-right: 6px;
@@ -89,7 +99,6 @@ $serif-font-family: 'Playfair Display SC', serif;
     left: 42px;
     z-index: 2;
     pointer-events: none;
-    //border: 1px solid blue;
 
 }
 

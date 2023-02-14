@@ -14,28 +14,72 @@ $serif-font-family: 'Playfair Display SC', serif;
     border: $thin-gray-border;
     border-left: none;
     border-right: none;
-
-}
-.shapeChoseWrap {
-    width: 68%;
-    
-    display: flex;
-    justify-content: space-evenly;
-
-    img {
-        height: 26px;
+    cursor: pointer;
+    justify-content: flex-start;
+    @media (max-width: 737px) {
         display: block;
-        margin: 10px auto;
     }
 
-    
+}
+.mobileWrapper {
+    @media (min-width: 536px) {
+        display: none;
+    }
 }
 
-.block, .chosenBlock {
+.shapeChoseWrap {
+    display: flex;
+    justify-content: space-evenly;
+    justify-content: flex-start;
+    //border: 1px solid violet;
+    max-width: 456px;
+    flex-wrap: nowrap;
+    overflow-x: hidden;
+
+    img {
+        //height: 46px;
+        width: 100px;
+        display: block;
+        margin: 0px auto;
+        margin-top: 16px;
+        //margin-bottom: 20px;
+    }
+
+    @media (max-width: 737px) {
+        margin: 0 auto;
+    }
+    @media (max-width: 536px) {
+        max-width: 229px;
+    }
+    @media (max-width: 388px) {
+        max-width: 114px;
+    }
+
+}
+
+.adaptiveFlex {
+    display: flex;
+}
+
+.angleWrapper {
+    height: 28px;
+    margin: 0px 20px;
+    margin-top: 58px;
+    @media (max-width: 610px) {
+        margin: 0 26px;
+        margin-top: 58px;
+    }
+}
+
+.block,
+.chosenBlock {
     font-size: $small-fontSize;
     text-align: center;
     border: 1px solid transparent;
-    width: 120px;
+    //border: 1px solid pink;
+    width: 114px;
+    height: 100px;
+    min-width: 114px;
     margin: 20px 0;
     border-radius: 8px;
     cursor: pointer;
@@ -45,7 +89,7 @@ $serif-font-family: 'Playfair Display SC', serif;
     &:hover {
         opacity: .9;
         font-weight: 600;
-        
+
     }
 }
 
@@ -58,10 +102,30 @@ $serif-font-family: 'Playfair Display SC', serif;
 }
 
 .sortWrap {
-    width: 20%;
+    width: 38%;
     margin: 0 0 0 auto;
     padding-top: 20px;
-    //border: 1px solid darkblue;
+    @media (max-width: 854px) {
+        //width: 100%;
+        margin: 0 auto;
+        padding-top: 10px;
+    }
+
+    @media (max-width: 769px) {
+        padding-top: 10px;
+        width: fit-content;
+    }
+
+    @media (max-width: 737px) {
+        margin: 20px auto;
+    }
 
 }
 
+.amount {
+    font-size: $small-fontSize;
+    display: block;
+    width: fit-content;
+    margin: 0;
+    margin-left: 20px;
+}

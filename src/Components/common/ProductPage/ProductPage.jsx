@@ -16,9 +16,10 @@ import { addToCartOrLS } from '../ProductCard/ProductCard';
 import { switchAuthOfferModal } from '../../../redux/headerSlice';
 
 
-export const ProductPage = ({ /* addToFavorites, removeFromFavorites,  */userFavorites, authIsLoading }) => {
+export const ProductPage = () => {
     const dispatch = useDispatch();
 
+    const authIsLoading = useSelector(s => s.auth.loginData.status)
     const status = useSelector(state => state.products.currentProduct.status);
     const product = useSelector(state => state.products.currentProduct.item);
 
@@ -26,6 +27,7 @@ export const ProductPage = ({ /* addToFavorites, removeFromFavorites,  */userFav
     const isAuth = useSelector(selectIsAuth)
 
     const params = useParams();
+    const userFavorites = useSelector(s => s.auth.loginData.data?.favourites)
     const isFavorite = userFavorites?.includes(params.id);
 
     const addToFavorites = (productId) => {

@@ -77,7 +77,7 @@ export const ShopByPage: FC<IShopByPageProps> = ({  userFavorites, authIsLoading
 
             </div>
 
-            {page === PageEnum.glassesShape && <ShapeChoose shape={shape} chooseShape={chooseShape} />}
+            {page === PageEnum.glassesShape && <ShapeChoose amount={filteredProducts.length} shape={shape} chooseShape={chooseShape} />}
 
             {page === PageEnum.faceShape && <FaceShapeChoose amount={filteredProducts.length} shape={faceShape} chooseShape={chooseFaceShape} />}
             
@@ -90,8 +90,6 @@ export const ShopByPage: FC<IShopByPageProps> = ({  userFavorites, authIsLoading
         <Catalog dispatch={dispatch}
             products={filteredProducts}
             areProdsLoading={areProdsLoading}
-            /* addToFavorites={addToFavorites}
-            removeFromFavorites={removeFromFavorites} */
             userFavorites={userFavorites}
             authIsLoading={authIsLoading} />
 

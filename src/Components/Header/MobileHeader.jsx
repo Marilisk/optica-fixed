@@ -36,7 +36,6 @@ export const MobileHeader = ({ mainMenu, toggleLoginModalOpened, loginModalOpene
         </div>
         {mobileMenu && <div className={c.navLinkWrap}>
 
-
             <LoginButton toggleLoginModalOpened={(value) => dispatch(toggleLoginModalOpened(value))}
                 loginModalOpened={loginModalOpened} dispatch={dispatch} />
 
@@ -48,7 +47,8 @@ export const MobileHeader = ({ mainMenu, toggleLoginModalOpened, loginModalOpene
             {menu}
         </div>}
 
-        <div className={c.logoWrap} style={fullHeader ? null : { border: 'none' }}>
+        <div className={c.logoWrap} style={fullHeader ? null : { border: 'none' }}
+            onClick={() => toggleMobMenu(false)} >
             <NavLink to={`/`}>
                 <img src={greenLogo} alt="" className={c.logo} />
             </NavLink>

@@ -2,14 +2,17 @@ import c from './CustomerButtons.module.scss';
 import { Heart } from '../../../../assets/icons/Heart';
 
 
-export const CustomerButtons = ({ addToFavorites, removeFromFavorites, authIsLoading, isFavorite, 
-                                    productId, prodLoadingStatus, addToCart }) => {
+export const CustomerButtons = ({ addToFavorites, removeFromFavorites, authIsLoading, isFavorite,
+    productId, prodLoadingStatus, addToCart }) => {
+
+    //console.log('authIsLoading', authIsLoading)
+
 
     return <div className={c.btnWrap} >
 
         {isFavorite ?
             <button type='button' className={c.oppositeFavBtn}
-                disabled={authIsLoading === 'loading' && prodLoadingStatus === 'loading'}
+                disabled={authIsLoading === 'loading' || prodLoadingStatus === 'loading'}
                 onClick={() => removeFromFavorites(productId)}>
                 <span className={c.hoverOnly}>удалить</span>
                 <span className={c.iconWrapper}>
@@ -21,7 +24,7 @@ export const CustomerButtons = ({ addToFavorites, removeFromFavorites, authIsLoa
             </button>
             :
             <button type='button' className={c.favBtn}
-                disabled={authIsLoading === 'loading' && prodLoadingStatus === 'loading'}
+                disabled={authIsLoading === 'loading' || prodLoadingStatus === 'loading'}
                 onClick={() => addToFavorites(productId)} >
                 <span>в избранное</span>
                 <span>

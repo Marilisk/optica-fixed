@@ -1,13 +1,5 @@
 import { FC, useState } from 'react';
 import c from './ColorChoose.module.scss';
-import round from './../../../assets/mainPage/faceShapes/round.png'
-import rectangle from './../../../assets/mainPage/faceShapes/rectangle.png'
-import oval from './../../../assets/mainPage/faceShapes/oval.png'
-import square from './../../../assets/mainPage/faceShapes/square.png'
-import diamond from './../../../assets/mainPage/faceShapes/diamond.png'
-import heart from './../../../assets/mainPage/faceShapes/heart.png'
-import oblong from './../../../assets/mainPage/faceShapes/oblong.png'
-import triangle from './../../../assets/mainPage/faceShapes/triangle.png'
 import { SortBoard } from '../../common/FiltersDashboard/SortBoard/SortBoard';
 import { AngleIcon } from '../../../assets/icons/AngleIcon';
 

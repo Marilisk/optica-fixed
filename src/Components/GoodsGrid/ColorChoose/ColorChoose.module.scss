@@ -33,16 +33,18 @@ $serif-font-family: 'Playfair Display SC', serif;
     display: flex;
     justify-content: space-evenly;
     justify-content: flex-start;
-    //border: 1px solid violet;
-    max-width: 442px;
+    max-width: 440px;
     flex-wrap: nowrap;
     overflow-x: hidden;
 
     @media (max-width: 737px) {
         margin: 0 auto;
     }
-    @media (max-width: 536px) {
-        max-width: 222px;
+    @media (max-width: 612px) {
+        max-width: 220px;
+    }
+    @media (max-width: 388px) {
+        max-width: 110px;
     }
 
 }

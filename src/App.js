@@ -7,7 +7,6 @@ import { fetchProducts } from './redux/productsSlice';
 import { Modal } from './Components/common/Modal/Modal';
 import { setfullHeaderTheme } from './redux/headerSlice';
 import { fetchFilterOptions } from './redux/featuresSlice';
-import { Preloader } from './assets/common/Preloader/Preloader.jsx';
 import { CookieModal } from './Components/common/CookieModal/CookieModal.jsx';
 import { Outlet, ScrollRestoration } from 'react-router-dom';
 
@@ -42,9 +41,9 @@ export const App = () => {
   //const authIsLoading = useSelector(state => state.auth.loginData.status);
 
 
-  if (localStorage.getItem('token') && !isAuth) {
+  /* if (localStorage.getItem('token') && !isAuth) {
     return <Preloader minFormat={false} />;
-  }
+  } */
 
   return <>
     <Modal />

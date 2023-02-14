@@ -53,35 +53,39 @@ export const LensSelector: FC<ILensSelector> = ({ cartItem, cartItemIndex, editC
         <div className={c.name}>Линзы</div>
         <div>
             <div className={c.sideFlex}>
-                <div className={c.sideName}>левая</div>
-                <div className={c.selectWrapper}
-                    onClick={() => toggleLOptions(!leftOptionsOpened)}>
 
-                    <div className={c.select}>
-                        <div>{cartItem.leftLens}</div>
-                    </div>
+                <div className={c.oneSelectorWrap}>
+                    <div className={c.sideName}>левая</div>
+                    <div className={c.selectWrapper}
+                        onClick={() => toggleLOptions(!leftOptionsOpened)}>
 
-                    <div className={c.arrow} />
+                        <div className={c.select}>
+                            <div>{cartItem.leftLens}</div>
+                        </div>
 
-                    <div className={c.optionsList} style={leftOptionsOpened ? { display: 'inline-block' } : { display: 'none' }}>
-                        {leftOptions}
+                        <div className={c.arrow} />
+
+                        <div className={c.optionsList} style={leftOptionsOpened ? { display: 'inline-block' } : { display: 'none' }}>
+                            {leftOptions}
+                        </div>
                     </div>
                 </div>
 
+                <div className={c.oneSelectorWrap}>
+                    <div className={c.sideName}>правая</div>
+                    <div className={c.selectWrapper}
+                        onClick={() => toggleROptions(!rightOptionsOpened)}>
 
-                <div className={c.sideName}>правая</div>
-                <div className={c.selectWrapper}
-                    onClick={() => toggleROptions(!rightOptionsOpened)}>
-
-                    <div className={c.select}>
-                        <div>
-                            {cartItem.rightLens}
+                        <div className={c.select}>
+                            <div>
+                                {cartItem.rightLens}
+                            </div>
                         </div>
-                    </div>
-                    {<div className={c.arrow} />}
+                        {<div className={c.arrow} />}
 
-                    <div className={c.optionsList} style={rightOptionsOpened ? { display: 'inline-block' } : { display: 'none' }}>
-                        {rightOptions}
+                        <div className={c.optionsList} style={rightOptionsOpened ? { display: 'inline-block' } : { display: 'none' }}>
+                            {rightOptions}
+                        </div>
                     </div>
                 </div>
 
