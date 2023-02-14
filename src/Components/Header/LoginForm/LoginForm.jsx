@@ -9,7 +9,6 @@ export const initialiseCart = async (dispatch) => {
     if (cartInLS) {
         cartInLS = JSON.parse(localStorage.getItem('cart'))
         for (let cartItem of cartInLS) {
-            console.log('i m in initcart', cartItem)
             if (cartItem.cat === "eyewear") {
                 await dispatch(fetchAddEyewearToCart({productId: cartItem.productId, cat: "eyewear" }))
             } else {
@@ -31,9 +30,7 @@ export const LoginForm = ({ toggleLoginModalOpened, dispatch, isLoading }) => {
     return <Formik initialValues={initialValues}
         onSubmit={async (values, actions) => {
             const payload = { email: values.email, password: values.password };
-            
             const data = await dispatch(fetchAuth(payload));
-
             if (!data.payload && data.error.message === 'Request failed with status code 404') {
                 alert('неверный логин или пароль');
             } else if ('accessToken' in data.payload) {

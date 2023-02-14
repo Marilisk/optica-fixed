@@ -26,7 +26,7 @@ export const MobileHeader = ({ mainMenu, toggleLoginModalOpened, loginModalOpene
 
 
     return <div className={c.mainWrapper} style={fullHeader ? null : { border: 'none' }} 
-                /* onClick={() => toggleMobMenu(!mobileMenu)} */ >
+                /* onClick={() => toggleMobMenu(false)} */ >
 
         <div className={c.burgerWrap} onClick={() => toggleMobMenu(!mobileMenu)}>
 

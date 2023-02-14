@@ -15,6 +15,8 @@ $serif-font-family: 'Playfair Display SC', serif;
     font-size: $small-fontSize;
     flex: 1;
     position: relative;
+    //border: 1px solid red;
+    height: 100%;
     &:hover {
         .iconWrapper {
             transform: rotate(180deg);

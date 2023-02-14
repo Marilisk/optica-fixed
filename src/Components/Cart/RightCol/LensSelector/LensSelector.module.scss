@@ -46,7 +46,6 @@ $serif-font-family: 'Playfair Display SC', serif;
 .sideFlex {
     display: flex;
     color: $gray-fontcolor;
-    //border: 1px solid blue;
     @media (max-width: 406px) {
         display: block;
         margin-left: 30px;

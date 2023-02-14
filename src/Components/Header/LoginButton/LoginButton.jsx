@@ -49,29 +49,6 @@ export const LoginButton = ({ toggleLoginModalOpened, loginModalOpened, dispatch
 
                 </div>
             </div>}
-        {/* <div className={loginModalOpened ? c.modal : c.hiddenModal} >
-
-            <div className={c.h2Wrapper}>
-                <h2>Авторизуйтесь:</h2>
-                
-                <div onClick={() => toggleLoginModalOpened()}>
-                    <Cross size={25} color={'#95009C'} margin={0} transform={'none'} />
-                </div>
-            </div>
-
-
-            <LoginForm toggleLoginModalOpened={toggleLoginModalOpened} 
-                        dispatch={dispatch} 
-                        isLoading={isLoading} />
-                        
-            <div className={c.signUpOffer} onClick={() => toggleLoginModalOpened(false)}>
-                Впервые у нас? Зарегистрируйтесь!
-                <Link to='login'>
-                    Создать аккаунт
-                </Link>
-
-            </div>
-        </div> */}
 
     </div>
 

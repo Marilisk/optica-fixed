@@ -14,56 +14,61 @@ $serif-font-family: 'Playfair Display SC', serif;
     display: flex;
     justify-content: space-between;
     margin-top: 46px;
-    button {
-        width: 45%;
-        font-size: 16px;
-        font-weight: 900;
-        text-transform: uppercase;
-        padding: 16px;
-        transition: 300ms;
-        min-width: 180px;
-    }
+
     @media (max-width: 1024px) and (min-width: 769px) {
-        //border: 1px solid green;
         display: block;
     }
-    /* @media (max-width: 768px) {
-        display: flex;
-    } */
 }
-.favBtn, .oppositeFavBtn {
+
+.favBtn,
+.oppositeFavBtn,
+.addBtn {
+    width: 45%;
+    font-size: 16px;
+    font-weight: 900;
+    text-transform: uppercase;
+    padding: 16px;
+    transition: 300ms;
+    min-width: 180px;
     color: $violet;
     background: white;
     display: flex;
     justify-content: center;
     margin-right: 6px;
     border: 3px solid $light-violet;
+
     &:hover {
         border-color: $violet;
     }
+
     svg {
         margin-left: 4px;
         height: 18px;
     }
+
     span {
         margin: 0;
     }
+
     &:disabled {
         border-color: #D8D1CA;
     }
 }
+
 .oppositeFavBtn {
-    
     span {
         display: inline;
     }
+
     .hoverOnly {
         display: none;
     }
+
     &:hover {
         .hoverOnly {
             display: inline;
         }
+
         svg {
             margin-left: 6px;
         }
@@ -78,17 +83,46 @@ $serif-font-family: 'Playfair Display SC', serif;
 .addBtn {
     background: $dark-violet;
     color: white;
-    border: none;
+    border-color: $dark-violet;
     margin-left: 6px;
 
     &:hover {
         background: $light-violet;
     }
+
     @media (max-width: 1024px) and (min-width: 769px) {
         margin-left: 0;
         margin-top: 6px;
     }
+
     &:disabled {
         background: #D8D1CA;
     }
+}
+
+@media (max-width: 533px) {
+    .addBtn,
+    .favBtn,
+    .oppositeFavBtn {
+        min-width: none;
+        //border: 2px solid brown;
+        font-size: 12px;
+        width: 50px;
+        min-width: 160px;
+        padding-bottom: 8px;
+
+        //margin: 0;
+
+        span {
+            margin: 0;
+        }
+
+    }
+    .addBtn {
+        padding-bottom: 6px;
+
+    }
+
+
+
 }

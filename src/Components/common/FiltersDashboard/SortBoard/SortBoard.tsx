@@ -25,7 +25,8 @@ export const SortBoard: FC = () => {
 
     return <div className={c.sortBoard} 
             onMouseEnter={() => setIsSelectorOpened(true)}
-            onMouseLeave={() => setIsSelectorOpened(false)} >
+            onMouseLeave={() => setIsSelectorOpened(false)} 
+            onClick={() => setIsSelectorOpened(!isSelectorOpened)} >
 
         <div className={c.header}>
             Сортировка:

@@ -12,7 +12,6 @@ $serif-font-family: 'Playfair Display SC', serif;
 
 .wrapper {
     position: fixed;
-    //content: '';
     right: 28%;
     bottom: 6px;
     z-index: 10;
@@ -30,7 +29,13 @@ $serif-font-family: 'Playfair Display SC', serif;
     @media (max-width: 768px) {
         width: 80vw;
         right: 10%;
-
+    }
+    @media (max-width: 533px) {
+        width: 100vw;
+        right: 0%;
+        bottom: 0;
+        font-size: $small-fontSize;
+        text-align: justify;
     }
 }
 .notification {

@@ -41,4 +41,16 @@ $serif-font-family: 'Playfair Display SC', serif;
         background-repeat: no-repeat;
         background-position: center;
     }
+
+    @media (max-width: 533px) {
+     //border: 1px solid salmon; 
+     margin: 20px 0;
+        &>div {
+            width: 30px;
+            height: 30px;
+            margin: 0px auto;
+            //border: 1px solid gray;
+            background-size: contain;
+        }  
+    }
 }

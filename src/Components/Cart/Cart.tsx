@@ -64,7 +64,7 @@ export const Cart: FC<CartProps> = ({ switchModal, removeFromFavorites, userFavo
         goodsCount += elem.quantity
     })
 
-    return <>
+    return <div className={c.wrap}>
         <h1 className={c.header}>
             <div>Корзина</div>
         </h1>
@@ -109,6 +109,6 @@ export const Cart: FC<CartProps> = ({ switchModal, removeFromFavorites, userFavo
 
         </div>
 
-    </>
+    </div>
 
 }

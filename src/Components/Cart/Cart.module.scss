@@ -10,6 +10,11 @@ $small-fontSize: 14px;
 $light-background: #FAFAFA;
 $serif-font-family: 'Playfair Display SC', serif;
 
+
+.wrap {
+    background: $light-beige-gray;
+}
+
 .nthFound {
     width: 62%;
     margin: 20px auto;
@@ -51,11 +56,11 @@ $serif-font-family: 'Playfair Display SC', serif;
     border-bottom: $thin-gray-border;
     height: 110px;
     margin: 0;
+    background: white;
     div {
         font-size: 22px;
         position: relative;
-        display: inline-block;        
-        //border: 1px solid green;
+        display: inline-block;    
         margin: 40px auto auto 40px;
 
         &::after {

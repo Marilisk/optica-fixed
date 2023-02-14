@@ -9,22 +9,28 @@ import { CreateFieldArray } from './createFieldArray';
 import c from './Administration.module.scss';
 import { FilesDownloader } from './FilesDownLoader';
 import { initValues } from './../InitValues/EyewearInitvalues';
+import { selectIsManager } from '../../../redux/authSlice';
 
 
 export const Administration = () => {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const params = useParams();
-    const [successmsg, setSuccessMsg] = useState(null);
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const params = useParams()
+    const [successmsg, setSuccessMsg] = useState(null)
+    const isManager = useSelector(selectIsManager)
 
+    useEffect(()=> {
+        if(!isManager) {
+            navigate('/')
+        }
+    })
     useEffect(() => {
         if (params.id) {
             dispatch(fetchProd(params.id));
         }
     }, [params.id, dispatch]);
-
+    
     const currentProduct = useSelector(state => state.products.currentProduct);
-    //console.log('currentProduct ', currentProduct);
     const editMode = Boolean(params.id);
 
     const [images, setImages] = useState(editMode ? (currentProduct.item?.imageUrl || {}) : { main: '', side: '', perspective: '' });

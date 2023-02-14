@@ -5,7 +5,6 @@ import { updateCart } from '../../../../redux/authSlice';
 import { useAppDispatch } from '../../../../redux/hooks';
 import { switchAuthOfferModal } from '../../../../redux/headerSlice';
 
-
 type ITotal = {
     price: string
     cartItem: ICartItem

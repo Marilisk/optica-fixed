@@ -12,17 +12,14 @@ $serif-font-family: 'Playfair Display SC', serif;
 
 .wrap {
     background: $light-background;
-    //position: relative;
     cursor: pointer;
     flex: 1;
     border-left: $thin-gray-border;
-    border-bottom: $thin-gray-border;
-    //display: flex;
-    
+    border-bottom: $thin-gray-border;   
     
     @media (max-width: 768px) {
         border-top: $thin-gray-border;
-        
+
     }
 }
 
@@ -39,18 +36,7 @@ $serif-font-family: 'Playfair Display SC', serif;
     font-size: 16px;
 }
 
-/* .price {
-    position: absolute;
-    bottom: 5%;
-    left: 5%;
-    font-weight: 700;
-    color: $gray-fontcolor;
-    @media (max-width: 768px) {
-        font-size: 14px;
-        bottom: 2%;
-        left: 6%;
-    }
-} */
+
 
 
 

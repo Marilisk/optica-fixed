@@ -53,10 +53,16 @@ $serif-font-family: 'Playfair Display SC', serif;
         margin: 0;
         padding-right: 20px;
     }
+    @media (max-width: 533px) {
+        text-align: center;
+
+    }
 }
 .bigInt {
     font-size: 36px;
     font-weight: 300;
     color: #666666;
-
+    @media (max-width: 533px) {
+        font-size: 26px;
+    }
 }

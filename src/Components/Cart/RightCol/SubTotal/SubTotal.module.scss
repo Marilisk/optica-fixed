@@ -16,10 +16,13 @@ $serif-font-family: 'Playfair Display SC', serif;
     color: $gray-fontcolor;
     justify-content: space-between;
     padding-left: 10px;
-
+    
+    @media (max-width: 533px) {
+        & > p {
+            display: none;  
+        }
+    }
 }
-
-
 
 .bold {
     font-weight: 600;
@@ -27,9 +30,15 @@ $serif-font-family: 'Playfair Display SC', serif;
 }
 .selectBlock {
     display: flex;
-    //border: 1px solid firebrick;
+    
     p {
         margin-right: 6px;
+        //border: 1px solid firebrick;
+        @media (max-width: 533px) {
+            margin-right: 32px;
+            
+        }
+
     }
 }
 
@@ -66,7 +75,6 @@ $serif-font-family: 'Playfair Display SC', serif;
     left: 42px;
     z-index: 2;
     pointer-events: none;
-    //border: 1px solid blue;
 
 }
 

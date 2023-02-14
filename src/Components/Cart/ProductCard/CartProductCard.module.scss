@@ -11,19 +11,16 @@ $light-background: #FAFAFA;
 $serif-font-family: 'Playfair Display SC', serif;
 
 .wrap {
-    //cursor: pointer;
     width: 100%;
     display: flex;
     flex-wrap: nowrap;
-    @media (max-width: 1024px) {
-        //margin-bottom: 16px;
-    }
-   
+    box-sizing: border-box;
+       
     @media (max-width: 768px) {
         display: block;
         border-right: $thin-gray-border;
-
-      
+        margin-bottom: 40px;
+        border-bottom: $thin-gray-border;      
     }
 }
 
