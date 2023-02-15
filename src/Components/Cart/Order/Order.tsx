@@ -8,9 +8,7 @@ import { Summary } from './Summary/Summary';
 import { LoadingStatusEnum } from '../../Types/types';
 
 interface IOrder {
-    authIsLoading: string
-    //confirmOrder: () => void
-    //navigate: (arg: string) => void
+    authIsLoading: LoadingStatusEnum
 }
 export enum activeColEnum {
     address = 'address',
@@ -18,7 +16,7 @@ export enum activeColEnum {
     all = 'all'
 }
 
-export const Order: FC<IOrder> = ({ authIsLoading, /* confirmOrder, navigate */ } : IOrder) => {
+export const Order: FC<IOrder> = ({ authIsLoading } : IOrder) => {
 
     const user = useAppSelector(s => s.auth.loginData.data);
     

@@ -61,8 +61,6 @@ export const ProductCard = ({ dispatch,
 
         <div className={c.like}>
 
-            {authIsLoading !== 'loading' &&
-                <>
                     {isFavorite ?
                         <div onClick={() => removeFromFavorites(product._id)} >
                             <svg fill={'#95009C'} width='18px' height='18px'
@@ -72,12 +70,10 @@ export const ProductCard = ({ dispatch,
                         </div>
                         :
                         <div onClick={() => /*  ? false :  */addToFavorites(product._id)} >
-                            <Heart color={authIsLoading === 'loading' ? '#fff' : '#C899CC'} size={'18px'} />
+                            <Heart color={authIsLoading ? '#fff' : '#C899CC'} size={'18px'} />
                         </div>
                     }
-                </>
-            }
-
+                
         </div>
 
 
@@ -89,7 +85,7 @@ export const ProductCard = ({ dispatch,
                     :
                     <CartIcon color={'#95009C'} size={'24px'}
                         onClickCB={() => addToCartOrLS(isAuth, dispatch, product._id)}
-                        disabled={authIsLoading === 'loading'} />
+                        disabled={authIsLoading} />
                 }
 
             </div>

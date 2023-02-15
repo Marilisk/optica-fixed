@@ -31,11 +31,10 @@ export const SummaryCard: FC<ISummaryCard> = ({ orderCartItem }: ISummaryCard) =
         return <Preloader minFormat={true} />
     }
 
-
     return <div className={c.wrap}>
 
         <div className={c.imgWrap}>
-            <img alt='' src={`http://localhost:4444${product.imageUrl.main}`} />
+            <img alt='' src={`https://backend-optics-without-packlo.onrender.com${product.imageUrl.main}`} />
         </div>
 
         <div className={c.flex}>

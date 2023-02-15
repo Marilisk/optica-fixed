@@ -2,14 +2,11 @@ import c from './Photos.module.scss';
 import { useState } from 'react';
 import { ImgWrapper } from './ImgWrapper';
 import { MinImgWrapper } from './MinImgWrapper';
-import { LoadingDots } from '../../../../assets/common/Preloader/LoadingDots/LoadingDots';
 
 
 export const Photos = ({ imageUrl }) => {
 
     const [image, setImage] = useState('main');
-
-    /* if (!imageUrl) { return <LoadingDots /> } */
 
     return <div className={c.leftPart}>
 
