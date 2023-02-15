@@ -101,7 +101,7 @@ const productsSlice = createSlice({
     extraReducers: (builder) => {
         builder.addCase(fetchProducts.pending, (state, action) => {
             //state.products.items = [];
-            state.products.items = action.meta.arg;
+            //state.products.items = action.meta.arg;
             state.products.status = LoadingStatusEnum.loading;
         })
             .addCase(fetchProducts.fulfilled, (state, action) => {
