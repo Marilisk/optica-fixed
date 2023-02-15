@@ -2,23 +2,21 @@ import c from './LensCard.module.scss';
 import { NavLink } from 'react-router-dom';
 import { priceFormatter } from '../../../assets/functions/priceFormatter';
 import { FC, useState } from 'react';
-import { ILensProduct, LoadingStatusEnum } from '../../Types/types';
+import { ILensProduct } from '../../Types/types';
 import { useAppDispatch } from '../../../redux/hooks';
 import { setCurrentProd } from '../../../redux/lensesSlice';
 
 
 interface ILensCardProps {
     product: ILensProduct
-    authIsLoading: LoadingStatusEnum
     inCartArray: Array<string>
 }
-export const LensCard: FC = ({ product, authIsLoading, inCartArray }: ILensCardProps) => {
+export const LensCard: FC<ILensCardProps> = ({ product, inCartArray }: ILensCardProps) => {
     const dispatch = useAppDispatch()
     const price = priceFormatter(product.price)
     const isInCart = inCartArray.includes(product._id)
 
     const [isHovered, setIsHovered] = useState(null)
-
 
     return <div className={c.wrap}
         onClick={() => dispatch(setCurrentProd(product))}

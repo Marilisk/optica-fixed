@@ -11,9 +11,9 @@ import { useSelector } from 'react-redux';
 
 export const addToCartOrLS = (isAuth, dispatch, productId) => {
     if (isAuth) {
-        dispatch(fetchAddEyewearToCart({productId, cat: "eyewear" }))
+        dispatch(fetchAddEyewearToCart({ productId, cat: "eyewear" }))
     } else {
-        let newCartItem = {productId, quantity: 1, leftLens: 1, rightLens: 1, cat: "eyewear"}
+        let newCartItem = { productId, quantity: 1, leftLens: 1, rightLens: 1, cat: "eyewear" }
         const lastCart = JSON.parse(localStorage.getItem('cart'))
         if (lastCart) {
             const good = lastCart.find(elem => elem.productId === productId)
@@ -21,23 +21,23 @@ export const addToCartOrLS = (isAuth, dispatch, productId) => {
                 good.quantity += 1;
             } else {
                 lastCart.push(newCartItem)
-            }            
+            }
             localStorage.setItem('cart', JSON.stringify(lastCart))
             dispatch(setCartInLSLength(lastCart.length))
         } else {
-            localStorage.setItem('cart', JSON.stringify([newCartItem])) 
+            localStorage.setItem('cart', JSON.stringify([newCartItem]))
             dispatch(setCartInLSLength(1))
         }
     }
 }
 
-export const ProductCard = ({ dispatch, 
-                                product, 
-                                addToFavorites, 
-                                removeFromFavorites, 
-                                userFavorites, 
-                                authIsLoading,
-                                inCartArray }) => {
+export const ProductCard = ({ dispatch,
+    product,
+    addToFavorites,
+    removeFromFavorites,
+    userFavorites,
+    authIsLoading,
+    inCartArray }) => {
 
     const price = priceFormatter(product.price)
     const isFavorite = userFavorites?.includes(product._id)
@@ -45,13 +45,13 @@ export const ProductCard = ({ dispatch,
 
     const isAuth = useSelector(selectIsAuth)
 
-    const [isHovered, setIsHovered] = useState(null)   
+    const [isHovered, setIsHovered] = useState(null)
 
-    return <div className={c.wrap} 
-                onClick={() => dispatch(setCurrentProd(product))}
-                onMouseOver={() => setIsHovered(product._id)}
-                onMouseLeave={() => setIsHovered(null)} >
-        
+    return <div className={c.wrap}
+        onClick={() => dispatch(setCurrentProd(product))}
+        onMouseOver={() => setIsHovered(product._id)}
+        onMouseLeave={() => setIsHovered(null)} >
+
         <NavLink to={`/product/${product._id}`}>
             <img src={product.imageUrl?.main ? `https://backend-optics-without-packlo.onrender.com${product.imageUrl.main}` : defaultGlasses} alt='' />
             <div className={c.price}>
@@ -60,35 +60,39 @@ export const ProductCard = ({ dispatch,
         </NavLink>
 
         <div className={c.like}>
-            
-        {isFavorite ?
-                <div onClick={() => removeFromFavorites(product._id)} >
-                    <svg fill={'#95009C'} width='18px' height='18px'
-                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="Isolation_Mode" data-name="Isolation Mode">
-                        <path d="M17.5.917a6.4,6.4,0,0,0-5.5,3.3A6.4,6.4,0,0,0,6.5.917,6.8,6.8,0,0,0,0,7.967c0,6.775,10.956,14.6,11.422,14.932l.578.409.578-.409C13.044,22.569,24,14.742,24,7.967A6.8,6.8,0,0,0,17.5.917Z" />
-                    </svg>
-                </div>
-                :
-                <div onClick={() => /* authIsLoading === 'loading' ? false :  */addToFavorites(product._id)} >
-                    <Heart color={authIsLoading === 'loading' ? '#fff' : '#C899CC'} size={'18px'} />
-                </div>
+
+            {authIsLoading !== 'loading' &&
+                <>
+                    {isFavorite ?
+                        <div onClick={() => removeFromFavorites(product._id)} >
+                            <svg fill={'#95009C'} width='18px' height='18px'
+                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="Isolation_Mode" data-name="Isolation Mode">
+                                <path d="M17.5.917a6.4,6.4,0,0,0-5.5,3.3A6.4,6.4,0,0,0,6.5.917,6.8,6.8,0,0,0,0,7.967c0,6.775,10.956,14.6,11.422,14.932l.578.409.578-.409C13.044,22.569,24,14.742,24,7.967A6.8,6.8,0,0,0,17.5.917Z" />
+                            </svg>
+                        </div>
+                        :
+                        <div onClick={() => /*  ? false :  */addToFavorites(product._id)} >
+                            <Heart color={authIsLoading === 'loading' ? '#fff' : '#C899CC'} size={'18px'} />
+                        </div>
+                    }
+                </>
             }
 
         </div>
 
 
         {isHovered === product._id &&
-        <div className={c.addToCart}>
-            
-            {isInCart ?
-                <div>в корзине</div>
-                :
-                <CartIcon color={'#95009C'} size={'24px'}
-                          onClickCB={() => addToCartOrLS(isAuth, dispatch, product._id)}
-                          disabled={authIsLoading === 'loading'} />
-            }
+            <div className={c.addToCart}>
 
-        </div>
-          }
+                {isInCart ?
+                    <div>в корзине</div>
+                    :
+                    <CartIcon color={'#95009C'} size={'24px'}
+                        onClickCB={() => addToCartOrLS(isAuth, dispatch, product._id)}
+                        disabled={authIsLoading === 'loading'} />
+                }
+
+            </div>
+        }
     </div>
 }

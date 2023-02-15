@@ -7,15 +7,15 @@ import { FC, useEffect } from 'react';
 import { fetchLenses } from '../../redux/lensesSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { LoadingStatusEnum } from '../Types/types';
+import { LensFiltersDashboard } from '../common/FiltersDashboard/LensFiltersDashboard';
+import { LensCatalog } from '../common/LensCatalog/LensCatalog';
 
 interface ILensesProps {
-    /* addToFavorites: (arg: string) => void
-    removeFromFavorites: (arg: string) => void */
     authIsLoading: LoadingStatusEnum
     userFavorites: string[]
 }
 
-export const Lenses:FC<ILensesProps> = ({authIsLoading, /* addToFavorites, removeFromFavorites,  */userFavorites}:ILensesProps) => {
+export const Lenses:FC<ILensesProps> = ({authIsLoading}:ILensesProps) => {
     const products = useAppSelector(state => state.lenses.products)
     const areProdsLoading = products.status === LoadingStatusEnum.loading;
     const dispatch = useAppDispatch();
@@ -45,14 +45,13 @@ export const Lenses:FC<ILensesProps> = ({authIsLoading, /* addToFavorites, remov
         </section>
 
         {/* <FiltersDashboard filters={filters} onSelectFilter={onSelectFilter} goodsAmount={goodsAmount} /> */}
+        <LensFiltersDashboard />
 
-        <Catalog dispatch={dispatch} 
-                products={products.items}
+        <LensCatalog products={products.items}
                 areProdsLoading={areProdsLoading}
-                authIsLoading={authIsLoading}
-                /* addToFavorites={addToFavorites}
-                removeFromFavorites={removeFromFavorites} */
-                userFavorites={userFavorites} />
+                authIsLoading={authIsLoading} />
+
+
 
         
     </>

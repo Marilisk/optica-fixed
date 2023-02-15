@@ -8,7 +8,6 @@ import { CartIcon } from '../../../assets/header/icons/CartIcon';
 import { priceFormatter } from '../../../assets/functions/priceFormatter';
 import { LoadingDots } from '../../../assets/common/Preloader/LoadingDots/LoadingDots';
 import { addToCartOrLS } from '../../common/ProductCard/ProductCard';
-import { Preloader } from '../../../assets/common/Preloader/Preloader';
 
 
 export const FavoriteProductCard = ({ id, removeFromFavorites, authIsLoading, inCartArray, isAuth }) => {
@@ -25,7 +24,6 @@ export const FavoriteProductCard = ({ id, removeFromFavorites, authIsLoading, in
     }, [id]);
 
     if (!Object.keys(product).length) {
-        //return <Preloader minFormat={true} />;
         return <div className={c.preloaderWrap}><LoadingDots /></div>;
     }
     const price = priceFormatter(product.price) 

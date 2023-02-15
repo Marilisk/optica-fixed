@@ -133,16 +133,16 @@ export const Administration = () => {
 
                                     <div className={c.genderEdit}>
                                         <label >
-                                            <div className={values.gender.includes("Мужские") ? c.chosenJaw : c.jaw}>
+                                            <div className={values.gender.includes('Мужские') ? c.chosenJaw : c.jaw}>
                                                 Мужские
                                             </div>
-                                            <Field type={'radio'} name="gender" value={"Мужские"} />
+                                            <Field type={'radio'} name="gender" value={'Мужские'} />
                                         </label>
                                         <label >
-                                            <div className={values.gender.includes("Женскиe") ? c.chosenJaw : c.jaw}>
-                                                Женскиe
+                                            <div className={values.gender.includes('Женские') ? c.chosenJaw : c.jaw}>
+                                                Женские
                                             </div>
-                                            <Field type={'radio'} name="gender" value={"Женскиe"} />
+                                            <Field type={'radio'} name="gender" value={'Женские'} />
                                         </label>
 
                                     </div>

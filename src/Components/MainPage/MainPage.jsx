@@ -64,7 +64,7 @@ export const MainPage = () => {
                     Подбор по форме оправы
                 </p>
                 <div className={c.shopByLink}>
-                    <Link to={'/shopby/eyewearform'} preventScrollReset={true}>
+                    <Link to={'/shopby/eyewearform'}>
                         <span>Cмотреть</span>
                         <AngleIcon showAnother={() => null} color={'#03424C'} size={14} margin={'9px auto auto 4px'} />
                     </Link>
@@ -76,7 +76,7 @@ export const MainPage = () => {
                 <img alt='' src={shopByColor} />
                 <p>Подбор по цвету</p>
                 <div className={c.shopByLink}>
-                    <Link to={'/shopby/color'} preventScrollReset={true}>
+                    <Link to={'/shopby/color'}>
                         <span>Cмотреть</span>
                         <AngleIcon showAnother={() => null} color={'#03424C'} size={14} margin={'9px auto auto 4px'} />
                     </Link>
@@ -88,7 +88,7 @@ export const MainPage = () => {
                 <img alt='' src={shopByFace} />
                 <p>Подбор по форме лица</p>
                 <div className={c.shopByLink}>
-                    <Link to={'/shopby/faceshape'} preventScrollReset={true}>
+                    <Link to={'/shopby/faceshape'}>
                         <span>Cмотреть</span>
                         <AngleIcon showAnother={() => null} color={'#03424C'} size={14} margin={'9px auto auto 4px'} />
                     </Link>
@@ -103,8 +103,10 @@ export const MainPage = () => {
                 <img alt='' src={shopWomen} />
                 <h2>Женские очки</h2>
                 <div className={c.bestSellers}>
-                    <span>Бестселлеры</span>
-                    <AngleIcon showAnother={() => null} color={'#11A834'} size={14} margin={'6px auto auto 4px'} />
+                    <Link to={'/women'}>
+                        <span>Бестселлеры</span>
+                        <AngleIcon showAnother={() => null} color={'#11A834'} size={10} margin={'6px auto auto 4px'} />
+                    </Link>
                 </div>
             </div>
 
@@ -113,18 +115,22 @@ export const MainPage = () => {
                 <img alt='' src={shopMen} />
                 <h2>Мужские очки</h2>
                 <div className={c.bestSellers}>
-                    <span>Бестселлеры</span>
-                    <AngleIcon showAnother={() => null} color={'#11A834'} size={10} margin={'6px auto auto 4px'} />
+                    <Link to={'/men'}>
+                        <span>Бестселлеры</span>
+                        <AngleIcon showAnother={() => null} color={'#11A834'} size={10} margin={'6px auto auto 4px'} />
+                    </Link>
                 </div>
             </div>
 
             <div className={inViewBestSellers ? c.animatedText3 : null}
-                    /* style={inViewBestSellers ? null : {opacity: 0}} */>
+                style={inViewBestSellers ? null : { opacity: 0 }}>
                 <img alt='' src={shopKids} />
                 <h2>Детские очки</h2>
                 <div className={c.bestSellers}>
-                    <span>Бестселлеры</span>
-                    <AngleIcon color={'#11A834'} size={10} margin={'6px auto auto 4px'} />
+                    <Link to={'/children'}>
+                        <span>Бестселлеры</span>
+                        <AngleIcon color={'#11A834'} size={10} margin={'6px auto auto 4px'} />
+                    </Link>
                 </div>
             </div>
 
@@ -160,8 +166,6 @@ export const MainPage = () => {
         </section>
 
         <BestSellers />
-
-
 
     </>
 }

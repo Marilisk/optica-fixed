@@ -90,6 +90,16 @@ $serif-font-family: 'Playfair Display SC', serif;
     margin-top: calc(50% - 180px);
     width: fit-content;
     height: fit-content;
+    //border: 1px solid darkcyan;
+    @media (max-width: 780px) {
+        margin-top: calc(50% - 20vw);
+    }
+    @media (max-width: 570px) {
+        margin-top: calc(50% - 28vw);
+    }
+    @media (max-width: 390px) {
+        margin-top: calc(50% - 34vw);
+    }
 }
 
 

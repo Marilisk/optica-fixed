@@ -5,6 +5,7 @@ import headerSlice from "./headerSlice";
 import authSlice from "./authSlice";
 import productsSlice from "./productsSlice";
 import lensesSlice from "./lensesSlice";
+import lensFeaturesSlice from "./lensFeaturesSlice";
 
 
 export const store = configureStore({
@@ -15,6 +16,7 @@ export const store = configureStore({
         categories: categoriesSlice,
         auth: authSlice,
         lenses: lensesSlice,
+        lensfilters: lensFeaturesSlice,
     },
 })
 

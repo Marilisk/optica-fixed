@@ -1,7 +1,7 @@
 import { useAppSelector } from './../../redux/hooks';
 import { FeatureType, IProduct } from "../../Components/Types/types";
 
-const doFilterSmth = (products:IProduct[], chosenFeatures:string[], tag:string ) => {
+export const doFilterSmth = (products:IProduct[], chosenFeatures:string[], tag:string ) => {
 
     let result = []
     for (let product of products) {
@@ -48,9 +48,5 @@ export const useFilterProducts = (array:IProduct[]) => {
         result = doFilterSmth(result, featuresFilter.chosenOptions, 'features')
     }
     
-    //console.log('*************************************', result.length)
-    /* const filtersNames = []
-    filters.forEach(el => filtersNames.push(el.name))
-    console.log('filters used', filters) */
     return result;
 }

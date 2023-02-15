@@ -54,11 +54,12 @@ export const ProductPage = () => {
     }
 
     const price = priceFormatter(product.price)
+    const maleGender = product.gender.includes('Мужские')
 
 
     return <>
         <div className={c.wrap}>
-            <BreadCrumbs text={`Женские очки. ${product.name} `} />
+            <BreadCrumbs text={`${maleGender ? 'Мужские' : 'Женские'} очки. ${product.name} `} />
             <div className={c.flexWrapper}>
 
                 <Photos imageUrl={product.imageUrl} />
