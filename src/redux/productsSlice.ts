@@ -6,15 +6,22 @@ import instance from "./API/api.js";
 import { defineSize } from "./functions/defineSize.js";
 import { cartWithSumsCreator } from './functions/useOrderCreator';
 
-export const fetchProducts = createAsyncThunk('products/fetchProducts', async () => {
-    const { data } = await instance.get('/products');
-    return data;
-});
+const wait = (ms: number) =>
+    new Promise<void>((resolve) => {
+        setTimeout(() => resolve(), ms);
+    });
+
+export const fetchProducts = createAsyncThunk(
+    'products/fetchProducts',
+    async () => {
+        const { data } = await instance.get('/products');
+        return data;
+    });
 export const fetchFilteredProducts = createAsyncThunk('products/fetchProducts', async () => {
     const { data } = await instance.get('/products');
     return data;
 });
-export const fetchProd = createAsyncThunk('products/fetchProd', async (id:string) => {
+export const fetchProd = createAsyncThunk('products/fetchProd', async (id: string) => {
     const data = await instance.get(`/products/${id}`);
     return data.data;
 });
@@ -33,8 +40,8 @@ export const fetchSearch = createAsyncThunk('products/fetchSearch', async (query
 export const fetchCollectCartPrices = createAppAsyncThunk('products/CollectCartPrices',
     async (_, thunkApi) => {
         const state = thunkApi.getState()
-        const authData:IUser = state.auth.loginData.data;
-        const cartWithSums:ICartItemWithSum[] = await cartWithSumsCreator(authData)
+        const authData: IUser = state.auth.loginData.data;
+        const cartWithSums: ICartItemWithSum[] = await cartWithSumsCreator(authData)
         //console.log(cartWithSums)
         return cartWithSums
     })
@@ -63,7 +70,7 @@ const initialState: ProdInitialStateType = {
         status: LoadingStatusEnum.loaded,
     },
 
-    cartInLSLength : 0,
+    cartInLSLength: 0,
 
 }
 
@@ -92,8 +99,9 @@ const productsSlice = createSlice({
         },
     },
     extraReducers: (builder) => {
-        builder.addCase(fetchProducts.pending, (state) => {
-            state.products.items = [];
+        builder.addCase(fetchProducts.pending, (state, action) => {
+            //state.products.items = [];
+            state.products.items = action.meta.arg;
             state.products.status = LoadingStatusEnum.loading;
         })
             .addCase(fetchProducts.fulfilled, (state, action) => {
@@ -155,7 +163,7 @@ const productsSlice = createSlice({
             })
             .addCase(fetchCollectCartPrices.rejected, (state) => {
                 state.currentCartWithSums.status = LoadingStatusEnum.error;
-            })            
+            })
     },
 })
 

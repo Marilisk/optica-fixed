@@ -17,6 +17,7 @@ import { Women } from './Components/Women/Women';
 import { ShopByPage } from './Components/GoodsGrid/ShopByPage';
 import { Children } from './Components/Children/Children';
 import { App } from "./App";
+import { OfflineShop } from "./Components/OfflineShop/OfflineShop";
 
 export const router = createBrowserRouter([
   {
@@ -100,6 +101,11 @@ export const router = createBrowserRouter([
       {
         path: "/search",
         element: <SearchPage />,
+      },
+
+      {
+        path: "/offlineshop",
+        element: <OfflineShop />,
       },
 
       {
