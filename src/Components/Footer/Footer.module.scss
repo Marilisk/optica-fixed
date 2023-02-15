@@ -50,17 +50,12 @@ $test-border: 1px solid red;
 
 .mediaFlex {
     display: flex;
-    //flex-grow: 2;
     width: 38%;
     min-width: fit-content;
 
     @media (max-width: 768px) {
-        //padding: 26px 10px;
         width: 100%;
         border: none;
-    //border: 1px solid green;
-        //border-bottom: $thin-gray-border;
-
     }
 
     @media (max-width: 533px) {
@@ -87,8 +82,9 @@ $test-border: 1px solid red;
 .thirdColumn {
     padding: 26px;
     color: $dark-fontcolor;
-
-    //border: 1px solid blue;
+    a {
+        color: inherit;
+    }
     @media (max-width: 768px) {
         //padding: 26px 10px;
         width: 100%;

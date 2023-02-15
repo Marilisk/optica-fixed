@@ -7,7 +7,6 @@ import { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 
 
-
 export const SearchBar = () => {
     const dispatch = useDispatch();
     const [touched, setTouched] = useState(false);
@@ -38,7 +37,7 @@ export const SearchBar = () => {
         setQueryValue('');
     }
 
-    return <div className={c.searchBar} /* onClick={} */>
+    return <div className={c.searchBar}>
         <div className={c.searchIcon}></div>
         <h3>Поиск</h3>
 

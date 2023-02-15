@@ -13,26 +13,26 @@ export const Footer = () => {
         <section>
 
             <div className={c.mediaFlex}>
-            <div className={c.column}>
-                <h3>Популярное</h3>
-                <div>Оправы до 4 900 рублей</div>
-                <div>Аксессуары</div>
-            </div>
-            <div className={c.column}>
-                <h3>Информация</h3>
-                <div>
-                    <Link to={'/myoptis'}>Отследить заказ</Link>
+                <div className={c.column}>
+                    <h3>Популярное</h3>
+                    <div>Оправы до 4 900 рублей</div>
+                    <div>Аксессуары</div>
                 </div>
-                <div>Задать вопрос</div>
+                <div className={c.column}>
+                    <h3>Информация</h3>
+                    <div>
+                        <Link to={'/myoptis'}>Отследить заказ</Link>
+                    </div>
+                    <div>Задать вопрос</div>
 
-                {isManager && <Link to='/manage'>
-                    <div className={c.administrationLink}>Добавление товара. Оправы.</div>
-                </Link>}
-                
-                {isManager && <Link to='/managelenses'>
-                    <div className={c.administrationLink}>Добавление товара. Линзы.</div>
-                </Link>}
-            </div>
+                    {isManager && <Link to='/manage'>
+                        <div className={c.administrationLink}>Добавление товара. Оправы.</div>
+                    </Link>}
+
+                    {isManager && <Link to='/managelenses'>
+                        <div className={c.administrationLink}>Добавление товара. Линзы.</div>
+                    </Link>}
+                </div>
             </div>
 
 
@@ -40,14 +40,18 @@ export const Footer = () => {
                 <div>
                     <h3>Магазин оптики Optis, 2022</h3>
                     <div>Санкт-Петербург</div>
-                    <div>12-я Красноармейская ул., 2</div>
-                    <div>+7 812 251 17 84</div>
+                    <div>ул. Заозерная, дом 8, лит. Б</div>
+                    <div>
+                        <a href='tel:+7(981)939-12-21'>
+                            тел. +7 (981) 939 12 21
+                        </a>
+                    </div>
                     <div>заказать звонок</div>
                 </div>
             </div>
 
             <SearchBar />
-            
+
         </section>
 
         <div className={c.bottom}>

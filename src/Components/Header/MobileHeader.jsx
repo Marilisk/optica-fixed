@@ -11,6 +11,7 @@ import { CartBtn } from './CartBtn/CartBtn';
 
 export const MobileHeader = ({ mainMenu, toggleLoginModalOpened, loginModalOpened, dispatch, favoritesCount }) => {
     const fullHeader = useSelector(state => state.header.fullHeader);
+    const userName = useSelector(state => state.auth.loginData.data?.fullName);
 
     const [mobileMenu, toggleMobMenu] = useState(false);
 
@@ -25,8 +26,7 @@ export const MobileHeader = ({ mainMenu, toggleLoginModalOpened, loginModalOpene
     })
 
 
-    return <div className={c.mainWrapper} style={fullHeader ? null : { border: 'none' }} 
-                /* onClick={() => toggleMobMenu(false)} */ >
+    return <div className={c.mainWrapper} style={fullHeader ? null : { border: 'none' }} >
 
         <div className={c.burgerWrap} onClick={() => toggleMobMenu(!mobileMenu)}>
 
@@ -36,12 +36,15 @@ export const MobileHeader = ({ mainMenu, toggleLoginModalOpened, loginModalOpene
         </div>
         {mobileMenu && <div className={c.navLinkWrap}>
 
+            {Boolean(userName) &&  <p>Здравствуйте, {userName}!</p>}
+            
             <LoginButton toggleLoginModalOpened={(value) => dispatch(toggleLoginModalOpened(value))}
                 loginModalOpened={loginModalOpened} dispatch={dispatch} />
+               
 
-            <NavLink to='/shop' >
-                <div className={c.navItem}>
-                    <span>Наш оффлайн магазин</span>
+            <NavLink to='/offlineshop' >
+                <div className={c.navItem} onClick={() => toggleMobMenu(false)}>
+                    <span>Наш оффлайн магазин</span> 
                 </div>
             </NavLink>
             {menu}

@@ -6,10 +6,10 @@ import instance from "./API/api.js";
 import { defineSize } from "./functions/defineSize.js";
 import { cartWithSumsCreator } from './functions/useOrderCreator';
 
-const wait = (ms: number) =>
+/* const wait = (ms: number) =>
     new Promise<void>((resolve) => {
         setTimeout(() => resolve(), ms);
-    });
+    }); */
 
 export const fetchProducts = createAsyncThunk(
     'products/fetchProducts',

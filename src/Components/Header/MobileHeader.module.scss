@@ -14,7 +14,6 @@ $serif-font-family: 'Playfair Display SC', serif;
     display: none;
     height: 50px;
     min-width: 100%;
-    //border: 1px solid yellow;
     position: relative;
     
     @media (max-width : 533px)  {
@@ -63,12 +62,7 @@ $serif-font-family: 'Playfair Display SC', serif;
     z-index: 1001;
     background: white;
     box-sizing: border-box;
-
-    & > div {
-        
-
-    }
-    
+    //border: 1px solid yellow;
 }
 
 .navItem {

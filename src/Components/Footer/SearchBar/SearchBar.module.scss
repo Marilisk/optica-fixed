@@ -14,7 +14,6 @@ $test-border: 1px solid red;
 .searchBar {
     padding: 26px;
     position: relative;
-    //border: 1px solid fuchsia;
     border-left: 1px solid $light-beige-gray;
     flex: 1;
 
@@ -34,7 +33,6 @@ $test-border: 1px solid red;
         width: auto;
         height: 3em;
         border-color: transparent;
-        //margin-left: 4px;
         transition: 300ms;
 
         &:hover {
@@ -47,6 +45,9 @@ $test-border: 1px solid red;
         button {
             margin: 4px auto auto 0;
         }
+    }
+    @media screen and (max-width: 768px) {
+        border-color: transparent;
     }
 }
 
@@ -63,14 +64,12 @@ $test-border: 1px solid red;
         width: 260px;
         border-bottom: $thin-gray-border;
         justify-content: center;
-
         h3 {
             margin-right: 20px;
             margin-top: 20px;
 
         }
         img {
-            //width: 150px;
             height: 50px;
             margin-top: 10px;
         }
