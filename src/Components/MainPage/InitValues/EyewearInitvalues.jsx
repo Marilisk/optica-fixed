@@ -33,7 +33,7 @@ export const initValues = (editMode, currentProduct, images) => {
             code: 125954,
             description: 'новинка',
             price: 0,
-            gender: ['Женские'],
+            gender: [],
             features: ['детские', 'строгие', 'офисные', 'new Look', 'для чтения', 'безоправные', 'полностью оправленные','подростковые',
                         'праздничные',
                         'легкие',

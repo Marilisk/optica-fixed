@@ -9,7 +9,7 @@ import { useEffect } from 'react';
 export const Women = () => {
     const dispatch = useDispatch();
     const products = useSelector(state => state.products.products);
-    const areProdsLoading = products.status === 'loading';
+    const areProdsLoading = products.status === 'isLoading'
     const authIsLoading = useSelector(state => state.auth.loginData.status === 'loading')
     const userFavorites = useSelector(state => state.auth.loginData.data?.favourites);
    

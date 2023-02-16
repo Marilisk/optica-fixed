@@ -5,14 +5,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { clearAllFilters } from '../../redux/featuresSlice';
 import { Catalog } from '../common/Catalog/Catalog';
 import { useEffect } from 'react';
-import { LoadingStatusEnum } from '../Types/types';
-
 
 
 export const Men = () => {
     const dispatch = useDispatch();
-    const products = useSelector(state => state.products.products);
-    const areProdsLoading = products.status === 'loading';
+    const products = useSelector(state => state.products.products)
+    const areProdsLoading = products.status === 'isLoading';
     const authIsLoading = useSelector(state => state.auth.loginData.status === 'loading')
     const userFavorites = useSelector(state => state.auth.loginData.data?.favourites);
 

@@ -91,7 +91,6 @@ export const fetchAddValuesToOrder = createAppAsyncThunk('auth/fetchAddValuesToO
         additionalInfo: values.additional,
         }    
     const response = await instance.post(`/editorder`, innovatedOrder );
-    //console.log(response)
     return response.data; 
 })
 export const fetchEditOrder = createAppAsyncThunk('auth/fetchEditOrder', 
@@ -162,9 +161,7 @@ const authSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder.addCase(fetchAuth.pending, (state, action/* :PayloadAction<string[]> */) => {
-            //action.meta.requestId
             state.loginData.status = 'loading';
-            //state.loginData.data = null;
         })
             .addCase(fetchAuth.fulfilled, (state, action) => {
                 state.loginData.status = 'loaded';

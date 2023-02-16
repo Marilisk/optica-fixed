@@ -25,7 +25,7 @@ export const Children:FC = () => {
     return <>
         <BreadCrumbs text={'Детские очки'} />
 
-        <section className={c.mainSection}>
+        {/* <section className={c.mainSection}>
             <div className={c.mainDescription}>
                 <div className={c.mainDescriptionWrap}>
                     <h2>
@@ -37,7 +37,7 @@ export const Children:FC = () => {
                 </div>
             </div>
             <div className={c.mainImgBlock} />
-        </section>
+        </section> */}
 
         <FiltersDashboard />
 

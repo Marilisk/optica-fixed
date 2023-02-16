@@ -62,8 +62,8 @@ export const Administration = () => {
                                 : await instance.post('/products', values);
                             const id = data._id;
                             setSuccessMsg(id);
-                            if (data.success === true || (editMode && data._id)) {
-                                alert('данные успешно внесены');
+                            if (data._id || (editMode && data.success === true)) {
+                                //alert('данные успешно внесены');
                                 actions.resetForm({ initialValues });
                                 navigate(`/product/${params.id || id}`);
                             }
