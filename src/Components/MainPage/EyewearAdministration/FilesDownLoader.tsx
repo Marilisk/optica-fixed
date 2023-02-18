@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 import { LoadingDots } from '../../../assets/common/Preloader/LoadingDots/LoadingDots';
-import instance from '../../../redux/API/api';
+import instance, { API_URL } from '../../../redux/API/api';
 import { IImageUrl, IProduct } from '../../Types/types';
 import c from './FilesDownLoader.module.scss';
 
@@ -51,7 +51,7 @@ export const FilesDownloader:FC<IFilesDownloaderProps> = ({ images, setImages, e
             </label>
             
                 {images.main && <div className={c.imgWrapper}>
-                    <img src={`https://backend-optics-without-packlo.onrender.com${images.main}`} alt='' />
+                    <img src={`${API_URL}${images.main}`} alt='' />
                     </div>}
                 {downloadStatus.main ? <LoadingDots /> : null}
             
@@ -65,7 +65,7 @@ export const FilesDownloader:FC<IFilesDownloaderProps> = ({ images, setImages, e
             </label>
             
                 {images.side && <div className={c.imgWrapper}>
-                    <img src={`https://backend-optics-without-packlo.onrender.com${images.side}`} alt='' />
+                    <img src={`${API_URL}${images.side}`} alt='' />
                     </div>}
                     
                 {downloadStatus.side ? <LoadingDots /> : null}
@@ -81,7 +81,7 @@ export const FilesDownloader:FC<IFilesDownloaderProps> = ({ images, setImages, e
             </label>
 
             {images.perspective && <div className={c.imgWrapper}>
-                <img src={`https://backend-optics-without-packlo.onrender.com${images.perspective}`} alt='' />
+                <img src={`${API_URL}${images.perspective}`} alt='' />
             </div>}
             {downloadStatus.perspective ? <LoadingDots /> : null} 
 

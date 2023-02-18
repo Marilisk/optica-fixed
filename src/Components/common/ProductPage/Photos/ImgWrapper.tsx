@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { API_URL } from '../../../../redux/API/api';
 
 interface IImgWrapperProps {
     isActive: boolean
@@ -12,6 +13,6 @@ export const ImgWrapper:FC = ({ isActive, leftTrue, leftFalse, url}:IImgWrapperP
     if (!url) { return null }    
 
     return <div style={isActive ? { left: leftTrue } : { left: leftFalse }}>
-                    <img alt='' src={`https://backend-optics-production.up.railway.app${url}`} />
+                    <img alt='' src={`${API_URL}${url}`} />
                 </div>
 }

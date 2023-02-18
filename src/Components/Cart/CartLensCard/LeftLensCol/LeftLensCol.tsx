@@ -1,8 +1,7 @@
 import c from './LeftLensCol.module.scss';
 import { NavLink } from 'react-router-dom';
-//import { setCurrentProd } from '../../../redux/productsSlice';
 import { FC } from 'react';
-//import { useAppDispatch } from '../../../redux/hooks';
+import { API_URL } from '../../../../redux/API/api';
 
 interface ILeftLensCol {
     productId: string,
@@ -12,10 +11,10 @@ interface ILeftLensCol {
 export const LeftLensCol: FC<ILeftLensCol> = ({ productId, imageUrlMain  }: ILeftLensCol,) => {
     
 
-    return <div className={c.wrap} /* onClick={() => dispatch(setCurrentProd(productId))} */ >
+    return <div className={c.wrap} >
             <div>
                 <NavLink to={`/product/${productId}`}>
-                    <img src={`https://backend-optics-production.up.railway.app${imageUrlMain}`} alt='' />
+                    <img src={`${API_URL}${imageUrlMain}`} alt='' />
                 </NavLink>
             </div>
         </div>

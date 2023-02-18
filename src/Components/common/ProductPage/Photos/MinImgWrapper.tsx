@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { API_URL } from '../../../../redux/API/api';
 
 interface IMinImgWrapperProps {
     onClickHandler: () => void
@@ -11,7 +12,7 @@ export const MinImgWrapper:FC = ({ onClickHandler, url, isActive }:IMinImgWrappe
     if (!url) { return null}
 
     return <div onClick={() => onClickHandler()} >
-                <img alt='' src={`https://backend-optics-without-packlo.onrender.com${url}`}
+                <img alt='' src={`${API_URL}${url}`}
                     style={isActive ? { borderColor: '#C899CC' } : null} />
             </div>
 }
