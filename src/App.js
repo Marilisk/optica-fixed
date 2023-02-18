@@ -38,7 +38,6 @@ export const App = () => {
 
   const userFavorites = useSelector(state => state.auth.loginData.data?.favourites);
   let favoritesCount = userFavorites ? userFavorites.length : null;
-  //const authIsLoading = useSelector(state => state.auth.loginData.status);
 
 
   /* if (localStorage.getItem('token') && !isAuth) {

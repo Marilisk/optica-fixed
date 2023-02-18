@@ -14,7 +14,7 @@ const initialState: HeaderInitialStateType = {
             filter: MainMenuFilterEnum.women,
             links: [
                 { label: 'Все оправы', to: '/women' },
-                { label: 'Очки для чтения', to: '/women', featureFilter: 'для чтения' },
+                { label: 'Очки для чтения', to: '/women/forreading', featureFilter: 'для чтения' },
             ]
         },
         {
@@ -23,7 +23,7 @@ const initialState: HeaderInitialStateType = {
             filter: MainMenuFilterEnum.men,
             links: [
                 { label: 'Все оправы', to: '/men' },
-                { label: 'Очки для чтения', to: '/men', featureFilter: 'для чтения' },
+                { label: 'Очки для чтения', to: '/men/forreading', featureFilter: 'для чтения' },
             ]
         },
         {

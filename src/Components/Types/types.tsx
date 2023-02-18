@@ -188,7 +188,7 @@ type ProductsType = {
     items:  IProduct[]
     status: LoadingStatusEnum
 }
-type CurrentProductType = {
+export type CurrentProductType = {
     item: IProduct
     status: LoadingStatusEnum
 }

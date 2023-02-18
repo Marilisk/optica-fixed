@@ -16,7 +16,11 @@ export const Footer = () => {
                 <div className={c.column}>
                     <h3>Популярное</h3>
                     <div>Оправы до 4 900 рублей</div>
-                    <div>Аксессуары</div>
+                    <div>
+                    <Link to='/accesories'>
+                        Аксессуары
+                        </Link>
+                    </div>
                 </div>
                 <div className={c.column}>
                     <h3>Информация</h3>

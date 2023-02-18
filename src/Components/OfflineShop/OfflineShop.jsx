@@ -1,5 +1,4 @@
 import c from './OfflineShop.module.scss';
-import React from 'react';
 import { BreadCrumbs } from '../common/BreadCrumbs/BreadCrumbs';
 import { Map } from './Map';
 import img1 from './../../assets/offlineShop/way1.png'

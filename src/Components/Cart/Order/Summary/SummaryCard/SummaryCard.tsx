@@ -34,7 +34,7 @@ export const SummaryCard: FC<ISummaryCard> = ({ orderCartItem }: ISummaryCard) =
     return <div className={c.wrap}>
 
         <div className={c.imgWrap}>
-            <img alt='' src={`https://backend-optics-without-packlo.onrender.com${product.imageUrl.main}`} />
+            <img alt='' src={`https://backend-optics-production.up.railway.app${product.imageUrl.main}`} />
         </div>
 
         <div className={c.flex}>

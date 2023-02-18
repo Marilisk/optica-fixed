@@ -15,7 +15,7 @@ export const LeftLensCol: FC<ILeftLensCol> = ({ productId, imageUrlMain  }: ILef
     return <div className={c.wrap} /* onClick={() => dispatch(setCurrentProd(productId))} */ >
             <div>
                 <NavLink to={`/product/${productId}`}>
-                    <img src={`https://backend-optics-without-packlo.onrender.com${imageUrlMain}`} alt='' />
+                    <img src={`https://backend-optics-production.up.railway.app${imageUrlMain}`} alt='' />
                 </NavLink>
             </div>
         </div>

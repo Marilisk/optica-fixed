@@ -23,7 +23,7 @@ export const fetchLogout = createAsyncThunk('auth/fetchLogout', async () => {
 
 export const checkAuth = createAsyncThunk('auth/checkAuth', async () => {  // refreshes tokens and login data
     try {
-        const response = await axios.get(`https://backend-optics-without-packlo.onrender.com/auth/refresh`, { withCredentials: true });
+        const response = await axios.get(`https://backend-optics-production.up.railway.app/auth/refresh`, { withCredentials: true });
         localStorage.setItem('token', response.data.tokens.accessToken);
         return response.data.user;
     } catch (error) {

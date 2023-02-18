@@ -1,5 +1,6 @@
+import { CurrentProductType, IImageUrl } from './../../Types/types';
 
-export const initValues = (editMode, currentProduct, images) => {
+export const initValues = (editMode:boolean, currentProduct:CurrentProductType, images:IImageUrl) => {
     if (editMode) {
         return {
             category: currentProduct.item.category,

@@ -18,6 +18,7 @@ import { ShopByPage } from './Components/GoodsGrid/ShopByPage';
 import { Children } from './Components/Children/Children';
 import { App } from "./App";
 import { OfflineShop } from "./Components/OfflineShop/OfflineShop";
+import { Accesories } from "./Components/Accesories/Accesories";
 
 export const router = createBrowserRouter([
   {
@@ -35,10 +36,22 @@ export const router = createBrowserRouter([
       {
         path: "women",
         element: <Women />,
+        children: [
+          {
+            path: '/women/forreading',
+            element: <Women />,
+          }
+        ],
       },
       {
         path: "men",
         element: <Men />,
+        children: [
+          {
+            path: '/men/forreading',
+            element: <Women />,
+          }
+        ],
       },
 
       {
@@ -129,6 +142,12 @@ export const router = createBrowserRouter([
           }
         ]
       },
+
+      {
+        path: "/accesories",
+        element: <Accesories />,
+      },
+      
     ],
   },
 

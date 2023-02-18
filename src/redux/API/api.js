@@ -1,8 +1,9 @@
 import axios from "axios";
 
-
 const instance = axios.create({
-    baseURL: 'https://backend-optics-without-packlo.onrender.com',  
+    //baseURL: 'https://backend-optics-without-packlo.onrender.com',  
+    //baseURL: 'https://backend-optics.vercel.app',  
+    baseURL: 'https://backend-optics-production.up.railway.app',  
     withCredentials: true,    
 })
 
@@ -21,7 +22,7 @@ instance.interceptors.response.use( (config) => {
         originalRequest._isRetry = true;
         try {
             //const response = await axios.get(`${API_URL}auth/refresh`, { withCredentials: true });
-            const response = await axios.get(`https://backend-optics-without-packlo.onrender.com/auth/refresh`, { withCredentials: true });
+            const response = await axios.get(`https://backend-optics-production.up.railway.app/auth/refresh`, { withCredentials: true });
             localStorage.setItem('token', response.data.tokens.accessToken);  
             return instance.request(originalRequest); 
         } catch (error) {

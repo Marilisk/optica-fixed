@@ -1,24 +1,35 @@
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import { LoadingDots } from '../../../assets/common/Preloader/LoadingDots/LoadingDots';
 import instance from '../../../redux/API/api';
+import { IImageUrl, IProduct } from '../../Types/types';
 import c from './FilesDownLoader.module.scss';
 
-export const FilesDownloader = ({ images, setImages }) => {
+interface IFilesDownloaderProps {
+    images: IImageUrl
+    setImages: (arg: IImageUrl) => void
+    editMode: boolean
+    currentProduct: IProduct
+    setFieldValue:(field: string, value: any, shouldValidate?: boolean) => void
+}
+
+export const FilesDownloader:FC<IFilesDownloaderProps> = ({ images, setImages, editMode, currentProduct, setFieldValue }:IFilesDownloaderProps) => {
 
     const [downloadStatus, setDownloadStatus] = useState({ main: null, side: null, perspective: null })
-    //console.log(images);
-    
-    const handleChangeFile = async (e, currentImg) => {
         
+    const handleChangeFile = async (e, currentImg) => {
+                
         try {
             const formData = new FormData();
             const file = e.target.files[0];
+            //console.log(file)
             formData.append('image', file);
             setDownloadStatus({ ...downloadStatus, [currentImg]: 'pending' })
             const { data } = await instance.post('/upload', formData);
             const newI = { ...images, [currentImg]: data.url }
             setImages(newI);
             setDownloadStatus({ ...downloadStatus, [currentImg]: null })
+            setFieldValue('imageUrl', { ...images, [currentImg]: data.url })
+            
 
         } catch (error) {
             console.warn(error);

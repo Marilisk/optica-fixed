@@ -53,7 +53,7 @@ export const ProductCard = ({ dispatch,
         onMouseLeave={() => setIsHovered(null)} >
 
         <NavLink to={`/product/${product._id}`}>
-            <img src={product.imageUrl?.main ? `https://backend-optics-without-packlo.onrender.com${product.imageUrl.main}` : defaultGlasses} alt='' />
+            <img src={product.imageUrl?.main ? `https://backend-optics-production.up.railway.app${product.imageUrl.main}` : defaultGlasses} alt='' />
             <div className={c.price}>
                 {price}
             </div>

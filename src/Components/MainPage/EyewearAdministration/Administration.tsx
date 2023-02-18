@@ -1,6 +1,5 @@
 import { Field, Form, Formik } from 'formik';
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { FC, useEffect, useState } from 'react';
 import { NavLink, useNavigate, useParams } from 'react-router-dom';
 import { Preloader } from '../../../assets/common/Preloader/Preloader';
 import instance from '../../../redux/API/api';
@@ -8,35 +7,46 @@ import { fetchProd } from '../../../redux/productsSlice';
 import { CreateFieldArray } from './createFieldArray';
 import c from './Administration.module.scss';
 import { FilesDownloader } from './FilesDownLoader';
-import { initValues } from './../InitValues/EyewearInitvalues';
+import { initValues } from '../InitValues/EyewearInitvalues';
 import { selectIsManager } from '../../../redux/authSlice';
+import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
+import { IImageUrl, LoadingStatusEnum } from '../../Types/types';
 
 
-export const Administration = () => {
-    const dispatch = useDispatch()
+export const Administration: FC = () => {
+    const dispatch = useAppDispatch()
     const navigate = useNavigate()
     const params = useParams()
     const [successmsg, setSuccessMsg] = useState(null)
-    const isManager = useSelector(selectIsManager)
-
-    useEffect(()=> {
-        if(!isManager) {
+    const isManager = useAppSelector(selectIsManager)
+    const [images, setImages] = useState<IImageUrl>(/* currentProduct.item.imageUrl */ );
+    
+    // for bug tests 63eddbb4d680899d1c5178a3 Polly 6400 rub
+    // http://localhost:3000/product/63eddbb4d680899d1c5178a3
+    /* useEffect(() => {
+        if (!isManager) {
             navigate('/')
         }
-    })
+    }) */
     useEffect(() => {
         if (params.id) {
-            dispatch(fetchProd(params.id));
+            const fetch = async () => {
+                const response = await dispatch(fetchProd(params.id));
+                if (response.payload.imageUrl) {
+                    setImages(response.payload.imageUrl)
+                }
+            }
+            fetch()
+        } else {
+            setImages({main: '', side: '', perspective: ''})
         }
     }, [params.id, dispatch]);
-    
-    const currentProduct = useSelector(state => state.products.currentProduct);
-    const editMode = Boolean(params.id);
 
-    const [images, setImages] = useState(editMode ? (currentProduct.item?.imageUrl || {}) : { main: '', side: '', perspective: '' });
+    const currentProduct = useAppSelector(state => state.products.currentProduct);
+    const editMode = Boolean(params.id);  
 
-    if (editMode && currentProduct.status === 'loading') {
-        return <div><Preloader /></div>
+    if (currentProduct.status === LoadingStatusEnum.loading || !images) {
+        return <div><Preloader minFormat={true} /></div>
     }
 
     const initialValues = initValues(editMode, currentProduct, images);
@@ -47,24 +57,21 @@ export const Administration = () => {
         </div>
 
         <div className={c.adminWrapper}>
-
-            <FilesDownloader images={images} setImages={setImages} /* editMode={editMode} currentProduct={currentProduct} */ />
-
             <div className={c.formikWrapper}>
                 <Formik initialValues={initialValues}
                     enableReinitialize={true}
                     onSubmit={async (values, actions) => {
-                        values.gender = [values.gender]
+                        console.log('actions', actions)  
+                        const genderArr = []
+                        genderArr.push(values.gender)                      
+                        actions.setFieldValue('gender', genderArr)
                         try {
-                            values.imageUrl = images
                             const { data } = editMode ?
                                 await instance.patch(`/products/${params.id}`, values)
                                 : await instance.post('/products', values);
                             const id = data._id;
                             setSuccessMsg(id);
                             if (data._id || (editMode && data.success === true)) {
-                                //alert('данные успешно внесены');
-                                actions.resetForm({ initialValues });
                                 navigate(`/product/${params.id || id}`);
                             }
                         } catch (error) {
@@ -74,9 +81,11 @@ export const Administration = () => {
                     }}
                 >
 
-                    {({ values, actions }) => (
+                    {props => (
+                        
                         <Form>
                             <div>
+                            <FilesDownloader images={images} setImages={setImages} editMode={editMode} currentProduct={currentProduct.item} setFieldValue={props.setFieldValue} />
 
                                 <div className={c.inputGroup}>
 
@@ -133,13 +142,13 @@ export const Administration = () => {
 
                                     <div className={c.genderEdit}>
                                         <label >
-                                            <div className={values.gender.includes('Мужские') ? c.chosenJaw : c.jaw}>
+                                            <div className={props.values.gender.includes('Мужские') ? c.chosenJaw : c.jaw}>
                                                 Мужские
                                             </div>
                                             <Field type={'radio'} name="gender" value={'Мужские'} />
                                         </label>
                                         <label >
-                                            <div className={values.gender.includes('Женские') ? c.chosenJaw : c.jaw}>
+                                            <div className={props.values.gender.includes('Женские') ? c.chosenJaw : c.jaw}>
                                                 Женские
                                             </div>
                                             <Field type={'radio'} name="gender" value={'Женские'} />
@@ -149,21 +158,21 @@ export const Administration = () => {
                                 </div>
 
                                 <CreateFieldArray name='features'
-                                    array={values.features}
+                                    array={props.values.features}
                                     title={'Особенности'} />
 
                                 <CreateFieldArray name='options'
-                                    array={values.options}
+                                    array={props.values.options}
                                     title={'Опции'} />
 
 
 
                                 <CreateFieldArray name='shape'
-                                    array={values.shape}
+                                    array={props.values.shape}
                                     title={'Форма'} />
 
                                 <CreateFieldArray name='color'
-                                    array={values.color}
+                                    array={props.values.color}
                                     title={'Цвет'} />
 
                                 <div className={c.numberInputGroup}>
@@ -224,15 +233,14 @@ export const Administration = () => {
                                 </div>
 
                                 <CreateFieldArray name='material'
-                                    array={values.material}
+                                    array={props.values.material}
                                     title={'Материал'} />
 
 
-                                <button className={c.submitBtn} disabled={currentProduct.isLoading === 'isLoading'} type='submit'>ОТПРАВИТЬ</button>
-                                <button className={c.resetBtn} disabled={currentProduct.isLoading}
-                                    type='button'
-                                    onClick={() => actions.resetForm( /* {initialValues} */)} >
-                                    ОЧИСТИТЬ
+                                <button className={c.submitBtn}
+                                    disabled={currentProduct.status === LoadingStatusEnum.loading}
+                                    type='submit'>
+                                    ОТПРАВИТЬ
                                 </button>
 
 

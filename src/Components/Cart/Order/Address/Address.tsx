@@ -3,12 +3,9 @@ import { FC, useCallback, useEffect, useState } from 'react';
 import { Formik, useFormikContext } from 'formik';
 import { IInitialValues, initValues } from './initialValues';
 import dadataFetch from '../../../../redux/API/dadataApi';
-//import snowFlake from './../../../../assets/icons/snowflake.png';
-//import errorInput from './../../../../assets/icons/errorInput.png';
-//import check from './../../../../assets/icons/check.png';
 import { DadataSuggestionType } from '../../../Types/types';
 import { useAppDispatch } from '../../../../redux/hooks';
-import { fetchAddValuesToOrder, fetchCreateOrder, fetchEditOrder } from '../../../../redux/authSlice';
+import { fetchAddValuesToOrder, fetchCreateOrder } from '../../../../redux/authSlice';
 import { fetchCollectCartPrices, setProcessedOrder } from '../../../../redux/productsSlice';
 import { OrderHeader } from '../OrderHeader/OrderHeader';
 import { activeColEnum } from '../Order';
@@ -126,7 +123,6 @@ export const Address: FC<IAddress> = ({ userName, setActiveCol, activeCol }: IAd
                             <GetDadataHints statePart={'address'} setFieldValue={props.setFieldValue} />
                         </div>
 
-
                         <div className={c.formLine} >
                             <input type="text" placeholder='дополнительная информация'
                                 onChange={props.handleChange}
@@ -134,14 +130,6 @@ export const Address: FC<IAddress> = ({ userName, setActiveCol, activeCol }: IAd
                                 name="additional"
                             />
                         </div>
-
-                        {/* <div className={c.formLine} >
-                            <input type="text" placeholder='квартира'
-                                onChange={props.handleChange}
-                                value={props.values.apartment}
-                                name="apartment"
-                            />
-                        </div> */}
 
                         <div className={c.formLine}>
                             <button type='submit' className={c.submitBtn}

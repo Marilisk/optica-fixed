@@ -31,7 +31,7 @@ export const Header = ({ fullHeader, favoritesCount }) => {
                 </span>
                 {menuOpened === btn.name &&
                     <div className={c.accordeon}>
-                        <MenuOptions links={btn.links} />
+                        <MenuOptions links={btn.links} dispatch={dispatch} />
                     </div>
                 }
             </div>

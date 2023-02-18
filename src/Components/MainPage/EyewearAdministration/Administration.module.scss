@@ -128,7 +128,7 @@ $serif-font-family: 'Playfair Display SC', serif;
 }
 
 
-.submitBtn, .resetBtn {
+.submitBtn/* , .resetBtn */ {
     border: 3px solid #C899CC;
     color: $violet;
     font-weight: 600;
@@ -150,14 +150,14 @@ $serif-font-family: 'Playfair Display SC', serif;
     }
 }
 
-.resetBtn {
+/* .resetBtn {
     color: $gray-fontcolor;
     border-color: transparent;
     &:hover {
         border-color: $gray-fontcolor;
 
     }
-}
+} */
 
 .btn {
     font-size: 12px;
