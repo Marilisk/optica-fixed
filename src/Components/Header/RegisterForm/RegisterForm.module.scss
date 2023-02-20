@@ -87,3 +87,11 @@ $serif-font-family: 'Playfair Display SC', serif;
 }
 .errorEmail { top: 110px; }
 .errorPassword { top: 182px; }
+
+
+.alreadyRegisteredMsg {
+    text-align: center;
+    margin: 0;
+    margin-bottom: 20px;
+    color: $violet ;
+}

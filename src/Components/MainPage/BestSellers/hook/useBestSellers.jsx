@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { priceFormatter } from '../../../../assets/functions/priceFormatter';
+import { API_URL } from '../../../../redux/API/api';
 
 
 export const useBestSellers = () => {
@@ -10,7 +11,6 @@ export const useBestSellers = () => {
 
     const [portion, setPortion] = useState(1);
     const [mobilePortion, setMobPortion] = useState(1);
-    //console.log('portion ' + portion)
     const itemsAmount = 3;   // здесь изменять количество одновременно выводимых бестселлеров
     const [decrement, setDecrement] = useState(0);
     const showPrev = () => {
@@ -39,7 +39,7 @@ export const useBestSellers = () => {
                     { left: '200vw' }
                     : { left: (34.9 * (ind - decrement)) + '%' }} >
 
-                <img alt='' src={`https://backend-optics-without-packlo.onrender.com${item.imageUrl?.main}`} />
+                <img alt='' src={`${API_URL}${item.imageUrl?.main}`} />
                 <p className={c.price}>
                     {price}
                 </p>
@@ -58,7 +58,7 @@ export const useBestSellers = () => {
                         { left: 0 + 'vw' }
                         : { display: 'none' }} >
 
-                    <img alt='' src={`https://backend-optics-without-packlo.onrender.com${item.imageUrl?.main}`} />
+                    <img alt='' src={`${API_URL}${item.imageUrl?.main}`} />
                     <p className={c.price}>
                         {price}
                     </p>

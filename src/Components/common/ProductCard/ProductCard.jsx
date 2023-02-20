@@ -69,13 +69,12 @@ export const ProductCard = ({ dispatch,
                             </svg>
                         </div>
                         :
-                        <div onClick={() => /*  ? false :  */addToFavorites(product._id)} >
+                        <div onClick={() => addToFavorites(product._id)} >
                             <Heart color={authIsLoading ? '#fff' : '#C899CC'} size={'18px'} />
                         </div>
                     }
                 
         </div>
-
 
         {isHovered === product._id &&
             <div className={c.addToCart}>
@@ -90,5 +89,6 @@ export const ProductCard = ({ dispatch,
 
             </div>
         }
+        
     </div>
 }

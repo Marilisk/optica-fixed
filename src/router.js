@@ -67,12 +67,6 @@ export const router = createBrowserRouter([
       {
         path: "lenses",
         element: <Lenses />,
-        /* children: [
-          {
-            path: "lenses/:id",
-            element: <LensPage />,
-          },
-        ], */
       },
 
       {
@@ -147,7 +141,7 @@ export const router = createBrowserRouter([
         path: "/accesories",
         element: <Accesories />,
       },
-      
+
     ],
   },
 

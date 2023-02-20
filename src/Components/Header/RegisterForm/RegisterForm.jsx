@@ -6,10 +6,12 @@ import { validateEmail, validatePassword, validateFullName } from '../LoginForm/
 import snowFlake from './../../../assets/icons/snowflake.png';
 import errorInput from './../../../assets/icons/errorInput.png';
 import check from './../../../assets/icons/check.png';
+import { useState } from 'react';
 
 
-export const RegisterForm = ({dispatch, toggleLoginModalOpened, isLoading, /* navigate */}) => {
-     
+export const RegisterForm = ({ dispatch, toggleLoginModalOpened, isLoading, /* navigate */ }) => {
+    const [alreadyRegisteredMsg, setAlreadyRegisteredMsg] = useState(null)
+
     return <Formik initialValues={{
         fullName: '',
         email: '',
@@ -19,10 +21,17 @@ export const RegisterForm = ({dispatch, toggleLoginModalOpened, isLoading, /* na
         onSubmit={async (values, actions) => {
             const payload = { email: values.email, password: values.password, fullName: values.fullName };
             const response = await dispatch(fetchRegister(payload));
-            if (!response.payload) {
-                alert(response.error.message);
-            } else if ('email' in response.payload) {
-                if (values.rememberMe) { localStorage.setItem('email', values.email) } 
+            if (response.error.message === "Request failed with status code 400") {
+                console.log('response', response)
+                setAlreadyRegisteredMsg('Пользователь с таким email уже зарегистрирован')
+                actions.resetForm({
+                    fullName: '',
+                    email: '',
+                    password: '',
+                    rememberMe: true,
+                });
+            } else if (response.payload && 'email' in response.payload) {
+                if (values.rememberMe) { localStorage.setItem('email', values.email) }
                 actions.resetForm({
                     fullName: '',
                     email: '',
@@ -30,6 +39,8 @@ export const RegisterForm = ({dispatch, toggleLoginModalOpened, isLoading, /* na
                     rememberMe: true,
                 });
                 toggleLoginModalOpened();
+            } else {
+                console.log(response);
             }
         }}
     >
@@ -54,7 +65,7 @@ export const RegisterForm = ({dispatch, toggleLoginModalOpened, isLoading, /* na
                             touched.email ? check : snowFlake}
                         className={c.emailIcon} />
 
-                    <Field id="password" /* type="password" */ name="password" placeholder='пароль' validate={validatePassword}
+                    <Field id="password" type="password" name="password" placeholder='пароль' validate={validatePassword}
                         style={errors.password && { borderColor: '#95009C', color: '#95009C' }} />
                     {errors.password && touched.password && <p className={c.errorPassword}>{errors.password}</p>}
                     <img alt=''
@@ -62,9 +73,11 @@ export const RegisterForm = ({dispatch, toggleLoginModalOpened, isLoading, /* na
                             touched.password ? check : snowFlake}
                         className={c.passwordIcon} />
 
-                    <button type='submit' 
-                            className={(errors.fullName|| errors.email || errors.password || isLoading === 'loading') ?
-                                c.btnEnabled : null}>
+                    {alreadyRegisteredMsg && <p className={c.alreadyRegisteredMsg}>{alreadyRegisteredMsg}</p>}
+
+                    <button type='submit'
+                        className={(errors.fullName || errors.email || errors.password || isLoading === 'loading') ?
+                            c.btnEnabled : null}>
                         ЗАРЕГИСТРИРОВАТЬСЯ
                     </button>
 

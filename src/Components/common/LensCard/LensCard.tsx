@@ -5,6 +5,7 @@ import { FC, useState } from 'react';
 import { ILensProduct } from '../../Types/types';
 import { useAppDispatch } from '../../../redux/hooks';
 import { setCurrentProd } from '../../../redux/lensesSlice';
+import { API_URL } from '../../../redux/API/api';
 
 
 interface ILensCardProps {
@@ -24,7 +25,7 @@ export const LensCard: FC<ILensCardProps> = ({ product, inCartArray }: ILensCard
         onMouseLeave={() => setIsHovered(null)} >
 
         <NavLink to={`/lenses/${product._id}`}>
-            <img src={`https://backend-optics-without-packlo.onrender.com${product.imageUrl.main}`} alt='' />
+            <img src={`${API_URL}${product.imageUrl.main}`} alt='' />
             <div className={c.price}>
                 {price}
             </div>

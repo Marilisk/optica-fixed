@@ -1,8 +1,6 @@
 import c from './Accesories.module.scss';
 import { BreadCrumbs } from '../common/BreadCrumbs/BreadCrumbs';
-import { FC, useEffect, useRef, useState } from 'react';
-import { Component } from './Component';
-import { Test } from '../GoodsGrid/FaceShapeChoose/Test';
+import { FC } from 'react';
 
 
 function transform(func) {
@@ -40,7 +38,7 @@ export const Accesories: FC = () => {
         <BreadCrumbs text={'Тесты'} />
         <div className={c.container}>
 
-        <Test />
+        
         </div>
 
 
