@@ -12,7 +12,7 @@ import { orderCreate } from './functions/useOrderCreator';
 export const fetchAuth = createAsyncThunk('auth/fetchAuth', async (params) => {
     let response = await instance.post('/auth/login', params);
     localStorage.setItem('token', response.data.accessToken)
-    return response.data;
+    return response;
 })
 
 export const fetchLogout = createAsyncThunk('auth/fetchLogout', async () => {
@@ -165,7 +165,7 @@ const authSlice = createSlice({
         })
             .addCase(fetchAuth.fulfilled, (state, action) => {
                 state.loginData.status = 'loaded';
-                state.loginData.data = action.payload.user;
+                state.loginData.data = action.payload.data.user;
             })
             .addCase(fetchAuth.rejected, (state) => {
                 state.loginData.status = 'loaded';

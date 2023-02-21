@@ -1,11 +1,10 @@
 import axios from "axios";
 
 export const API_URL = 'https://backend-optics-production.up.railway.app'
+//export const API_URL = 'http://localhost:5555'
 
-const instance = axios.create({
-    //baseURL: 'https://backend-optics-without-packlo.onrender.com',  
-    //baseURL: 'https://backend-optics.vercel.app',  
-    baseURL: 'https://backend-optics-production.up.railway.app',  
+const instance = axios.create({  
+    baseURL: API_URL,  
     withCredentials: true,    
 })
 

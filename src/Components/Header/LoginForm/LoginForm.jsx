@@ -3,6 +3,7 @@ import { CustomCheckbox } from '../../../assets/form_elements/CustomCheckbox/Cus
 import { Field, Form, Formik } from 'formik';
 import { fetchAddEyewearToCart, fetchAuth } from '../../../redux/authSlice';
 import { validateEmail, validatePassword } from './loginValidate';
+import { useState } from 'react';
 
 export const initialiseCart = async (dispatch) => {
     let cartInLS = localStorage.getItem('cart')
@@ -10,7 +11,7 @@ export const initialiseCart = async (dispatch) => {
         cartInLS = JSON.parse(localStorage.getItem('cart'))
         for (let cartItem of cartInLS) {
             if (cartItem.cat === "eyewear") {
-                await dispatch(fetchAddEyewearToCart({productId: cartItem.productId, cat: "eyewear" }))
+                await dispatch(fetchAddEyewearToCart({ productId: cartItem.productId, cat: "eyewear" }))
             } else {
                 await dispatch(fetchAddEyewearToCart({
                     productId: cartItem.productId, cat: 'contactLens', lens: cartItem.leftLens
@@ -22,6 +23,7 @@ export const initialiseCart = async (dispatch) => {
 }
 
 export const LoginForm = ({ toggleLoginModalOpened, dispatch, isLoading }) => {
+    const [invalidMsg, setInvalidMsg] = useState(null)
 
     const emailInLS = localStorage.getItem('email')
     const initialValues = emailInLS ? { email: emailInLS, password: '', rememberMe: true }
@@ -31,9 +33,14 @@ export const LoginForm = ({ toggleLoginModalOpened, dispatch, isLoading }) => {
         onSubmit={async (values, actions) => {
             const payload = { email: values.email, password: values.password };
             const data = await dispatch(fetchAuth(payload));
-            if (!data.payload && data.error.message === 'Request failed with status code 404') {
-                alert('неверный логин или пароль');
-            } else if ('accessToken' in data.payload) {
+            if (!data.payload && data.error.message === 'Request failed with status code 400') {
+                setInvalidMsg('неверный логин или пароль')
+                actions.resetForm({
+                    email: '',
+                    password: '',
+                    rememberMe: true,
+                })
+            } else if ('accessToken' in data.payload.data) {
                 if (values.rememberMe) { localStorage.setItem('email', values.email) }
                 initialiseCart(dispatch)
                 actions.resetForm({
@@ -42,14 +49,14 @@ export const LoginForm = ({ toggleLoginModalOpened, dispatch, isLoading }) => {
                     rememberMe: true,
                 })
                 toggleLoginModalOpened();
-            } else {
+            } /* else {
                 alert('ошибка авторизации');
-            }
+            } */
         }}
     >
 
         {({ errors, touched }) => (
-            <Form >
+            <Form>
                 <div className={c.wrap}>
 
                     <Field id='email' name='email' placeholder='email' validate={validateEmail}
@@ -59,6 +66,10 @@ export const LoginForm = ({ toggleLoginModalOpened, dispatch, isLoading }) => {
                     <Field id="password" type="password" name="password" placeholder='пароль' validate={validatePassword}
                         style={errors.password && { borderColor: '#FF0000' }} />
                     {errors.password && touched.password && <p className={c.errorPassword}>{errors.password}</p>}
+
+                    {invalidMsg &&
+                        <p className={c.alreadyRegisteredMsg}>{invalidMsg}</p>
+                    }
 
                     <button type='submit' disabled={isLoading === 'loading' || (errors.email || errors.password)}>
                         ВОЙТИ

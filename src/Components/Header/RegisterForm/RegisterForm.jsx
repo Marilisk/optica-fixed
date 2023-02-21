@@ -9,7 +9,7 @@ import check from './../../../assets/icons/check.png';
 import { useState } from 'react';
 
 
-export const RegisterForm = ({ dispatch, toggleLoginModalOpened, isLoading, /* navigate */ }) => {
+export const RegisterForm = ({ dispatch, toggleLoginModalOpened, isLoading, }) => {
     const [alreadyRegisteredMsg, setAlreadyRegisteredMsg] = useState(null)
 
     return <Formik initialValues={{

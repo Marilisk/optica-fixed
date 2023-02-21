@@ -1,6 +1,7 @@
-import { useFormik } from 'formik';
+import { Field, Form, Formik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 import { subscribe } from '../../../redux/authSlice';
+import { validateEmail } from '../../Header/LoginForm/loginValidate';
 import c from './SubscribeForm.module.scss';
 
 
@@ -10,39 +11,33 @@ export const SubscribeForm = () => {
     const data = useSelector(state => state.auth.subscribeData);
     const msg = data.responseMsg;
 
-    const formik = useFormik({
-        initialValues: {
-            email: data.email,
-        },
-        enableReinitialize: true,
-        onSubmit: (values, actions) => { 
+    if (msg) {
+        return <p>{msg}</p>
+    }
+
+    return <Formik initialValues={{ email: data.email, }}
+        onSubmit={(values, actions) => {
             dispatch(subscribe(values.email))
-            console.log(actions)
             actions.resetForm('')
+        }
 
-        },
-    })
+        }>
+        {({ errors, touched }) => (
+            <Form className={c.subscribeForm}>
+                <Field name='email' 
+                    placeholder={'email'} 
+                    validate={validateEmail} />
 
-    return <>
-    {msg ? msg  
-    :
-    <form onSubmit={formik.handleSubmit}
-        className={c.subscribeForm}>
-        
-        <input name='email'
-                type='text'
-                value={formik.values.email}
-                placeholder='email'
-                onChange={formik.handleChange}
-            />
+                {errors.email && touched.email &&
+                    <p className={c.error}>{errors.email}</p>}
 
-        <button type='submit'>
-            Получить
-        </button>
+                <button type='submit' disabled={errors.email}>
+                    получить
+                </button>
+            </Form>
+        )}
+    </Formik>
 
 
-    </form>
-}
 
-    </>
 }

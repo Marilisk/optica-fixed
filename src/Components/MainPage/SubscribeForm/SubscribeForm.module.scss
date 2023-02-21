@@ -24,7 +24,7 @@ $serif-font-family: 'Playfair Display SC', serif;
 }
 
 .subscribeForm {
-
+    position: relative;
     input,
     button {
         font-size: 18px;
@@ -75,7 +75,6 @@ $serif-font-family: 'Playfair Display SC', serif;
         background: #D8C1D9;
         border: none;
         color: $dark-fontcolor;
-        //width: 31%;
         letter-spacing: .03em;
         margin: auto auto auto 6px;
         font-weight: 600;
@@ -84,6 +83,10 @@ $serif-font-family: 'Playfair Display SC', serif;
         &:hover {
             background: $light-beige-gray;
             transition: 400ms;
+        }
+        &:disabled {
+            background: $light-beige-gray;
+            color: $gray-fontcolor;
         }
     
         @media (max-width: 1200px) {
@@ -94,21 +97,25 @@ $serif-font-family: 'Playfair Display SC', serif;
         @media (max-width: 840px) {
             height: 2em;
             margin: 2px auto;
-            height: 3em;
-    
-            //margin: 2px auto auto 6px; 
+            height: 3em; 
         }
     
         @media (max-width: 768px) {
             width: 20%;
             margin: auto auto auto 6px;
-            //height: 3em;
         }
     
         @media (max-width: 533px) {
             width: auto;
         }
     
+    }
+
+    .error {
+        position: absolute;
+        top: 24px;
+        color: red;
+        font-size: $small-fontSize;
     }
 
 
