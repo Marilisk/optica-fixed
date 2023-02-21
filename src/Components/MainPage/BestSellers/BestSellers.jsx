@@ -58,8 +58,6 @@ export const BestSellers = () => {
                     showAnother={showNext} />
             </div>
 
-
-
         </div>
     </section>
 }

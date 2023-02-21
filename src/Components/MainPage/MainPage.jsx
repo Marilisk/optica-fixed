@@ -146,7 +146,7 @@ export const MainPage = () => {
                     <h2>
                         Подберите оправу онлайн и примерьте при личном визите.
                     </h2>
-                    <Link to='/offline-shop'>
+                    <Link to='/offlineshop'>
                         перейти к расположению магазина
                         <AngleIcon color={'#fff'} size={10} margin={'12px auto auto 4px'} />
                     </Link>

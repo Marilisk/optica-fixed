@@ -12,8 +12,7 @@ $test-border: 1px solid red;
 
 .mainWrapper {
     margin-top: 120px;
-    //border: 1px solid teal;
-    margin-bottom: 120px;
+    margin-bottom: 160px;
     h2 {
         font-size: 42px;
         font-family: $serif-font-family;
@@ -32,12 +31,7 @@ $test-border: 1px solid red;
 .galleryWrapper {
     display: flex;
     justify-content: space-evenly;
-    /* height: 300px;
-    height: 20vw; */
     cursor: pointer;
-    //border: 1px solid rebeccapurple;
-    
-
 }
 .itemsWrap, .mobileItemsWrap {
     display: flex;
@@ -56,7 +50,6 @@ $test-border: 1px solid red;
 .mobileItemsWrap {
     display: none;
     height: 44vw;
-    //border: 1px solid rebeccapurple;
     @media (max-width: 533px) {
         display: block;
     }
@@ -68,7 +61,6 @@ $test-border: 1px solid red;
     padding: 0;
     padding-top: 4.3vw;
     padding-top: 4vw;
-    //border: 1px solid teal;
     transition: all 400ms;
     position: absolute;
     left: 200vw;
@@ -79,7 +71,6 @@ $test-border: 1px solid red;
     }
     img {
         width: 80%;
-        //border: 1px solid greenyellow;
         margin: 0 auto;
         display: block;
     }
@@ -106,19 +97,6 @@ $test-border: 1px solid red;
     display: none;
     @media (max-width: 533px) {
         display: inline-block;
-        //border: 1px solid greenyellow;
     }
 
 }
-@media only screen and (max-width : 1680px) {}
-@media only screen and (max-width : 1366px) {}
-@media only screen and (max-width : 1280px) {}
-@media only screen and (max-width : 1024px) {}
-@media only screen and (max-width : 800px)  {}
-@media only screen and (max-width : 768px)  {}
-@media only screen and (max-width : 600px)  {}
-@media only screen and (max-width : 533px)  {}
-@media only screen and (max-width : 360px)  {}
-@media only screen and (max-width : 320px)  {}
-@media only screen and (max-width : 240px)  {}
-@media only screen and (max-width : 176px)  {}
