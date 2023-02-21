@@ -18,7 +18,6 @@ import { ShopByPage } from './Components/GoodsGrid/ShopByPage';
 import { Children } from './Components/Children/Children';
 import { App } from "./App";
 import { OfflineShop } from "./Components/OfflineShop/OfflineShop";
-import { Accesories } from "./Components/Accesories/Accesories";
 import { Budjet } from "./Components/Budjet/Budjet";
 import { QuestionForm } from "./Components/common/QuestionForm/QuestionForm";
 

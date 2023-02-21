@@ -32,7 +32,7 @@ const initialState: HeaderInitialStateType = {
             filter: MainMenuFilterEnum.children,
             links: [
                 { label: 'Все оправы', to: '/children' },
-                { label: 'Для самых маленьких', to: '/children', featureFilter: 'Для самых маленьких' },
+                { label: 'Для самых маленьких', to: '/children', featureFilter: 'для самых маленьких' },
             ]
         },
         {
