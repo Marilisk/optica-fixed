@@ -1,18 +1,6 @@
 import { useAppSelector } from '../../redux/hooks';
 import { FeatureType, ILensProduct } from "../../Components/Types/types";
 
-/* const doFilterSmth = (products:ILensProduct[], chosenFeatures:string[], tag:string ) => {
-
-    let result = []
-    for (let product of products) {
-        for (let feature of chosenFeatures) {
-            if (product[tag].includes(feature)) {
-                result.push(product)
-            }
-        }
-    }
-    return result
-} */
 
 export const useFilterLens = (array:ILensProduct []) => {
     
@@ -21,7 +9,7 @@ export const useFilterLens = (array:ILensProduct []) => {
     if (!filters.length) {
         return array;
     }
-    let result = [...array]  // может ли здесь потом возникнуть какая-то проблема изза копирования по ссылке?
+    let result = [...array]  
 
     const manufactFilter = filters.find(el => el.name === 'manufacturer' && el.isSelected)
     if (manufactFilter) {
@@ -40,7 +28,8 @@ export const useFilterLens = (array:ILensProduct []) => {
 
     const amountFilter = filters.find(el => el.name === 'amountInPack' && el.isSelected)
     if (amountFilter) {
-        result = result.filter(elem => periodityFilter.chosenOptions.includes(elem.changePeriod) ) 
+        console.log(amountFilter)
+        result = result.filter(elem => amountFilter.chosenOptions.includes(elem.amountInPack.toString()) ) 
     }
     
     return result;

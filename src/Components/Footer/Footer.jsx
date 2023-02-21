@@ -15,19 +15,31 @@ export const Footer = () => {
             <div className={c.mediaFlex}>
                 <div className={c.column}>
                     <h3>Популярное</h3>
-                    <div>Оправы до 4 900 рублей</div>
-                    <div>
-                    <Link to='/accesories'>
-                        Аксессуары
+
+                    <Link to='/budjet/5000'>
+                        <div>Оправы до 5 000 рублей</div>
+                    </Link>
+
+                    <Link to='/budjet/3000'>
+                        <div>Оправы до 3 000 рублей</div>
+                    </Link>
+
+                    {/* <div>
+                        <Link to='/accesories'>
+                            Аксессуары
                         </Link>
-                    </div>
+                    </div> */}
                 </div>
                 <div className={c.column}>
                     <h3>Информация</h3>
-                    <div>
-                        <Link to={'/myoptis'}>Отследить заказ</Link>
-                    </div>
-                    <div>Задать вопрос</div>
+
+                    <Link to={'/myoptis'}>
+                        <div>Отследить заказ</div>
+                    </Link>
+
+                    <Link to={'/ask'}>
+                        <div>Задать вопрос</div>
+                    </Link>
 
                     {isManager && <Link to='/manage'>
                         <div className={c.administrationLink}>Добавление товара. Оправы.</div>
@@ -50,7 +62,7 @@ export const Footer = () => {
                             тел. +7 (981) 939 12 21
                         </a>
                     </div>
-                    <div>заказать звонок</div>
+                    {/* <div>заказать звонок</div> */}
                 </div>
             </div>
 

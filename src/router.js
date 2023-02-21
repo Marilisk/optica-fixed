@@ -19,6 +19,8 @@ import { Children } from './Components/Children/Children';
 import { App } from "./App";
 import { OfflineShop } from "./Components/OfflineShop/OfflineShop";
 import { Accesories } from "./Components/Accesories/Accesories";
+import { Budjet } from "./Components/Budjet/Budjet";
+import { QuestionForm } from "./Components/common/QuestionForm/QuestionForm";
 
 export const router = createBrowserRouter([
   {
@@ -57,6 +59,11 @@ export const router = createBrowserRouter([
       {
         path: "children",
         element: <Children />,
+      },
+
+      {
+        path: "budjet/:sum",
+        element: <Budjet />,
       },
 
       {
@@ -138,8 +145,8 @@ export const router = createBrowserRouter([
       },
 
       {
-        path: "/accesories",
-        element: <Accesories />,
+        path: "/ask",
+        element: <QuestionForm />,
       },
 
     ],

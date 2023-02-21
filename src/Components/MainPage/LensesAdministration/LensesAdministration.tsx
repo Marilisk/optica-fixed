@@ -1,32 +1,46 @@
 import { Field, Form, Formik } from 'formik';
 import c from './LensesAdministration.module.scss';
-import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { FC, useEffect, useState } from 'react';
 import { NavLink, useNavigate, useParams } from 'react-router-dom';
-import { Preloader } from '../../../assets/common/Preloader/Preloader';
 import instance from '../../../redux/API/api';
-import { initValues } from './../InitValues/lensesInitvalues';
+import { initValues } from '../InitValues/lensesInitvalues';
 import { FilesDownloader } from '../EyewearAdministration/FilesDownLoader';
-import { CreateFieldArray } from '../EyewearAdministration/createFieldArray';
+import { fetchLens } from '../../../redux/lensesSlice';
+import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
+import { Preloader } from '../../../assets/common/Preloader/Preloader';
+import { CreateLenFieldArray } from './createLenFieldArray';
+import { IImageUrl, LoadingStatusEnum } from '../../Types/types';
 
-export const LensesAdministration = ({ }) => {
+export const LensesAdministration:FC = () => {
     const navigate = useNavigate()
     const params = useParams();
     const [successmsg, setSuccessMsg] = useState(null);
+    const dispatch = useAppDispatch()
+    const [images, setImages] = useState<IImageUrl>();
+
 
     useEffect(() => {
         if (params.id) {
-            //dispatch(fetchProd(params.id));
+            const fetch = async () => {
+                const response = await dispatch(fetchLens(params.id));
+                console.log(response)
+                if (response.payload.imageUrl) {
+                    setImages(response.payload.imageUrl)
+                }
+            }
+            fetch()
+        } else {
+            
+            setImages({main: '', side: '', perspective: ''})
         }
-    }, [params.id]);
+    }, [params.id, dispatch]);
 
-    const currentProduct = useSelector(state => state.lenses.currentProduct);
+    const currentProduct = useAppSelector(state => state.lenses.currentProduct);
     const editMode = Boolean(params.id);
 
-    const [images, setImages] = useState(editMode ? currentProduct.item?.imageUrl : { main: '', side: '', perspective: '' });
-
-    if (editMode && !currentProduct.item) {
-        return <div><Preloader /></div>
+    
+    if (currentProduct.status === LoadingStatusEnum.loading || !images) {
+        return <div><Preloader minFormat={true} /></div>
     }
 
     const initialValues = initValues(editMode, currentProduct, images);
@@ -39,11 +53,11 @@ export const LensesAdministration = ({ }) => {
         <div className={c.adminWrapper}>
             <div className={c.formikWrapper}>
                 <Formik initialValues={initialValues}
-                    /* enableReinitialize={true} */
+                    enableReinitialize={true}
                     onSubmit={async (values, actions) => {
-                        console.log('presubmit', values)
+                        //console.log('presubmit', values)
                         try {
-                            values.imageUrl = images
+                            //props.values.imageUrl = images
                             console.log('submit', values)
                             const { data } = editMode ?
                                 await instance.patch(`/lenses/${params.id}`, values)
@@ -53,7 +67,6 @@ export const LensesAdministration = ({ }) => {
                             console.log('response ', data);
                             if (data.success === true || (editMode && data._id)) {
                                 alert('успешно!');
-                                actions.resetForm({initialValues})
                                 navigate(`/lenses/${params.id || id}`);
                             }
                         } catch (error) {
@@ -63,7 +76,8 @@ export const LensesAdministration = ({ }) => {
                     }}
                 >
 
-                    {({ values, actions }) => (
+                    {/* {({ values }) => ( */}
+                    {props => (
                         <Form>
                             <div className={c.form}>
                                 <div className={c.inputWrapper}>
@@ -105,20 +119,22 @@ export const LensesAdministration = ({ }) => {
                                     </label>
                                 </div>
 
-                                <CreateFieldArray name='prescription'
-                                    className={c.prescriptionArr}
-                                    array={values.prescription}
-                                    title={'Оптическая сила'} />
+                                <div className={c.prescriptionArr}>
+                                    <CreateLenFieldArray name='prescription'
+                                        array={props.values.prescription}
+                                        title={'Оптическая сила'} />
+                                </div>
 
-                                <CreateFieldArray name='BC'
-                                    array={values.BC}
+
+                                <CreateLenFieldArray name='BC'
+                                    array={props.values.BC}
                                     title={'BC'} />
-                                <CreateFieldArray name='CYL'
-                                    array={values.CYL}
+                                <CreateLenFieldArray name='CYL'
+                                    array={props.values.CYL}
                                     title={'CYL'} />
 
-                                <CreateFieldArray name='AX'
-                                    array={values.AX}
+                                <CreateLenFieldArray name='AX'
+                                    array={props.values.AX}
                                     title={'AX'} />
 
                                 <div className={c.inputWrapper}>
@@ -169,14 +185,18 @@ export const LensesAdministration = ({ }) => {
                                     </label>
                                 </div>
 
-                                <button className={c.submitBtn} 
-                                    disabled={currentProduct.isLoading === 'isLoading' || images.main === ''} 
+                                <button className={c.submitBtn}
+                                    disabled={currentProduct.status === LoadingStatusEnum.loading 
+                                        || images.main === ''}
                                     type='submit'>ОТПРАВИТЬ</button>
-                                {/* <button className={c.resetBtn} disabled={currentProduct.isLoading}
+
+                                <button className={c.resetBtn} 
+                                    disabled={currentProduct.status === LoadingStatusEnum.loading 
+                                        || images.main === ''}
                                     type='button'
-                                    onClick={() => actions.resetForm({ initialValues })} >
+                                    onClick={() => props.resetForm()} >
                                     ОЧИСТИТЬ
-                                </button> */}
+                                </button>
 
 
                                 {successmsg ?
@@ -186,13 +206,15 @@ export const LensesAdministration = ({ }) => {
                                     : null}
                             </div>
 
+
+                            <FilesDownloader images={images} setImages={setImages} setFieldValue={props.setFieldValue} />
                         </Form>
                     )}
                 </Formik>
 
             </div>
 
-            <FilesDownloader images={images} setImages={setImages} />
+            
 
         </div>
 

@@ -23,16 +23,17 @@ $serif-font-family: 'Playfair Display SC', serif;
         z-index: 1;
     }
     img {
-        width: 72%;
+        //width: 72%;
+        height: 60%;
+        //max-width: 92%;
         margin: 14% auto;
         display: block;
+        padding: 8px;
         @media (max-width: 1024px) {
-            margin: 8vw auto;
-            width: 62%;
+            margin: 4vw auto;
         }
         @media (max-width: 533px) {
-            margin: 13vw auto;
-          
+            margin: 8vw auto;
         }
     }
 }
@@ -54,7 +55,6 @@ $serif-font-family: 'Playfair Display SC', serif;
     position: absolute;
     right: 10%;
     top: 5%;
-    //height: 50px;
     @media (min-width: 1024px) {
         right: 8%;
         top: 5%;

@@ -1,8 +1,5 @@
 import c from './Lenses.module.scss';
 import { BreadCrumbs } from '../common/BreadCrumbs/BreadCrumbs';
-import { FiltersDashboard } from '../common/FiltersDashboard/FiltersDashboard';
-//import { clearAllFilters, fetchFilterOptions, selectFilter } from '../../redux/featuresSlice.js';
-import { Catalog } from '../common/Catalog/Catalog';
 import { FC, useEffect } from 'react';
 import { fetchLenses } from '../../redux/lensesSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
@@ -10,12 +7,8 @@ import { LoadingStatusEnum } from '../Types/types';
 import { LensFiltersDashboard } from '../common/FiltersDashboard/LensFiltersDashboard';
 import { LensCatalog } from '../common/LensCatalog/LensCatalog';
 
-interface ILensesProps {
-    authIsLoading: LoadingStatusEnum
-    userFavorites: string[]
-}
 
-export const Lenses:FC<ILensesProps> = ({authIsLoading}:ILensesProps) => {
+export const Lenses:FC = () => {
     const products = useAppSelector(state => state.lenses.products)
     const areProdsLoading = products.status === LoadingStatusEnum.loading;
     const dispatch = useAppDispatch();
@@ -44,15 +37,10 @@ export const Lenses:FC<ILensesProps> = ({authIsLoading}:ILensesProps) => {
 
         </section>
 
-        {/* <FiltersDashboard filters={filters} onSelectFilter={onSelectFilter} goodsAmount={goodsAmount} /> */}
         <LensFiltersDashboard />
 
         <LensCatalog products={products.items}
-                areProdsLoading={areProdsLoading}
-                authIsLoading={authIsLoading} />
-
-
-
+                areProdsLoading={areProdsLoading} />
         
     </>
 }

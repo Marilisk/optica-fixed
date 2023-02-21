@@ -3,17 +3,16 @@ import { Preloader } from '../../../assets/common/Preloader/Preloader';
 import { LensCard } from '../LensCard/LensCard';
 import { useFilterLens } from '../../../assets/functions/useFilterLens';
 import { FC } from 'react';
-import { ILensProduct, LoadingStatusEnum } from '../../Types/types';
+import { ILensProduct } from '../../Types/types';
 import { useAppSelector } from '../../../redux/hooks';
 import { useSortLenses } from '../../../assets/functions/useSortLenses';
 
 interface ILensCatalogProps {
     areProdsLoading: boolean
-    authIsLoading: LoadingStatusEnum
     products: ILensProduct[]
 }
 
-export const LensCatalog: FC<ILensCatalogProps> = ({ products, areProdsLoading, authIsLoading }: ILensCatalogProps) => {
+export const LensCatalog: FC<ILensCatalogProps> = ({ products, areProdsLoading }: ILensCatalogProps) => {
 
     let filteredLenses = useFilterLens(products)
     const sortedLenses = useSortLenses(filteredLenses)
@@ -31,7 +30,7 @@ export const LensCatalog: FC<ILensCatalogProps> = ({ products, areProdsLoading, 
     }
 
     if (!filteredLenses.length) {
-        return <div className={c.emptyNote}>Таких очков пока не завезли. Измените фильтры.</div>
+        return <div className={c.emptyNote}>Таких линз пока не завезли. Измените фильтры.</div>
     }
     return <div className={c.catGrid}>
         {sortedLenses.map(product => <LensCard key={product._id}

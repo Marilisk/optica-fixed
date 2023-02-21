@@ -25,7 +25,7 @@ export const LensFiltersDashboard:FC = () => {
     const [mobileFiltersSwitched, switchMobileFilters] = useState(false);
 
     return <>
-        {/* <div className={c.mobileFiltersSwitcher}>
+        <div className={c.mobileFiltersSwitcher}>
 
             <div className={c.mobileHeader} 
                 onClick={() => switchMobileFilters(!mobileFiltersSwitched)} >
@@ -41,7 +41,7 @@ export const LensFiltersDashboard:FC = () => {
             <MobileFiltersDashboard filters={filters}
                 onSelectFilter={onSelectFilter}
                 mobileFiltersSwitched={mobileFiltersSwitched} />
-        </div> */}
+        </div>
 
         <div className={c.menuBar}>
 
@@ -49,9 +49,6 @@ export const LensFiltersDashboard:FC = () => {
 
                 <SelectedFilters filters={filters} onSelectFilter={onSelectFilter} />
 
-                {/* <FiltersOptions filters={filters} onSelectFilter={onSelectFilter}
-                    filterOpened={filterOpened}
-                    onHover={onHover} /> */}
                 <LensFiltersOptions filters={filters} onSelectFilter={onSelectFilter}
                     filterOpened={filterOpened}
                     onHover={onHover} />    

@@ -8,7 +8,6 @@ import { CreateFieldArray } from './createFieldArray';
 import c from './Administration.module.scss';
 import { FilesDownloader } from './FilesDownLoader';
 import { initValues } from '../InitValues/EyewearInitvalues';
-import { selectIsManager } from '../../../redux/authSlice';
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
 import { IImageUrl, LoadingStatusEnum } from '../../Types/types';
 
@@ -18,16 +17,9 @@ export const Administration: FC = () => {
     const navigate = useNavigate()
     const params = useParams()
     const [successmsg, setSuccessMsg] = useState(null)
-    const isManager = useAppSelector(selectIsManager)
-    const [images, setImages] = useState<IImageUrl>(/* currentProduct.item.imageUrl */ );
+    const [images, setImages] = useState<IImageUrl>();
     
-    // for bug tests 63eddbb4d680899d1c5178a3 Polly 6400 rub
-    // http://localhost:3000/product/63eddbb4d680899d1c5178a3
-    /* useEffect(() => {
-        if (!isManager) {
-            navigate('/')
-        }
-    }) */
+    
     useEffect(() => {
         if (params.id) {
             const fetch = async () => {
@@ -61,7 +53,7 @@ export const Administration: FC = () => {
                 <Formik initialValues={initialValues}
                     enableReinitialize={true}
                     onSubmit={async (values, actions) => {
-                        console.log('actions', actions)  
+                        //console.log('actions', actions)  
                         const genderArr = []
                         genderArr.push(values.gender)                      
                         actions.setFieldValue('gender', genderArr)
@@ -85,7 +77,8 @@ export const Administration: FC = () => {
                         
                         <Form>
                             <div>
-                            <FilesDownloader images={images} setImages={setImages} editMode={editMode} currentProduct={currentProduct.item} setFieldValue={props.setFieldValue} />
+                            <FilesDownloader images={images} setImages={setImages} /* editMode={editMode} currentProduct={currentProduct.item} */ 
+                                setFieldValue={props.setFieldValue} />
 
                                 <div className={c.inputGroup}>
 
