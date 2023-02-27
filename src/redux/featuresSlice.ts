@@ -83,7 +83,6 @@ const featuresSlice = createSlice({
             const item = state.features.find((el) => el.id === action.payload.feature);
             let thisIndex:number = state.features.indexOf(item);
             let isOptionChosen = state.features[thisIndex].chosenOptions.includes(action.payload.option);
-            
             if (isOptionChosen) {
                 state.features[thisIndex].chosenOptions = state.features[thisIndex].chosenOptions.filter(chosenOption => chosenOption !== action.payload.option);
                 state.features[thisIndex].options.push(action.payload.option);

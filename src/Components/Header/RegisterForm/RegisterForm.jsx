@@ -22,7 +22,6 @@ export const RegisterForm = ({ dispatch, toggleLoginModalOpened, isLoading, }) =
             const payload = { email: values.email, password: values.password, fullName: values.fullName };
             const response = await dispatch(fetchRegister(payload));
             if (response.error.message === "Request failed with status code 400") {
-                console.log('response', response)
                 setAlreadyRegisteredMsg('Пользователь с таким email уже зарегистрирован')
                 actions.resetForm({
                     fullName: '',
