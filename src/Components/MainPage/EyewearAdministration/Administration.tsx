@@ -52,8 +52,7 @@ export const Administration: FC = () => {
             <div className={c.formikWrapper}>
                 <Formik initialValues={initialValues}
                     enableReinitialize={true}
-                    onSubmit={async (values, actions) => {
-                        //console.log('actions', actions)  
+                    onSubmit={async (values, actions) => { 
                         const genderArr = []
                         genderArr.push(values.gender)                      
                         actions.setFieldValue('gender', genderArr)

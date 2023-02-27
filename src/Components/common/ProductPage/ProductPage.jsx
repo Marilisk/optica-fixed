@@ -56,7 +56,6 @@ export const ProductPage = () => {
     const price = priceFormatter(product.price)
     const maleGender = product.gender.includes('Мужские')
 
-
     return <>
         <div className={c.wrap}>
             <BreadCrumbs text={`${maleGender ? 'Мужские' : 'Женские'} очки. ${product.name} `} />

@@ -1,5 +1,3 @@
-
-
 export type IUser = {
     activationLink: string,
     _id: string,
@@ -14,17 +12,12 @@ export type IUser = {
     role: string,
     updatedAt: string,
     __v: number,
-};
-
-
-
+}
 export interface IImageUrl {
     main: string,
     side?: string,
     perspective?: string,
 }
-
-
 export interface IProduct {
     _id: string,
     category: string,
@@ -51,9 +44,7 @@ export interface IProduct {
     prescriptionMax: string,
     imageUrl: IImageUrl /* | null */
     size?:string
-
 }
-
 export interface ILensProduct {
     _id: string
     category: string
@@ -78,14 +69,12 @@ export interface ILensProduct {
     user?: object
     imageUrl: IImageUrl
 }
-
 export type ICartItem = {
     productId: string
     quantity: number
     leftLens: number
     rightLens: number
     cat: CatEnum
-    //lens: number
 }
 export type ICartItemWithSum = {
     productId: string
@@ -95,7 +84,6 @@ export type ICartItemWithSum = {
     price: number
     cat: CatEnum
 }
-
 export type ILData = {
     data?: IUser | null
     status: 'loaded' | 'loading' | 'error'
@@ -150,8 +138,6 @@ export type HeaderInitialStateType = {
     authOfferModalOpened: boolean
     mainMenu: MainMenuItemType[]    
 }
-
-
 export type FeatureType = {
     id: number
     label: string
@@ -177,8 +163,6 @@ export type FeaturesInitialStateType = {
     filteredProducts: IProduct[]
     goodsAmount: number
 }
-
-
 export enum LoadingStatusEnum {
     loading = 'isLoading',
     loaded = 'loaded',
@@ -232,8 +216,6 @@ type CategoryType = {
 export type CategotiesInitialStateType = {
     categories: CategoryType[]
 }
-
-
 export type LensProductsType = {
     items: ILensProduct[]
     status: LoadingStatusEnum

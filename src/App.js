@@ -16,7 +16,6 @@ export const App = () => {
   const isAuth = useSelector(selectIsAuth);
   const fullHeader = useSelector(state => state.header.fullHeader);
 
-
   useEffect(() => {
     dispatch(fetchProducts());
     dispatch(setfullHeaderTheme(true));
