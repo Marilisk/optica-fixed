@@ -8,6 +8,7 @@ import { useState } from 'react';
 import { CartIcon } from '../../../assets/header/icons/CartIcon';
 import { fetchAddEyewearToCart, selectIsAuth } from '../../../redux/authSlice';
 import { useSelector } from 'react-redux';
+import { API_URL } from '../../../redux/API/api';
 
 export const addToCartOrLS = (isAuth, dispatch, productId) => {
     if (isAuth) {
@@ -53,7 +54,7 @@ export const ProductCard = ({ dispatch,
         onMouseLeave={() => setIsHovered(null)} >
 
         <NavLink to={`/product/${product._id}`}>
-            <img src={product.imageUrl?.main ? `https://backend-optics-production.up.railway.app${product.imageUrl.main}` : defaultGlasses} alt='' />
+            <img src={product.imageUrl?.main ? `${API_URL}${product.imageUrl.main}` : defaultGlasses} alt='' />
             <div className={c.price}>
                 {price}
             </div>

@@ -16,7 +16,6 @@ $serif-font-family: 'Playfair Display SC', serif;
     button {
         display: block;
         border: 3px solid #C899CC;
-        color: $violet;
         font-weight: 600;
         letter-spacing: .5px;
         font-size: 18px;
@@ -26,7 +25,9 @@ $serif-font-family: 'Playfair Display SC', serif;
         transition: 300ms;
         margin: 10px 0;
         width: 180px;
-
+        a {
+            color: $violet;
+        }
         &:hover {
             border-color: $violet;
         }

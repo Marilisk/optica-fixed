@@ -1,8 +1,8 @@
 import axios from "axios";
 
 //export const API_URL = 'https://backend-optics-production.up.railway.app'
-//export const API_URL = 'http://176.113.83.205';
-export const API_URL = 'https://api.spboptis.ru';
+export const API_URL = 'https://api.spboptis.ru'
+export const ADMIN_URL = 'http://localhost:3000'
 
 
 const instance = axios.create({  
@@ -30,7 +30,6 @@ instance.interceptors.response.use( (config) => {
         } catch (error) {
             console.log('not authorised')
         }
-        
     } 
     throw error;
 }) 

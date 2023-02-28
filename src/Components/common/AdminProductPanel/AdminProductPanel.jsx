@@ -1,8 +1,7 @@
 import c from './AdminProductPanel.module.scss';
 import { fetchDeleteProd } from '../../../redux/productsSlice';
 import { useNavigate } from 'react-router-dom';
-
-export const ADMIN_URL = 'http://localhost:3000'
+import { ADMIN_URL } from '../../../redux/API/api';
 
 export const AdminProductPanel = ({ productId, dispatch }) => {
     const navigate = useNavigate();
@@ -22,8 +21,10 @@ export const AdminProductPanel = ({ productId, dispatch }) => {
             Удалить товар
         </button>
 
-        <button onClick={() => navigate(`${ADMIN_URL}/manage/${productId}`)}>
-            Изменить товар
+        <button>
+            <a href={`${ADMIN_URL}/manage/${productId}`}>
+                Изменить товар
+            </a>
         </button>
     </div>
 
