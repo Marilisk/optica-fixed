@@ -19,11 +19,8 @@ enum PageEnum {
 }
 
 interface IShopByPageProps {
-    /* addToFavorites: (arg: string) => void
-    removeFromFavorites: (arg: string) => void */
     userFavorites: string[]
     authIsLoading: LoadingStatusEnum
-
 }
 
 export const ShopByPage: FC<IShopByPageProps> = ({  userFavorites, authIsLoading }: IShopByPageProps) => {

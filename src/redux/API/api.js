@@ -2,7 +2,7 @@ import axios from "axios";
 
 //export const API_URL = 'https://backend-optics-production.up.railway.app'
 //export const API_URL = 'http://176.113.83.205';
-export const API_URL = 'http://api.spboptis.ru';
+export const API_URL = 'https://api.spboptis.ru';
 
 
 const instance = axios.create({  
