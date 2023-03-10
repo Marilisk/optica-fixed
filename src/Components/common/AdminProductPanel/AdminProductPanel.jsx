@@ -22,7 +22,7 @@ export const AdminProductPanel = ({ productId, dispatch }) => {
         </button>
 
         <button>
-            <a href={`${ADMIN_URL}/manage/${productId}`}>
+            <a target="_blank" rel="noopener noreferrer" href={`${ADMIN_URL}/manage/${productId}`}>
                 Изменить товар
             </a>
         </button>

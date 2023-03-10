@@ -36,7 +36,6 @@ export const checkAuth = createAsyncThunk('auth/checkAuth', async () => {  // re
 
 export const fetchRegister = createAsyncThunk('auth/fetchRegister', async (params) => {
     let response = await instance.post('/auth/register', params);
-    console.log(response);
     localStorage.setItem('token', response.data.accessToken)
     localStorage.setItem('loginData', JSON.stringify(params))
     return response.data.user;
@@ -44,12 +43,10 @@ export const fetchRegister = createAsyncThunk('auth/fetchRegister', async (param
 
 export const fetchAddToFavorites = createAsyncThunk('auth/fetchAddToFavorites', async (productId) => {
     const response = await instance.post(`/addtofav`, { productId });
-    //console.log(response);
     return response.data;
 })
 export const fetchRemoveFromFavorites = createAsyncThunk('auth/fetchRemoveFromFavorites', async (productId) => {
     const response = await instance.post(`/removefav`, { productId });
-    //console.log(response);
     return response.data;
 });
 
@@ -77,7 +74,6 @@ export const fetchCreateOrder = createAppAsyncThunk('auth/fetchCreateOrder', asy
     const cart = state.products.currentCartWithSums.items;
     const order:OrderType = orderCreate(cart, addressValues, userId)
     const response = await instance.post(`/createorder`, order );
-    console.log('authData', response)
     return response.data;
 })
 export const fetchAddValuesToOrder = createAppAsyncThunk('auth/fetchAddValuesToOrder', 
@@ -100,7 +96,6 @@ export const fetchEditOrder = createAppAsyncThunk('auth/fetchEditOrder',
     const thisPaymentWay = isCardChosen ? 'card' : 'cash'
     const innovatedOrder = {...prevOrder, paymentWay: thisPaymentWay }    
     const response = await instance.post(`/editorder`, innovatedOrder );
-    console.log(response)
     return response.data; 
 })
 export const fetchConFirmOrder = createAppAsyncThunk('auth/fetchConFirmOrder', 
@@ -109,13 +104,11 @@ export const fetchConFirmOrder = createAppAsyncThunk('auth/fetchConFirmOrder',
     const prevOrder:OrderType = state.products.processedOrder.order
     const innovatedOrder = {...prevOrder, condition: 'confirmed' }    
     const response = await instance.post(`/confirmorder`, innovatedOrder );
-    console.log(response)
     return response.data; 
 })
 
 export const fetchDeleteOrder = createAppAsyncThunk('auth/fetchDeleteOrder', async (orderId:string) => {  
     const response = await instance.delete(`/order/${orderId}`);
-    console.log(response)
     return {...response.data, orderId}; 
 })
 
@@ -200,7 +193,6 @@ const authSlice = createSlice({
                 state.loginData.data = null;
             })
             .addCase(fetchRegister.fulfilled, (state, action) => {
-                console.log(action.payload)
                 state.loginData.status = 'loaded';
                 state.loginData.data = action.payload;
             })
@@ -265,7 +257,6 @@ const authSlice = createSlice({
                 state.loginData.status = 'loading';
             })
             .addCase(fetchDeleteOrder.fulfilled, (state, action) => {
-                console.log('in extraReducer', action.payload)
                 state.loginData.data.orders = state.loginData.data.orders.filter(el => el !== action.payload.orderId);
                 state.loginData.status = 'loaded';
 
@@ -274,14 +265,10 @@ const authSlice = createSlice({
                 state.loginData.status = 'error';
             })
 
-
-            
-
             .addCase(fetchUpdateCart.pending, (state) => {
                 state.loginData.status = 'loading';
             })
             .addCase(fetchUpdateCart.fulfilled, (state, action) => {
-                console.log(action)
                 state.loginData.data.cart = action.payload;
                 state.loginData.status = 'loaded';
             })
@@ -325,7 +312,6 @@ const authSlice = createSlice({
                 state.loginData.status = 'loading';
             })
             .addCase(fetchConFirmOrder.fulfilled, (state, action) => {
-                console.log(action)
                 state.loginData.data.cart = [] 
                 state.loginData.status = 'loaded'
             })

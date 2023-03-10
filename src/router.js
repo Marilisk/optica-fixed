@@ -56,6 +56,22 @@ export const router = createBrowserRouter([
       },
 
       {
+        path: "/cart",
+        element: <Cart />,
+      },
+
+      {
+        path: "order",
+        element: <Order />,
+      },
+
+      {
+        path: "/order/:id",
+        element: <OrderConfirmed />,
+      },
+
+
+      {
         path: "children",
         element: <Children />,
       },
@@ -88,22 +104,6 @@ export const router = createBrowserRouter([
       {
         path: "/favourites",
         element: <Favourites />,
-      },
-
-      {
-        path: "/cart",
-        element: <Cart />,
-      },
-
-      {
-        path: "/order",
-        element: <Order />,
-        children: [
-          {
-            path: "/order/:ordernum",
-            element: <OrderConfirmed />,
-          }
-        ]
       },
 
       {

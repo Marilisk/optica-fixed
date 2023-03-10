@@ -1,12 +1,9 @@
-import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { selectIsManager } from '../../redux/authSlice';
 import c from './Footer.module.scss';
 import { SearchBar } from './SearchBar/SearchBar';
 
 
 export const Footer = () => {
-    const isManager = useSelector(selectIsManager);
 
     return <div className={c.footerWrapper}>
 
@@ -41,13 +38,6 @@ export const Footer = () => {
                         <div>Задать вопрос</div>
                     </Link>
 
-                    {isManager && <Link to='/manage'>
-                        <div className={c.administrationLink}>Добавление товара. Оправы.</div>
-                    </Link>}
-
-                    {isManager && <Link to='/managelenses'>
-                        <div className={c.administrationLink}>Добавление товара. Линзы.</div>
-                    </Link>}
                 </div>
             </div>
 
@@ -62,7 +52,6 @@ export const Footer = () => {
                             тел. +7 (981) 939 12 21
                         </a>
                     </div>
-                    {/* <div>заказать звонок</div> */}
                 </div>
             </div>
 

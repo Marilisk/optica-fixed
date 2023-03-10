@@ -28,7 +28,6 @@ export const Payment: FC<IPayment> = ({ setActiveCol, activeCol }: IPayment) => 
     const editOrder = async () => {
         try {
             const order = await dispatch(fetchEditOrder(isCardChosen))
-            console.log(order)
             dispatch(setProcessedOrder(order.payload))
             setActiveCol(activeColEnum.all)
         } catch (error) {

@@ -6,7 +6,6 @@ import { clearAllFilters, selectFilter } from '../../../redux/featuresSlice';
 export const MenuOptions = ({ links, dispatch }) => {
 
     const linksList = links.map((link, index) => {
-        console.log(link)
         return <div key={index} className={c.linkList}>
             <ul>
                 <NavLink to={link.to}>

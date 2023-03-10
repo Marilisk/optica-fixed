@@ -1,27 +1,25 @@
 import c from './PrivatePage.module.scss';
 import { useEffect, FC } from 'react';
-import { LoadingStatusEnum } from '../Types/types';
 import { useAppSelector } from '../../redux/hooks';
 import { useNavigate } from 'react-router-dom';
-import { OrderCard } from './OrderCard';
+import OrderCard from './OrderCard';
+import { selectIsAuth } from '../../redux/authSlice';
 
-interface IPrivatePage {
-    authIsLoading: string
-    isAuth: boolean
-}
 
-export const PrivatePage: FC<IPrivatePage> = ({ authIsLoading, isAuth }: IPrivatePage) => {
+export const PrivatePage: FC = () => {
     const userName = useAppSelector(s => s.auth.loginData.data?.fullName);
     const orders = useAppSelector(s => s.auth.loginData.data?.orders)
+    const isAuth = useAppSelector(selectIsAuth)
+    const authIsLoading = useAppSelector(s => s.auth.loginData.status === 'loading')
 
     const navigate = useNavigate()
     useEffect( () => {
         if (!isAuth) {
             navigate('/login')
         }
-    })
+    }, [isAuth, navigate])
     
-    if (authIsLoading === LoadingStatusEnum.loading || !orders ) {
+    if (authIsLoading || !orders ) {
         return <div><h2>{userName}, у вас пока нет заказов...</h2></div>;
     }
 
@@ -39,7 +37,5 @@ export const PrivatePage: FC<IPrivatePage> = ({ authIsLoading, isAuth }: IPrivat
             {elements}
         </div>
     </>
-
-
 
 }

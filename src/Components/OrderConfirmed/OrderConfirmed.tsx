@@ -1,33 +1,32 @@
 import c from './OrderConfirmed.module.scss';
 import { useEffect, FC } from 'react';
 import { Link } from 'react-router-dom';
-import { useAppSelector } from '../../redux/hooks';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { Preloader } from '../../assets/common/Preloader/Preloader';
+import { selectIsAuth } from '../../redux/authSlice';
+import { switchAuthOfferModal } from '../../redux/headerSlice';
 
-interface IOrderConfirmed {
-    switchModal: (arg: Boolean) => void;
-    authIsLoading: string
-    isAuth: boolean
-}
 
-export const OrderConfirmed: FC<IOrderConfirmed> = ({ switchModal, authIsLoading, isAuth }: IOrderConfirmed) => {
-    
+export const OrderConfirmed: FC = () => {
+    const dispatch = useAppDispatch()
+    const isAuth = useAppSelector(selectIsAuth)
+    const authLoading = useAppSelector(s => s.auth.loginData.status === 'loading')
     useEffect(() => {
         if (!isAuth) {
-            switchModal(true);
+            dispatch(switchAuthOfferModal(true));
         }
-    }, [switchModal, isAuth])
+    }, [dispatch, isAuth])
 
     const userName = useAppSelector(s => s.auth.loginData.data?.fullName);
-    if (authIsLoading === 'loading') {
-        return <div><Preloader minFormat={true} /></div>;
+    if (authLoading) {
+        return <div>
+            <Preloader minFormat={true} />
+        </div>
     }
-
 
     return <div className={c.block}>
         <h1 className={c.header}>
             <div className={c.first}>{userName}, Ваш заказ оформлен! </div>
-
         </h1>
 
         <div className={c.wrap}>

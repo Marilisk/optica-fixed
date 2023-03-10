@@ -6,6 +6,7 @@ import { CatEnum, ICartItemWithSum, IProduct } from '../../../../Types/types';
 import { Preloader } from '../../../../../assets/common/Preloader/Preloader';
 import { AngleIcon } from '../../../../../assets/icons/AngleIcon';
 import { fetchLens } from '../../../../../redux/lensesSlice';
+import { API_URL } from '../../../../../redux/API/api';
 
 interface ISummaryCard {
     orderCartItem: ICartItemWithSum
@@ -34,7 +35,7 @@ export const SummaryCard: FC<ISummaryCard> = ({ orderCartItem }: ISummaryCard) =
     return <div className={c.wrap}>
 
         <div className={c.imgWrap}>
-            <img alt='' src={`https://backend-optics-production.up.railway.app${product.imageUrl.main}`} />
+            <img alt='' src={`${API_URL}${product.imageUrl.main}`} />
         </div>
 
         <div className={c.flex}>

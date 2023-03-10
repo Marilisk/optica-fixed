@@ -1,12 +1,10 @@
 import c from './PrivatePage.module.scss';
-import { useEffect, FC, useState } from 'react';
+import React, { useEffect, FC, useState } from 'react';
 import { OrderType } from '../Types/types';
 import { useAppDispatch } from '../../redux/hooks';
 import instance from '../../redux/API/api';
-import { Preloader } from '../../assets/common/Preloader/Preloader';
 import { fetchDeleteOrder } from '../../redux/authSlice';
-
-
+import OrderProductCard from './OrderProductCard/OrderProductCard';
 
 interface IOrderCard {
     orderId: string
@@ -15,24 +13,21 @@ interface IOrderCard {
 export const fetchOrder = async (orderId:string, setOrder:(arg: OrderType) => void) => {
     try {
         const response = await instance.get(`/order/${orderId}`)
-        //console.log(response.data)
         setOrder(response.data)
     } catch (error) {
         console.log(error)
     }
 }
-export const OrderCard: FC<IOrderCard> = ({ orderId }: IOrderCard) => {
+const OrderCard: FC<IOrderCard> = ({ orderId }: IOrderCard) => {
     const dispatch = useAppDispatch()
-
     const [order, setOrder] = useState<OrderType>(null)    
 
     useEffect(() => {
         fetchOrder(orderId, setOrder)
     }, [orderId])
 
-    
     if (!order) {
-        return <Preloader minFormat={true} />
+        return null
     }
 
     const date = new Date(order.createdAt)
@@ -41,13 +36,13 @@ export const OrderCard: FC<IOrderCard> = ({ orderId }: IOrderCard) => {
     let condition = '';
     switch (order.condition) {
         case 'created':
-            condition = 'Создан';
+            condition = 'создан';
             break;
         case 'confirmed':
-            condition = 'Подтверждён';
+            condition = 'подтверждён';
             break;
         case 'deleted':
-            condition = 'Отменён';
+            condition = 'отменён';
             break;
         case 'processed':
             condition = 'в обработке у менеджера';
@@ -57,17 +52,30 @@ export const OrderCard: FC<IOrderCard> = ({ orderId }: IOrderCard) => {
 
     return <div className={c.card}>
         <div>
-            Заказ от {createDate} г.
-            {/* Доставка по адресу {order.address} */}
+            <h2>Заказ от {createDate} г.</h2>
+            {order.address && <span>Доставка по адресу {order.address}</span>}
         </div>
 
         <div>
-            {condition}
+            {order.cart.length} товар
         </div>
 
         <div>
-            {order.paymentMade? 'Оплачен' : 'Не оплачен'}
+            Заказ {condition}, {order.paymentMade? 'Оплачен' : 'не оплачен'}.
         </div>
+
+        <div>
+            
+        </div>
+
+        <div>
+        <h3>Товары:</h3>
+            {order.cart.map(el => (
+                <OrderProductCard key={el.productId} productId={el.productId} />
+            ))}
+        </div>
+
+        
 
         <div className={c.deleteOrder}
             onClick={() => dispatch(fetchDeleteOrder(orderId))}>
@@ -75,4 +83,6 @@ export const OrderCard: FC<IOrderCard> = ({ orderId }: IOrderCard) => {
         </div>
     </div>
 }
+
+export default React.memo(OrderCard)
 
