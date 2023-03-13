@@ -47,7 +47,8 @@ export const LoginPage = ({isLoading}) => {
              <RegisterForm dispatch={dispatch} 
                     toggleLoginModalOpened={toggleLoginModalOpened} 
                     navigate={navigate}
-                    isLoading={isLoading} /> }
+                    isLoading={isLoading}
+                    setIsLoginTab={setIsLoginTab} /> }
                
     </div>
 

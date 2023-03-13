@@ -9,7 +9,7 @@ import check from './../../../assets/icons/check.png';
 import { useState } from 'react';
 
 
-export const RegisterForm = ({ dispatch, toggleLoginModalOpened, isLoading, }) => {
+export const RegisterForm = ({ dispatch, toggleLoginModalOpened, isLoading, setIsLoginTab }) => {
     const [alreadyRegisteredMsg, setAlreadyRegisteredMsg] = useState(null)
 
     return <Formik initialValues={{
@@ -21,14 +21,10 @@ export const RegisterForm = ({ dispatch, toggleLoginModalOpened, isLoading, }) =
         onSubmit={async (values, actions) => {
             const payload = { email: values.email, password: values.password, fullName: values.fullName };
             const response = await dispatch(fetchRegister(payload));
+            console.log(response)
             if (response.error.message === "Request failed with status code 400") {
                 setAlreadyRegisteredMsg('Пользователь с таким email уже зарегистрирован')
-                actions.resetForm({
-                    fullName: '',
-                    email: '',
-                    password: '',
-                    rememberMe: true,
-                });
+                setIsLoginTab(true)
             } else if (response.payload && 'email' in response.payload) {
                 if (values.rememberMe) { localStorage.setItem('email', values.email) }
                 actions.resetForm({
