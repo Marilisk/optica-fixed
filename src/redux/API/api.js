@@ -1,8 +1,10 @@
 import axios from "axios";
 
 //export const API_URL = 'https://backend-optics-production.up.railway.app'
-export const API_URL = 'https://api.spboptis.ru'
+export const DEV_API_URL = 'http://localhost:5555'
+export const PROD_API_URL = 'https://api.spboptis.ru'
 export const ADMIN_URL = 'http://localhost:3000'
+export const API_URL = PROD_API_URL
 
 
 const instance = axios.create({  

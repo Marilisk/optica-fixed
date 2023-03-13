@@ -26,7 +26,7 @@ export const checkAuth = createAsyncThunk('auth/checkAuth', async () => {  // re
         const response = await axios.get(`${API_URL}/auth/refresh`, { withCredentials: true });
         localStorage.setItem('token', response.data.tokens.accessToken);
         return response.data.user;
-    } catch (error:any) {
+    } catch (error: any) {
         console.log(error)
         if (error.response.status === 401) {  // тут удаляем токен чтоб все не висело если юзер заходил с другого устройства и отсюда вылетел
             localStorage.removeItem('token')
@@ -50,13 +50,13 @@ export const fetchRemoveFromFavorites = createAsyncThunk('auth/fetchRemoveFromFa
     return response.data;
 });
 
-export const fetchAddEyewearToCart = createAsyncThunk('auth/fetchAddEyewearToCart', async ({productId, cat, lens = 1}:FetchAddToCartArgType ) => {
+export const fetchAddEyewearToCart = createAsyncThunk('auth/fetchAddEyewearToCart', async ({ productId, cat, lens = 1 }: FetchAddToCartArgType) => {
     const response = await instance.post(`/addtocart`, { productId, cat, lens });
     return response.data;
 })
 export const fetchRemoveEyewearFromCart = createAsyncThunk('auth/fetchRemoveEyewearFromCart', async (productId: string) => {
     const response = await instance.post(`/removefromcart`, { productId });
-    return {cart: response.data, deletedProductId: productId };
+    return { cart: response.data, deletedProductId: productId };
 });
 
 export const fetchUpdateCart = createAppAsyncThunk('auth/fetchUpdateCart', async (_, thunkApi) => {
@@ -67,55 +67,50 @@ export const fetchUpdateCart = createAppAsyncThunk('auth/fetchUpdateCart', async
 });
 
 
-
-export const fetchCreateOrder = createAppAsyncThunk('auth/fetchCreateOrder', async (addressValues:IInitialValues, thunkApi) => {
+export const fetchCreateOrder = createAppAsyncThunk('auth/fetchCreateOrder', async (addressValues: IInitialValues, thunkApi) => {
     const state = thunkApi.getState()
     const userId = state.auth.loginData.data?._id;
     const cart = state.products.currentCartWithSums.items;
-    if (userId) {
-        const order:OrderType = orderCreate(cart, addressValues, userId)
-        const response = await instance.post(`/createorder`, order );
+    const order: OrderType = orderCreate(cart, addressValues, userId)
+    const response = await instance.post(`/createorder`, order);
+    console.log('i m in createorder fetch', order)
+
+    return response.data;
+})
+export const fetchAddValuesToOrder = createAppAsyncThunk('auth/fetchAddValuesToOrder',
+    async (values: IInitialValues, thunkApi) => {
+        const state = thunkApi.getState()
+        const prevOrder: OrderType = state.products.processedOrder.order
+        const innovatedOrder: OrderType = {
+            ...prevOrder,
+            address: values.address,
+            phoneNumber: values.phone,
+            additionalInfo: values.additional,
+        }
+        const response = await instance.post(`/editorder`, innovatedOrder);
         return response.data;
-    }
-    
-})
-export const fetchAddValuesToOrder = createAppAsyncThunk('auth/fetchAddValuesToOrder', 
-        async (values:IInitialValues, thunkApi) => {
-    const state = thunkApi.getState()
-    const prevOrder:OrderType = state.products.processedOrder.order
-    const innovatedOrder:OrderType = {
-        ...prevOrder, 
-        address: values.address,
-        phoneNumber: values.phone,
-        additionalInfo: values.additional,
-        }    
-    const response = await instance.post(`/editorder`, innovatedOrder );
-    return response.data; 
-})
-export const fetchEditOrder = createAppAsyncThunk('auth/fetchEditOrder', 
-        async (isCardChosen:boolean, thunkApi) => {
-    const state = thunkApi.getState()
-    const prevOrder:OrderType = state.products.processedOrder.order
-    const thisPaymentWay = isCardChosen ? 'card' : 'cash'
-    const innovatedOrder = {...prevOrder, paymentWay: thisPaymentWay }    
-    const response = await instance.post(`/editorder`, innovatedOrder );
-    return response.data; 
-})
-export const fetchConFirmOrder = createAppAsyncThunk('auth/fetchConFirmOrder', 
-        async (_, thunkApi) => {
-    const state = thunkApi.getState()
-    const prevOrder:OrderType = state.products.processedOrder.order
-    console.log('prevOrder', prevOrder)
-    const innovatedOrder = {...prevOrder, condition: 'confirmed' }
-    console.log('innovatedOrder', innovatedOrder)
+    })
+export const fetchEditOrder = createAppAsyncThunk('auth/fetchEditOrder',
+    async (isCardChosen: boolean, thunkApi) => {
+        const state = thunkApi.getState()
+        const prevOrder: OrderType = state.products.processedOrder.order
+        const thisPaymentWay = isCardChosen ? 'card' : 'cash'
+        const innovatedOrder = { ...prevOrder, paymentWay: thisPaymentWay }
+        const response = await instance.post(`/editorder`, innovatedOrder);
+        return response.data;
+    })
+export const fetchConFirmOrder = createAppAsyncThunk('auth/fetchConFirmOrder',
+    async (_, thunkApi) => {
+        const state = thunkApi.getState()
+        const prevOrder: OrderType = state.products.processedOrder.order
+        const innovatedOrder = { ...prevOrder, condition: 'confirmed' }
+        const response = await instance.post(`/confirmorder`, innovatedOrder);
+        return response.data;
+    })
 
-    const response = await instance.post(`/confirmorder`, innovatedOrder );
-    return response.data; 
-})
-
-export const fetchDeleteOrder = createAppAsyncThunk('auth/fetchDeleteOrder', async (orderId:string) => {  
+export const fetchDeleteOrder = createAppAsyncThunk('auth/fetchDeleteOrder', async (orderId: string) => {
     const response = await instance.delete(`/order/${orderId}`);
-    return {...response.data, orderId}; 
+    return { ...response.data, orderId };
 })
 
 export type AuthInitStateType = {
@@ -143,7 +138,7 @@ const authSlice = createSlice({
         subscribe(state) {
             state.subscribeData.responseMsg = 'Ваш промокод на скидку 8% направлен на e-mail. Спасибо.'
         },
-        sendPromoCode(state, action:PayloadAction<string>) {
+        sendPromoCode(state, action: PayloadAction<string>) {
             state.subscribeData.responseMsg = action.payload
         },
         updateCart(state, action/* : PayloadAction<number> */) {
@@ -214,12 +209,12 @@ const authSlice = createSlice({
                     state.loginData.status = 'loaded';
                 }
             })
-            .addCase(fetchAddToFavorites.rejected, (state, ) => {
+            .addCase(fetchAddToFavorites.rejected, (state,) => {
                 state.loginData.status = 'error';
             })
 
 
-            .addCase(fetchRemoveFromFavorites.pending, (state, ) => {
+            .addCase(fetchRemoveFromFavorites.pending, (state,) => {
                 state.loginData.status = 'loading';
             })
             .addCase(fetchRemoveFromFavorites.fulfilled, (state, action) => {
@@ -253,13 +248,10 @@ const authSlice = createSlice({
                     state.loginData.data.cart = action.payload.cart;
                 }
                 state.loginData.status = 'loaded';
-
-                let key:string = action.payload.deletedProductId
+                let key: string = action.payload.deletedProductId
                 if (key) {
-                delete state.totalCartSum[key] 
-
+                    delete state.totalCartSum[key]
                 }
-
             })
             .addCase(fetchRemoveEyewearFromCart.rejected, (state) => {
                 state.loginData.status = 'error';
@@ -296,7 +288,7 @@ const authSlice = createSlice({
                 state.loginData.status = 'loading';
             })
             .addCase(fetchCreateOrder.fulfilled, (state, action) => {
-                state.loginData.data?.orders.push(action.payload._id) ;
+                state.loginData.data?.orders.push(action.payload._id);
                 state.loginData.status = 'loaded';
             })
             .addCase(fetchCreateOrder.rejected, (state) => {
@@ -307,11 +299,13 @@ const authSlice = createSlice({
                 state.loginData.status = 'loading';
             })
             .addCase(fetchAddValuesToOrder.fulfilled, (state, action) => {
+                //state.loginData.data.orders.push(action.payload._id)
+
                 state.loginData.status = 'loaded';
             })
             .addCase(fetchAddValuesToOrder.rejected, (state) => {
                 state.loginData.status = 'error';
-            })            
+            })
 
             .addCase(fetchEditOrder.pending, (state) => {
                 state.loginData.status = 'loading';
@@ -328,8 +322,8 @@ const authSlice = createSlice({
                 state.loginData.status = 'loading';
             })
             .addCase(fetchConFirmOrder.fulfilled, (state, action) => {
-                if(state.loginData.data?.cart) {
-                    state.loginData.data.cart = [] 
+                if (state.loginData.data?.cart) {
+                    state.loginData.data.cart = []
                 }
                 state.loginData.status = 'loaded'
             })

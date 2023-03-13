@@ -73,7 +73,7 @@ export const Address: FC<IAddress> = ({ userName, setActiveCol, activeCol }: IAd
                 console.log('error in prices collecting', error)
             }
         }
-    }, [dispatch, iValues])
+    }, [dispatch/* , iValues */])
     
     useEffect( () => {
         editOrder()
@@ -88,7 +88,8 @@ export const Address: FC<IAddress> = ({ userName, setActiveCol, activeCol }: IAd
             <Formik initialValues={iValues}
                 onSubmit={async (values: IInitialValues, actions: any) => {
                     try {
-                        await dispatch(fetchAddValuesToOrder(values))
+                        const renewedOrder = await dispatch(fetchAddValuesToOrder(values))
+                        dispatch(setProcessedOrder(renewedOrder.payload))
                         setActiveCol(activeColEnum.payment)
                     } catch (error) {
                         console.log('error in order editing', error)
