@@ -26,7 +26,7 @@ export const checkAuth = createAsyncThunk('auth/checkAuth', async () => {  // re
         const response = await axios.get(`${API_URL}/auth/refresh`, { withCredentials: true });
         localStorage.setItem('token', response.data.tokens.accessToken);
         return response.data.user;
-    } catch (error) {
+    } catch (error:any) {
         console.log(error)
         if (error.response.status === 401) {  // тут удаляем токен чтоб все не висело если юзер заходил с другого устройства и отсюда вылетел
             localStorage.removeItem('token')
@@ -70,11 +70,14 @@ export const fetchUpdateCart = createAppAsyncThunk('auth/fetchUpdateCart', async
 
 export const fetchCreateOrder = createAppAsyncThunk('auth/fetchCreateOrder', async (addressValues:IInitialValues, thunkApi) => {
     const state = thunkApi.getState()
-    const userId = state.auth.loginData.data._id;
+    const userId = state.auth.loginData.data?._id;
     const cart = state.products.currentCartWithSums.items;
-    const order:OrderType = orderCreate(cart, addressValues, userId)
-    const response = await instance.post(`/createorder`, order );
-    return response.data;
+    if (userId) {
+        const order:OrderType = orderCreate(cart, addressValues, userId)
+        const response = await instance.post(`/createorder`, order );
+        return response.data;
+    }
+    
 })
 export const fetchAddValuesToOrder = createAppAsyncThunk('auth/fetchAddValuesToOrder', 
         async (values:IInitialValues, thunkApi) => {
@@ -102,7 +105,10 @@ export const fetchConFirmOrder = createAppAsyncThunk('auth/fetchConFirmOrder',
         async (_, thunkApi) => {
     const state = thunkApi.getState()
     const prevOrder:OrderType = state.products.processedOrder.order
-    const innovatedOrder = {...prevOrder, condition: 'confirmed' }    
+    console.log('prevOrder', prevOrder)
+    const innovatedOrder = {...prevOrder, condition: 'confirmed' }
+    console.log('innovatedOrder', innovatedOrder)
+
     const response = await instance.post(`/confirmorder`, innovatedOrder );
     return response.data; 
 })
@@ -113,9 +119,9 @@ export const fetchDeleteOrder = createAppAsyncThunk('auth/fetchDeleteOrder', asy
 })
 
 export type AuthInitStateType = {
-    loginData?: ILData
+    loginData: ILData
     subscribeData: ISubscribeData
-    totalCartSum: object,
+    totalCartSum: any,
 }
 
 const initialState: AuthInitStateType = {
@@ -134,16 +140,14 @@ const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
-        subscribe(state, action) {
-            //there must be an async func which checks email in base and if its not yet:
+        subscribe(state) {
             state.subscribeData.responseMsg = 'Ваш промокод на скидку 8% направлен на e-mail. Спасибо.'
         },
         sendPromoCode(state, action:PayloadAction<string>) {
-            //there must be an async func which checks email in base and if its not yet:
             state.subscribeData.responseMsg = action.payload
         },
         updateCart(state, action/* : PayloadAction<number> */) {
-            if (state.loginData.data != null) {
+            if (state.loginData?.data) {
                 state.loginData.data.cart[action.payload.cartItemIndex] = action.payload.newCartItem;
             }
         },
@@ -245,9 +249,17 @@ const authSlice = createSlice({
                 state.loginData.status = 'loading';
             })
             .addCase(fetchRemoveEyewearFromCart.fulfilled, (state, action) => {
-                state.loginData.data.cart = action.payload.cart;
+                if (state.loginData.data?.cart) {
+                    state.loginData.data.cart = action.payload.cart;
+                }
                 state.loginData.status = 'loaded';
-                delete state.totalCartSum[action.payload.deletedProductId] 
+
+                let key:string = action.payload.deletedProductId
+                if (key) {
+                delete state.totalCartSum[key] 
+
+                }
+
             })
             .addCase(fetchRemoveEyewearFromCart.rejected, (state) => {
                 state.loginData.status = 'error';
@@ -257,7 +269,9 @@ const authSlice = createSlice({
                 state.loginData.status = 'loading';
             })
             .addCase(fetchDeleteOrder.fulfilled, (state, action) => {
-                state.loginData.data.orders = state.loginData.data.orders.filter(el => el !== action.payload.orderId);
+                if (state.loginData.data?.orders) {
+                    state.loginData.data.orders = state.loginData.data.orders.filter(el => el !== action.payload.orderId);
+                }
                 state.loginData.status = 'loaded';
 
             })
@@ -269,7 +283,9 @@ const authSlice = createSlice({
                 state.loginData.status = 'loading';
             })
             .addCase(fetchUpdateCart.fulfilled, (state, action) => {
-                state.loginData.data.cart = action.payload;
+                if (state.loginData.data?.cart) {
+                    state.loginData.data.cart = action.payload;
+                }
                 state.loginData.status = 'loaded';
             })
             .addCase(fetchUpdateCart.rejected, (state) => {
@@ -280,7 +296,7 @@ const authSlice = createSlice({
                 state.loginData.status = 'loading';
             })
             .addCase(fetchCreateOrder.fulfilled, (state, action) => {
-                state.loginData.data.orders.push(action.payload._id) ;
+                state.loginData.data?.orders.push(action.payload._id) ;
                 state.loginData.status = 'loaded';
             })
             .addCase(fetchCreateOrder.rejected, (state) => {
@@ -312,17 +328,15 @@ const authSlice = createSlice({
                 state.loginData.status = 'loading';
             })
             .addCase(fetchConFirmOrder.fulfilled, (state, action) => {
-                state.loginData.data.cart = [] 
+                if(state.loginData.data?.cart) {
+                    state.loginData.data.cart = [] 
+                }
                 state.loginData.status = 'loaded'
             })
             .addCase(fetchConFirmOrder.rejected, (state) => {
                 state.loginData.status = 'error';
             })
 
-          
-
-            
-        
     },
 
 });
