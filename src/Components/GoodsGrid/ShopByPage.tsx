@@ -2,7 +2,6 @@ import { useEffect, FC, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import c from './ShopByPage.module.scss';
-import { SortBoard } from '../common/FiltersDashboard/SortBoard/SortBoard';
 import { ShapeChoose } from './ShapeChoose/ShapeChoose';
 import { Catalog } from '../common/Catalog/Catalog';
 import { LoadingStatusEnum } from '../Types/types';

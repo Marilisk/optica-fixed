@@ -59,7 +59,7 @@ export const Address: FC<IAddress> = ({ userName, setActiveCol, activeCol }: IAd
     const iValues: IInitialValues = initValues(userName);
     const dispatch = useAppDispatch()
 
-    const editOrder = async () => {
+    const editOrder = useCallback( async () => {
         const cart = await dispatch(fetchCollectCartPrices())
         if (cart.meta.requestStatus === 'fulfilled') {
             try {
@@ -73,10 +73,11 @@ export const Address: FC<IAddress> = ({ userName, setActiveCol, activeCol }: IAd
                 console.log('error in prices collecting', error)
             }
         }
-    }
+    }, [dispatch, iValues])
+    
     useEffect( () => {
         editOrder()
-    }, [])
+    }, [editOrder])
 
     return <>
         <OrderHeader>

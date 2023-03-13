@@ -30,13 +30,13 @@ export const Order: FC<IOrder> = ({ authIsLoading } : IOrder) => {
         <div className={c.flex}>
             
             <div className={activeCol === 'address' ? c.col : c.passiveCol}
-                style={(activeCol === activeColEnum.payment || activeColEnum.all )  ? {pointerEvents: 'all'} : null } >
+                style={(activeCol === activeColEnum.payment || activeColEnum.all )  ? {pointerEvents: 'all'} : undefined } >
                 <Address userName={user.fullName}
                     setActiveCol={setActiveCol} activeCol={activeCol} />
             </div>
 
             <div className={activeCol === 'payment' ? c.col : c.passiveCol}
-                style={activeCol === activeColEnum.all ? {pointerEvents: 'all'} : null } >
+                style={activeCol === activeColEnum.all ? {pointerEvents: 'all'} : undefined } >
                 <Payment setActiveCol={setActiveCol} activeCol={activeCol} />
             </div>
 

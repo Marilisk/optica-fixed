@@ -1,4 +1,3 @@
-import c from './Children.module.scss';
 import { FiltersDashboard } from '../common/FiltersDashboard/FiltersDashboard';
 import { Catalog } from '../common/Catalog/Catalog';
 import { BreadCrumbs } from '../common/BreadCrumbs/BreadCrumbs';

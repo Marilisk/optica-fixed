@@ -17,7 +17,7 @@ export const LensCard: FC<ILensCardProps> = ({ product, inCartArray }: ILensCard
     const price = priceFormatter(product.price)
     const isInCart = inCartArray.includes(product._id)
 
-    const [isHovered, setIsHovered] = useState(null)
+    const [isHovered, setIsHovered] = useState<string | null>(null)
 
     return <div className={c.wrap}
         onClick={() => dispatch(setCurrentProd(product))}

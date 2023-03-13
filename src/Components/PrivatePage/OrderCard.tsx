@@ -5,6 +5,7 @@ import { useAppDispatch } from '../../redux/hooks';
 import instance from '../../redux/API/api';
 import { fetchDeleteOrder } from '../../redux/authSlice';
 import OrderProductCard from './OrderProductCard/OrderProductCard';
+import { LoadingDots } from '../../assets/common/Preloader/LoadingDots/LoadingDots';
 
 interface IOrderCard {
     orderId: string
@@ -27,7 +28,7 @@ const OrderCard: FC<IOrderCard> = ({ orderId }: IOrderCard) => {
     }, [orderId])
 
     if (!order) {
-        return null
+        return <LoadingDots />
     }
 
     const date = new Date(order.createdAt)
@@ -71,7 +72,7 @@ const OrderCard: FC<IOrderCard> = ({ orderId }: IOrderCard) => {
         <div>
         <h3>Товары:</h3>
             {order.cart.map(el => (
-                <OrderProductCard key={el.productId} productId={el.productId} />
+                <OrderProductCard key={el.productId} productId={el.productId} cat={el.cat} />
             ))}
         </div>
 

@@ -64,7 +64,7 @@ export const Summary: FC<ISummary> = ({ setActiveCol, activeCol }: ISummary) => 
         </div>
 
         <div className={c.btnWrap} 
-             style={(activeCol === activeColEnum.all) ? null : { display: 'none' }}>
+             style={(activeCol === activeColEnum.all) ? undefined : { display: 'none' }}>
             <button className={cl.submitBtn}
                 onClick={() => confirmOrder()} >
                 разместить заказ

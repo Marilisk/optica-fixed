@@ -1,6 +1,4 @@
 import { FC } from 'react';
-import { useAppDispatch } from '../../../../redux/hooks';
-import { AdminProductPanel } from '../../../common/AdminProductPanel/AdminProductPanel';
 import { ILensProduct } from '../../../Types/types';
 import { LensAdminProductPanel } from '../LensAdminProductPanel/LensAdminProductPanel';
 import c from './LensesSpecifications.module.scss';

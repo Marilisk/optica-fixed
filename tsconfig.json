@@ -10,7 +10,7 @@
         "skipLibCheck": true,
         "esModuleInterop": true,
         "allowSyntheticDefaultImports": true,
-        /* "strict": true, */
+        "strict": true,
         "forceConsistentCasingInFileNames": true,
         "noFallthroughCasesInSwitch": true,
         "module": "esnext",
@@ -22,5 +22,9 @@
     },
     "include": [
         "src"
-, "src/Components/common/FiltersDashboard/SelectedFilters/.jsx", "src/Components/common/FiltersDashboard/SelectedFilters/.jsx", "src/Components/GoodsGrid/ShapeChoose/ShapeChoose.tsx", "src/Components/GoodsGrid/ShapeChoose/.tsx", "src/Components/common/ProductPage/Photos/.jsx", "src/Components/common/ProductPage/Photos/.jsx", "src/Components/PrivatePage/OrderProductCard/.tsx"    ]
+, "src/Components/common/FiltersDashboard/SelectedFilters/.jsx", 
+"src/Components/common/FiltersDashboard/SelectedFilters/.jsx", 
+"src/Components/GoodsGrid/ShapeChoose/ShapeChoose.tsx", 
+"src/Components/GoodsGrid/ShapeChoose/.tsx", 
+"src/Components/common/ProductPage/Photos/.jsx", "src/Components/common/ProductPage/Photos/.jsx", "src/Components/PrivatePage/OrderProductCard/.tsx"    ]
 }
