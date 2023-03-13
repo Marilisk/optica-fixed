@@ -73,8 +73,6 @@ export const fetchCreateOrder = createAppAsyncThunk('auth/fetchCreateOrder', asy
     const cart = state.products.currentCartWithSums.items;
     const order: OrderType = orderCreate(cart, addressValues, userId)
     const response = await instance.post(`/createorder`, order);
-    console.log('i m in createorder fetch', order)
-
     return response.data;
 })
 export const fetchAddValuesToOrder = createAppAsyncThunk('auth/fetchAddValuesToOrder',

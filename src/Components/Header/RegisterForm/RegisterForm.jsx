@@ -75,6 +75,7 @@ export const RegisterForm = ({ dispatch, toggleLoginModalOpened, isLoading, }) =
                     {alreadyRegisteredMsg && <p className={c.alreadyRegisteredMsg}>{alreadyRegisteredMsg}</p>}
 
                     <button type='submit'
+                        disabled={isLoading === 'loading'}
                         className={(errors.fullName || errors.email || errors.password || isLoading === 'loading') ?
                             c.btnEnabled : null}>
                         ЗАРЕГИСТРИРОВАТЬСЯ
