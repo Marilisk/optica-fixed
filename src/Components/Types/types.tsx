@@ -136,7 +136,7 @@ export type HeaderInitialStateType = {
     menuOpened: string
     loginModalOpened: boolean
     authOfferModalOpened: boolean
-    mainMenu: MainMenuItemType[]    
+    mainMenu: MainMenuItemType[]   
 }
 export type FeatureType = {
     id: number

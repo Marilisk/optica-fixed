@@ -7,6 +7,7 @@ import snowFlake from './../../../assets/icons/snowflake.png';
 import errorInput from './../../../assets/icons/errorInput.png';
 import check from './../../../assets/icons/check.png';
 import { useState } from 'react';
+import { initialiseCart } from '../LoginForm/LoginForm';
 
 
 export const RegisterForm = ({ dispatch, toggleLoginModalOpened, isLoading, setIsLoginTab }) => {
@@ -21,12 +22,13 @@ export const RegisterForm = ({ dispatch, toggleLoginModalOpened, isLoading, setI
         onSubmit={async (values, actions) => {
             const payload = { email: values.email, password: values.password, fullName: values.fullName };
             const response = await dispatch(fetchRegister(payload));
-            console.log(response)
-            if (response.error.message === "Request failed with status code 400") {
+            //console.log(response)
+            if (response.error && response.error.message === "Request failed with status code 400") {
                 setAlreadyRegisteredMsg('Пользователь с таким email уже зарегистрирован')
                 setIsLoginTab(true)
             } else if (response.payload && 'email' in response.payload) {
                 if (values.rememberMe) { localStorage.setItem('email', values.email) }
+                initialiseCart(dispatch)
                 actions.resetForm({
                     fullName: '',
                     email: '',

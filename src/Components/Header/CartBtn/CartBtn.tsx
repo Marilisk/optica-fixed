@@ -15,23 +15,24 @@ export const CartBtn: FC = ({ fullHeader }:ICartBtnProps) => {
 
     const userCart = useAppSelector(s => s.auth.loginData.data?.cart)
     let userCartlength = userCart?.length
-    const [userCartlengthLS, setuserCartlengthLS] = useState(userCartlength)
-    let userCartlenInLS = JSON.parse(localStorage.getItem('cart'))?.length 
+
+    const userCartlenInLS = useAppSelector(s => s.products.cartInLSLength)
+    //let userCartlenInLS = JSON.parse(localStorage.getItem('cart'))?.length 
     
-    /* 
-    console.log(userCart) */
+   
     useEffect( () => {
         if (!isAuth) {
-            setuserCartlengthLS(userCartlenInLS)
+            let userCartlenInLS = JSON.parse(localStorage.getItem('cart'))?.length 
+            
         }
-    }, [isAuth, userCartlenInLS])
+    }, [isAuth])
                            
 
     return <div className={c.menuItem} style={fullHeader ? null : { border: 'none' }}>
         <NavLink to='cart'>
             <img alt='' src={cart} />
-            {userCartlength || userCartlengthLS  ? 
-                <div className={c.countLabel}>{userCartlength || userCartlengthLS}</div> 
+            {userCartlength || userCartlenInLS  ? 
+                <div className={c.countLabel}>{userCartlength || userCartlenInLS}</div> 
                 : null}
             {fullHeader && <p>Корзина</p>}
         </NavLink>

@@ -66,7 +66,7 @@ const initialState: ProdInitialStateType = {
         status: LoadingStatusEnum.loaded,
     },
 
-    cartInLSLength: 0,
+    cartInLSLength: JSON.parse(localStorage.getItem('cart'))?.length
 
 }
 

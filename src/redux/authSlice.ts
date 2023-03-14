@@ -37,7 +37,7 @@ export const checkAuth = createAsyncThunk('auth/checkAuth', async () => {  // re
 export const fetchRegister = createAsyncThunk('auth/fetchRegister', async (params) => {
     let response = await instance.post('/auth/register', params);
     localStorage.setItem('token', response.data.accessToken)
-    localStorage.setItem('loginData', JSON.stringify(params))
+    //localStorage.setItem('loginData', JSON.stringify(params))
     return response.data.user;
 })
 
