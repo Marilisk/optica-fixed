@@ -56,21 +56,26 @@ $test-border: 1px solid red;
     top: 129px;
     width: 80%;
     color: $dark-violet;
-
+    border-left: $thin-gray-border;
+    border-right: $thin-gray-border;
     .hintsBox {
         display: flex;
         background: white;
         height: 78px;
-        width: 260px;
+        min-width: 300px;
+        width: 100%;
         border-bottom: $thin-gray-border;
         justify-content: center;
+        &:first-child {
+            border-top: $thin-gray-border;
+        }
         h3 {
             margin-right: 20px;
             margin-top: 20px;
-
+            font-size: 1rem;
         }
         img {
-            height: 50px;
+            height: 40px;
             margin-top: 10px;
         }
     }

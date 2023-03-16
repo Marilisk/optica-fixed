@@ -5,6 +5,7 @@ import useDebounce from '../../common/useDebounce';
 import { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
+import { API_URL } from '../../../redux/API/api';
 
 
 export const SearchBar = () => {
@@ -59,7 +60,7 @@ export const SearchBar = () => {
                         }}>
 
                             <h3>{obj.name}</h3>
-                            <img alt='' src={`http://localhost:4444${obj.imageUrl.main}`} />
+                            <img alt='' src={`${API_URL}${obj.imageUrl.main}`} />
 
                         </div>
                     </NavLink>
