@@ -66,6 +66,8 @@ $test-border: 1px solid red;
         width: 100%;
         border-bottom: $thin-gray-border;
         justify-content: center;
+        border-right: $thin-gray-border;
+
         &:first-child {
             border-top: $thin-gray-border;
         }

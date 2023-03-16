@@ -336,7 +336,5 @@ const authSlice = createSlice({
 export const selectIsAuth = (state: RootState) => Boolean(state.auth.loginData.data);
 export const selectIsManager = (state: RootState) => Boolean(state.auth.loginData.data?.role === 'ADMIN');
 
-
-
 export const { subscribe, updateCart, pushPriceToTotal, sendPromoCode } = authSlice.actions;
 export default authSlice.reducer;
