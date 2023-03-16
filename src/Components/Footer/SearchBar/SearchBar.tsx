@@ -1,23 +1,23 @@
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { clearSearchResults, fetchSearch } from '../../../redux/productsSlice';
 import c from './SearchBar.module.scss';
-import useDebounce from '../../common/useDebounce.jsx';
+import useDebounce from '../../common/useDebounce';
 import { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
 
 
 export const SearchBar = () => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const [touched, setTouched] = useState(false);
-    const searchResult = useSelector(s => s.products.searchResult);
+    const searchResult = useAppSelector(s => s.products.searchResult);
 
     const results = searchResult.items;
     const noResults = !results.length && touched;
 
     const [query, setQueryValue] = useState('');
 
-    const onSearchChange = (value) => {
+    const onSearchChange = (value: string) => {
         setQueryValue(value);
         if (!touched) setTouched(true);
         if (!value) {
@@ -40,7 +40,6 @@ export const SearchBar = () => {
     return <div className={c.searchBar}>
         <div className={c.searchIcon}></div>
         <h3>Поиск</h3>
-
 
         <input value={query}
             onChange={(e) => onSearchChange(e.target.value)} />
@@ -69,7 +68,5 @@ export const SearchBar = () => {
             </div>}
 
         {Boolean(noResults) && <div>Ничего не нашлось...</div>}
-
     </div>
-
 }

@@ -10,14 +10,15 @@ import { switchAuthOfferModal } from '../../redux/headerSlice';
 export const OrderConfirmed: FC = () => {
     const dispatch = useAppDispatch()
     const isAuth = useAppSelector(selectIsAuth)
+    const userName = useAppSelector(s => s.auth.loginData.data?.fullName)
     const authLoading = useAppSelector(s => s.auth.loginData.status === 'loading')
+
     useEffect(() => {
         if (!isAuth) {
             dispatch(switchAuthOfferModal(true));
         }
     }, [dispatch, isAuth])
 
-    const userName = useAppSelector(s => s.auth.loginData.data?.fullName);
     if (authLoading) {
         return <div>
             <Preloader minFormat={true} />
@@ -37,7 +38,4 @@ export const OrderConfirmed: FC = () => {
         </div>
 
     </div>
-
-
-
 }

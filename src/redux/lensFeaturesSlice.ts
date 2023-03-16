@@ -85,21 +85,8 @@ const featuresSlice = createSlice({
         },
         setSortTag(state, action) {
             state.sortTags.chosenTag = action.payload
-        },
-       
+        }, 
     },
-        extraReducers: (builder) => {
-            /* builder.addCase( fetchFilterOptions.pending, (state) => {
-                state.status = 'loading';
-            })
-            .addCase(fetchFilterOptions.fulfilled, (state, action) => {
-                state.features.find(filter => filter.name === action.payload.filterName).options = action.payload.data;
-                state.status = 'loaded';
-            })
-            .addCase(fetchFilterOptions.rejected, (state) => {
-                state.status = 'error';
-            }) */
-        },
 })
 
 export const { selectFilter, clearAllFilters, setSortTag} = featuresSlice.actions;

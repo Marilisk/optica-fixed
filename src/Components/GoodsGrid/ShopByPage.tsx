@@ -37,6 +37,7 @@ export const ShopByPage: FC<IShopByPageProps> = ({  userFavorites, authIsLoading
     const [color, chooseColor] = useState('чёрный')
 
     const [filteredProducts, setFilteredProducts] = useState([])
+
     useEffect(() => {
         switch (location.pathname) {
             case '/shopby/eyewearform':
@@ -88,8 +89,6 @@ export const ShopByPage: FC<IShopByPageProps> = ({  userFavorites, authIsLoading
             areProdsLoading={areProdsLoading}
             userFavorites={userFavorites}
             authIsLoading={authIsLoading} />
-
-
 
     </div>
 }

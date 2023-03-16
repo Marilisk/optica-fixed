@@ -8,6 +8,7 @@ import { useParams } from 'react-router-dom';
 
 
 export const Budjet = () => {
+    
     const dispatch = useAppDispatch();
     const products = useAppSelector(state => state.products.products)
     const areProdsLoading = products.status === 'isLoading';
@@ -15,7 +16,6 @@ export const Budjet = () => {
     const userFavorites = useAppSelector(state => state.auth.loginData.data?.favourites);
 
     const params = useParams()
-
 
     useEffect(() => {
         dispatch(clearAllFilters());
