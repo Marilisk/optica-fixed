@@ -21,11 +21,6 @@ export const Footer = () => {
                         <div>Оправы до 3 000 рублей</div>
                     </Link>
 
-                    {/* <div>
-                        <Link to='/accesories'>
-                            Аксессуары
-                        </Link>
-                    </div> */}
                 </div>
                 <div className={c.column}>
                     <h3>Информация</h3>
