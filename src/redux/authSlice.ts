@@ -41,11 +41,11 @@ export const fetchRegister = createAsyncThunk('auth/fetchRegister', async (param
     return response.data.user;
 })
 
-export const fetchAddToFavorites = createAsyncThunk('auth/fetchAddToFavorites', async (productId) => {
+export const fetchAddToFavorites = createAsyncThunk('auth/fetchAddToFavorites', async (productId: string) => {
     const response = await instance.post(`/addtofav`, { productId });
     return response.data;
 })
-export const fetchRemoveFromFavorites = createAsyncThunk('auth/fetchRemoveFromFavorites', async (productId) => {
+export const fetchRemoveFromFavorites = createAsyncThunk('auth/fetchRemoveFromFavorites', async (productId:string) => {
     const response = await instance.post(`/removefav`, { productId });
     return response.data;
 });

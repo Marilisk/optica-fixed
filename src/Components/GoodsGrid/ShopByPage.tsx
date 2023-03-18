@@ -10,23 +10,19 @@ import { FaceShapeChoose } from './FaceShapeChoose/FaceShapeChoose';
 import { ColorChoose } from './ColorChoose/ColorChoose';
 
 
-
 enum PageEnum {
     glassesShape = 'glassesShape',
     faceShape = 'faceShape',
     color = 'color',
 }
 
-interface IShopByPageProps {
-    userFavorites: string[]
-    authIsLoading: LoadingStatusEnum
-}
-
-export const ShopByPage: FC<IShopByPageProps> = ({  userFavorites, authIsLoading }: IShopByPageProps) => {
+export const ShopByPage: FC = () => {
     const dispatch = useAppDispatch()
     const products = useAppSelector(s => s.products.products.items)
     const areProdsLoading = useAppSelector(s => s.products.products.status === LoadingStatusEnum.loading)
     const features = useAppSelector(s => s.filters.features)
+    const userFavorites = useAppSelector(s => s.auth.loginData.data.favourites)
+    const authIsLoading = useAppSelector(s => s.auth.loginData.status)
     const [title, setTitle] = useState(features[0].name)
     const [page, setPage] = useState<PageEnum>()
 
@@ -51,7 +47,6 @@ export const ShopByPage: FC<IShopByPageProps> = ({  userFavorites, authIsLoading
                 setTitle('Подбор по форме лица')
                 const filteredByF = products.filter(product => product.features.includes(faceShape))
                 setFilteredProducts(filteredByF)
-
                 break;
             case '/shopby/color':
                 setPage(PageEnum.color)

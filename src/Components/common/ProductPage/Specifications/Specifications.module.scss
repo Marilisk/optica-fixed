@@ -12,28 +12,26 @@ $serif-font-family: 'Playfair Display SC', serif;
 
 .section {
     background: $light-background;
-    //margin: 0;
     border-top: $thin-gray-border;
     padding: 20px 40px;
     display: flex;
     width: 100%;
-    //border: 1px solid blue;
     overflow: hidden;
-    &>div {
-       
-        //border: 1px solid fuchsia;
-    }
-    @media (max-width: 1024px) {
+
+    @media (max-width: 1058px) {
         display: block;
     }
 }
+
 .part {
     width: 40%;
-    @media (max-width: 1200px) {
+
+    @media (max-width: 1260px) {
         margin-right: 60px;
     }
-    
+
 }
+
 .columnWrap {
     display: flex;
     justify-content: flex-start;
@@ -45,40 +43,35 @@ $serif-font-family: 'Playfair Display SC', serif;
     @media (max-width: 1024px) {
         justify-content: space-between;
     }
+
     @media (max-width: 533px) {
         display: block;
-        
+
     }
+
     &>div {
         width: 40%;
         min-width: fit-content;
         margin-right: 40px;
-        //border: 1px solid hotpink;
+
         @media (max-width: 1200px) {
             margin-right: 20px;
         }
+
         @media (max-width: 1024px) {
             margin-right: 10vw;
-
         }
+
         @media (max-width: 768px) {
             width: 48%;
-
-            //margin-right: 6vw;
-            //min-width: fit-content;
-
         }
     }
-
-
 }
-
 
 .line {
     display: block;
     white-space: nowrap;
-    //max-width: 200px;
-    
+
     span {
         color: $gray-fontcolor;
     }

@@ -9,7 +9,7 @@ interface IColorChooseProps {
     amount: number
 }
 
-export const ColorChoose: FC<IColorChooseProps> = ({ amount, color , chooseColor }: IColorChooseProps) => {
+export const ColorChoose: FC<IColorChooseProps> = ({ amount, color, chooseColor }: IColorChooseProps) => {
 
     const [portion, setAnotherPortion] = useState(1)
 
@@ -28,59 +28,58 @@ export const ColorChoose: FC<IColorChooseProps> = ({ amount, color , chooseColor
                 <div style={{ transform: `translateX(-${portion * 100}%)` }}
                     className={color === 'чёрный' ? c.chosenBlock : c.block}
                     onClick={() => chooseColor('для круглого лица')} >
-                    <div className={c.colorPad} style={{background: '#000000' }}/>
+                    <div className={c.colorPad} style={{ background: '#000000' }} />
                     чёрный
                 </div>
 
                 <div style={{ transform: `translateX(-${portion * 100}%)` }}
                     className={color === 'золото' ? c.chosenBlock : c.block}
                     onClick={() => chooseColor('золото')} >
-                    <div className={c.colorPad} style={{background: '#DDB92C' }}/>
+                    <div className={c.colorPad} style={{ background: '#DDB92C' }} />
                     золото
                 </div>
 
                 <div style={{ transform: `translateX(-${portion * 100}%)` }}
                     className={color === 'прозрачный' ? c.chosenBlock : c.block}
                     onClick={() => chooseColor('прозрачный')} >
-                    <div className={c.colorPad} style={{background: '#ffffff', borderColor: '#666666' }}/>
+                    <div className={c.colorPad} style={{ background: '#ffffff', borderColor: '#666666' }} />
                     прозрачные
                 </div>
 
                 <div style={{ transform: `translateX(-${portion * 100}%)` }}
                     className={color === 'серебро' ? c.chosenBlock : c.block}
                     onClick={() => chooseColor('серебро')} >
-                    <div className={c.colorPad} style={{background: '#C7C7C7' }}/>
+                    <div className={c.colorPad} style={{ background: '#C7C7C7' }} />
                     серебро
                 </div>
 
                 <div style={{ transform: `translateX(-${portion * 100}%)` }}
                     className={color === 'синий' ? c.chosenBlock : c.block}
                     onClick={() => chooseColor('синий')} >
-                    <div className={c.colorPad} style={{background: '#092CAA' }}/>
+                    <div className={c.colorPad} style={{ background: '#092CAA' }} />
                     синий
                 </div>
 
                 <div style={{ transform: `translateX(-${portion * 100}%)` }}
                     className={color === 'белый' ? c.chosenBlock : c.block}
                     onClick={() => chooseColor('белый')} >
-                    <div className={c.colorPad} style={{background: '#ffffff', borderColor: '#666666' }}/>
+                    <div className={c.colorPad} style={{ background: '#ffffff', borderColor: '#666666' }} />
                     белый
                 </div>
 
                 <div style={{ transform: `translateX(-${portion * 100}%)` }}
                     className={color === 'коричневый' ? c.chosenBlock : c.block}
                     onClick={() => chooseColor('коричневый')} >
-                    <div className={c.colorPad} style={{background: '#765D4B' }}/>
+                    <div className={c.colorPad} style={{ background: '#765D4B' }} />
                     коричневый
                 </div>
 
                 <div style={{ transform: `translateX(-${portion * 100}%)` }}
                     className={color === 'розовый' ? c.chosenBlock : c.block}
                     onClick={() => chooseColor('розовый')} >
-                    <div className={c.colorPad} style={{background: '#D18D97' }}/>
+                    <div className={c.colorPad} style={{ background: '#D18D97' }} />
                     розовый
                 </div>
-
 
             </div>
 
@@ -94,11 +93,10 @@ export const ColorChoose: FC<IColorChooseProps> = ({ amount, color , chooseColor
 
         <div className={c.sortWrap}>
             <p className={c.amount}>
-                {amount} вариантов
+                вариантов: {amount}
             </p>
             <SortBoard />
         </div>
-
 
     </div>
 }

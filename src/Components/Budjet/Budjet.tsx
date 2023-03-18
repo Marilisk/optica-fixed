@@ -12,7 +12,7 @@ export const Budjet = () => {
     const dispatch = useAppDispatch();
     const products = useAppSelector(state => state.products.products)
     const areProdsLoading = products.status === 'isLoading';
-    const authIsLoading = useAppSelector(state => state.auth.loginData.status === 'loading')
+    const authIsLoading = useAppSelector(state => state.auth.loginData.status)
     const userFavorites = useAppSelector(state => state.auth.loginData.data?.favourites);
 
     const params = useParams()

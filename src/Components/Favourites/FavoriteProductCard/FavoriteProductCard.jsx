@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { setCurrentProd } from '../../../redux/productsSlice';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import instance from '../../../redux/API/api';
+import instance, { API_URL } from '../../../redux/API/api';
 import { CartIcon } from '../../../assets/header/icons/CartIcon';
 import { priceFormatter } from '../../../assets/functions/priceFormatter';
 import { LoadingDots } from '../../../assets/common/Preloader/LoadingDots/LoadingDots';
@@ -32,7 +32,7 @@ export const FavoriteProductCard = ({ id, removeFromFavorites, authIsLoading, in
     return <div className={c.wrap} onClick={() => dispatch(setCurrentProd(product))} >
 
         <NavLink to={`/product/${product._id}`}>
-            <img src={`https://backend-optics-without-packlo.onrender.com${product.imageUrl.main}`} alt='' />
+            <img src={`${API_URL}${product.imageUrl.main}`} alt='' />
             <div className={c.price}>
                 {price}
             </div>
