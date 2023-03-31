@@ -1,17 +1,19 @@
 export type IUser = {
-    activationLink: string,
-    _id: string,
-    cart: Array<ICartItem>,
-    createdAt: string,
-    email: string,
-    favourites: string[],
-    fullName: string,
+    activationLink: string
+    _id: string
+    cart: Array<ICartItem>
+    createdAt: string
+    email: string
+    favourites: string[]
+    fullName: string
     orders: string[]
-    isActivated: boolean,
-    password: string,
-    role: string,
-    updatedAt: string,
-    __v: number,
+    isActivated: boolean
+    resetPasswordLink?: string
+    allowedToResetPassword?: boolean
+    password: string
+    role: string
+    updatedAt: string
+    __v: number
 }
 export interface IImageUrl {
     main: string,
@@ -42,8 +44,9 @@ export interface IProduct {
     material: string[],
     prescriptionMin: string,
     prescriptionMax: string,
-    imageUrl: IImageUrl /* | null */
+    imageUrl: IImageUrl 
     size?:string
+    inStockQuantity?: number
 }
 export interface ILensProduct {
     _id: string
@@ -68,6 +71,7 @@ export interface ILensProduct {
     material: string
     user?: object
     imageUrl: IImageUrl
+    inStockQuantity?: number
 }
 export type ICartItem = {
     productId: string

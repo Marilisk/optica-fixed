@@ -21,23 +21,15 @@ export const fetchLogout = createAsyncThunk('auth/fetchLogout', async () => {
     return response.data;
 })
 
-export const checkAuth = createAsyncThunk('auth/checkAuth', async () => {  // refreshes tokens and login data
-    try {
-        const response = await axios.get(`${API_URL}/auth/refresh`, { withCredentials: true });
-        localStorage.setItem('token', response.data.tokens.accessToken);
-        return response.data.user;
-    } catch (error: any) {
-        console.log(error)
-        if (error.response.status === 401) {  // тут удаляем токен чтоб все не висело если юзер заходил с другого устройства и отсюда вылетел
-            localStorage.removeItem('token')
-        }
-    }
+export const checkAuth = createAsyncThunk('auth/checkAuth', async () => {  // refreshes tokens and login data    
+    const response = await axios.get(`${API_URL}/auth/refresh`, { withCredentials: true })
+    localStorage.setItem('token', response.data.tokens.accessToken)
+    return response.data.user;
 })
 
 export const fetchRegister = createAsyncThunk('auth/fetchRegister', async (params) => {
-    let response = await instance.post('/auth/register', params);
+    let response = await instance.post('/auth/register', params)
     localStorage.setItem('token', response.data.accessToken)
-    //localStorage.setItem('loginData', JSON.stringify(params))
     return response.data.user;
 })
 
@@ -45,7 +37,7 @@ export const fetchAddToFavorites = createAsyncThunk('auth/fetchAddToFavorites', 
     const response = await instance.post(`/addtofav`, { productId });
     return response.data;
 })
-export const fetchRemoveFromFavorites = createAsyncThunk('auth/fetchRemoveFromFavorites', async (productId:string) => {
+export const fetchRemoveFromFavorites = createAsyncThunk('auth/fetchRemoveFromFavorites', async (productId: string) => {
     const response = await instance.post(`/removefav`, { productId });
     return response.data;
 });

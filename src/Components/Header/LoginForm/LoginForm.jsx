@@ -5,10 +5,10 @@ import { fetchAddEyewearToCart, fetchAuth } from '../../../redux/authSlice';
 import { validateEmail, validatePassword } from './loginValidate';
 import { useState } from 'react';
 import { setCartInLSLength } from '../../../redux/productsSlice';
+import { Link } from 'react-router-dom';
 
 export const initialiseCart = async (dispatch) => {
     let cartInLS = localStorage.getItem('cart')
-    //console.log('in initialiseCart', cartInLS)
     if (cartInLS) {
         cartInLS = JSON.parse(localStorage.getItem('cart'))
         for (let cartItem of cartInLS) {
@@ -36,7 +36,6 @@ export const LoginForm = ({ toggleLoginModalOpened, dispatch, isLoading }) => {
         onSubmit={async (values, actions) => {
             const payload = { email: values.email, password: values.password };
             const data = await dispatch(fetchAuth(payload));
-            //console.log(data)
             if (!data.payload && data.error.message === 'Request failed with status code 400') {
                 setInvalidMsg('неверный логин или пароль')
                 actions.resetForm({
@@ -53,9 +52,7 @@ export const LoginForm = ({ toggleLoginModalOpened, dispatch, isLoading }) => {
                     rememberMe: true,
                 })
                 toggleLoginModalOpened();
-            } /* else {
-                alert('ошибка авторизации');
-            } */
+            } 
         }}
     >
 
@@ -82,7 +79,9 @@ export const LoginForm = ({ toggleLoginModalOpened, dispatch, isLoading }) => {
                     <div className={c.underBtn}>
                         <Field type='checkbox' name='rememberMe' component={CustomCheckbox} />
                         <label htmlFor='rememberMe'>запомнить меня</label>
-                        <span>забыли пароль?</span>
+                        <Link to={'/login/forgotpassword'} onClick={() => toggleLoginModalOpened()}>
+                            <span>забыли пароль?</span>
+                        </Link>
                     </div>
 
                 </div>

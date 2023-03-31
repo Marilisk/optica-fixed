@@ -8,7 +8,7 @@ export const useSortProducts = (array:IProduct[]) => {
     if (chosenTag === 1) {
         return array;
     }
-    let result = [...array]  // может ли здесь потом возникнуть какая-то проблема изза копирования по ссылке?
+    let result = [...array]  
 
     if (chosenTag === 2) {
         result.sort( (a,b) => b.price - a.price)
@@ -22,7 +22,6 @@ export const useSortProducts = (array:IProduct[]) => {
         result.sort( (a,b) => b.buyCount - a.buyCount)
     }
 
-    //console.log(result)
     
     return result;
 }

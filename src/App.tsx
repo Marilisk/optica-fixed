@@ -1,6 +1,5 @@
 import { Header } from './Components/Header/Header.jsx';
 import { Footer } from './Components/Footer/Footer';
-import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { checkAuth, selectIsAuth } from './redux/authSlice';
 import { fetchProducts } from './redux/productsSlice';
@@ -10,12 +9,16 @@ import { fetchFilterOptions } from './redux/featuresSlice';
 import { CookieModal } from './Components/common/CookieModal/CookieModal.jsx';
 import { Outlet, ScrollRestoration } from 'react-router-dom';
 import { Preloader } from './assets/common/Preloader/Preloader.jsx';
+import { useAppDispatch, useAppSelector } from './redux/hooks';
+import { LoadingStatusEnum } from './Components/Types/types';
+import { ErrorPage } from './assets/ErrorPage/ErrorPage';
 
 
 export const App = () => {
-  const dispatch = useDispatch()
-  const isAuth = useSelector(selectIsAuth);
-  const fullHeader = useSelector(state => state.header.fullHeader);
+  const dispatch = useAppDispatch()
+  const isAuth = useAppSelector(selectIsAuth);
+  const fullHeader = useAppSelector(state => state.header.fullHeader);
+  const authLoadingError = useAppSelector(s => s.auth.loginData.status === LoadingStatusEnum.error)
 
   useEffect(() => {
     dispatch(fetchProducts());
@@ -36,10 +39,12 @@ export const App = () => {
     dispatch(setfullHeaderTheme(true));
   }, [isAuth, dispatch]);
 
-  const userFavorites = useSelector(state => state.auth.loginData.data?.favourites);
+  const userFavorites = useAppSelector(state => state.auth.loginData.data?.favourites);
   let favoritesCount = userFavorites ? userFavorites.length : null;
 
-
+  if (authLoadingError) {
+    return <ErrorPage />
+  }
   if (localStorage.getItem('token') && !isAuth) {
     return <Preloader minFormat={false} />;
   }

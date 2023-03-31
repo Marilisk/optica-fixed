@@ -4,8 +4,6 @@ import { Order } from './Components/Cart/Order/Order';
 import { Cart } from './Components/Cart/Cart';
 import { PrivatePage } from './Components/PrivatePage/PrivatePage';
 import { SearchPage } from './Components/SearchPage/SearchPage';
-import { Administration } from './Components/MainPage/EyewearAdministration/Administration';
-import { LensesAdministration } from './Components/MainPage/LensesAdministration/LensesAdministration';
 import { OrderConfirmed } from './Components/OrderConfirmed/OrderConfirmed';
 import { Favourites } from './Components/Favourites/Favourites';
 import { ProductPage } from './Components/common/ProductPage/ProductPage';
@@ -20,6 +18,9 @@ import { App } from "./App";
 import { OfflineShop } from "./Components/OfflineShop/OfflineShop";
 import { Budjet } from "./Components/Budjet/Budjet";
 import { QuestionForm } from "./Components/common/QuestionForm/QuestionForm";
+import { ErrorPage } from "./assets/ErrorPage/ErrorPage";
+import { ForgotPasswordForm } from "./Components/Header/LoginForm/ForgotPasswordForm/ForgotPasswordForm";
+import UpdatePassword from "./Components/Header/LoginForm/ForgotPasswordForm/UpdatePassword";
 
 export const router = createBrowserRouter([
   {
@@ -68,6 +69,7 @@ export const router = createBrowserRouter([
       {
         path: "/order/:id",
         element: <OrderConfirmed />,
+        errorElement: <ErrorPage />,
       },
 
       {
@@ -83,6 +85,8 @@ export const router = createBrowserRouter([
       {
         path: "/product/:id",
         element: <ProductPage />,
+        errorElement: <ErrorPage />,
+
       },
 
       {
@@ -93,11 +97,22 @@ export const router = createBrowserRouter([
       {
         path: "/lenses/:id",
         element: <LensPage />,
+        errorElement: <ErrorPage />,
       },
 
       {
         path: "/login",
         element: <LoginPage />,
+      },
+
+      {
+        path: "/login/forgotpassword",
+        element: <ForgotPasswordForm />
+      },
+
+      {
+        path: "/auth/setnewpassword",
+        element: <UpdatePassword />
       },
 
       {
@@ -118,28 +133,6 @@ export const router = createBrowserRouter([
       {
         path: "/offlineshop",
         element: <OfflineShop />,
-      },
-
-      {
-        path: "/manage",
-        element: <Administration />,
-        children: [
-          {
-            path: "/manage/:id",
-            element: <Administration />,
-          }
-        ]
-      },
-
-      {
-        path: "/managelenses",
-        element: <LensesAdministration />,
-        children: [
-          {
-            path: "/managelenses/:id",
-            element: <LensesAdministration />,
-          }
-        ]
       },
 
       {
