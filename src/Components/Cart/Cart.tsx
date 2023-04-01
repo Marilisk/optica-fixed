@@ -2,7 +2,7 @@ import c from './Cart.module.scss';
 import { useEffect, FC } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { CartProductCard } from './ProductCard/CartProductCard';
-import { fetchUpdateCart, selectIsAuth } from '../../redux/authSlice';
+import { fetchCreateOrder, fetchUpdateCart, selectIsAuth } from '../../redux/authSlice';
 import { CatEnum, ICartItem } from '../Types/types';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { CartTotal } from './CartTotal/CartTotal';
@@ -11,6 +11,8 @@ import { CartConfirmBtns } from './CartConfirmBtns/CartConfirmBtns';
 import { CartLensCard } from './CartLensCard/CartLensCard';
 import { Preloader } from '../../assets/common/Preloader/Preloader';
 import { switchAuthOfferModal } from '../../redux/headerSlice';
+import { fetchCollectCartPrices, setProcessedOrder } from '../../redux/productsSlice';
+import { IInitialValues, initValues } from './Order/Address/initialValues';
 
 interface CartProps {
     switchModal: (arg: Boolean) => void
@@ -40,11 +42,29 @@ export const Cart: FC<CartProps> = ({ switchModal, removeFromFavorites, userFavo
     const editCart = () => {
         dispatch(fetchUpdateCart());
     }
+    const iValues: IInitialValues = initValues(userName);
+
+    const editOrder =  async () => {
+        const cart = await dispatch(fetchCollectCartPrices())
+        if (cart.meta.requestStatus === 'fulfilled') {
+            try {
+                try {
+                    const order = await dispatch(fetchCreateOrder(iValues))
+                    dispatch(setProcessedOrder(order.payload))
+                } catch (error) {
+                    console.log('error in setting processed Order', error)
+                }
+            } catch (error) {
+                console.log('error in prices collecting', error)
+            }
+        }
+    }
 
     const confirmOrder = () => {
         if (!isAuth) {
             switchModal(true)
         } else {
+            editOrder()
             navigate(`/order`);
         }
     }

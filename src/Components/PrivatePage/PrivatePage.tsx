@@ -13,20 +13,21 @@ export const PrivatePage: FC = () => {
     const authIsLoading = useAppSelector(s => s.auth.loginData.status === 'loading')
 
     const navigate = useNavigate()
-    useEffect( () => {
+    useEffect(() => {
         if (!isAuth) {
             navigate('/login')
         }
     }, [isAuth, navigate])
-    
-    if (authIsLoading || !orders ) {
-        return <div><h2>{userName}, у вас пока нет заказов...</h2></div>;
+
+    if (authIsLoading || !orders.length) {
+        return <h1 className={c.header}>
+            <div>{userName}, у вас пока нет заказов...</div>
+        </h1>
     }
 
     const elements = orders.map((order, i) => {
         return <OrderCard key={i} orderId={order} />
     })
-
 
     return <>
         <h1 className={c.header}>

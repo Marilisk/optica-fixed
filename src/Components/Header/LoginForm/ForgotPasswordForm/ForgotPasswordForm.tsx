@@ -19,7 +19,10 @@ export const ForgotPasswordForm = () => {
             setLoadingStatus(true)
             try {
                 const response = await instance.post('/auth/forgotpassword', { email: values.email })
-                setMessage(response.data.message)
+                console.log(response)
+                if (response) {
+                    setMessage(response.data.message)
+                }
                 actions.resetForm()
                 setLoadingStatus(false)
             } catch (error) {

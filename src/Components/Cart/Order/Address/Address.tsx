@@ -1,53 +1,15 @@
 import c from './Address.module.scss';
-import { FC, useCallback, useEffect, useState } from 'react';
-import { Formik, useFormikContext } from 'formik';
+import { FC } from 'react';
+import { Formik} from 'formik';
 import { IInitialValues, initValues } from './initialValues';
-import dadataFetch from '../../../../redux/API/dadataApi';
-import { DadataSuggestionType } from '../../../Types/types';
 import { useAppDispatch } from '../../../../redux/hooks';
-import { fetchAddValuesToOrder, fetchCreateOrder } from '../../../../redux/authSlice';
-import { fetchCollectCartPrices, setProcessedOrder } from '../../../../redux/productsSlice';
+import { fetchAddValuesToOrder } from '../../../../redux/authSlice';
+import { setProcessedOrder } from '../../../../redux/productsSlice';
 import { OrderHeader } from '../OrderHeader/OrderHeader';
 import { activeColEnum } from '../Order';
 import InputMask from 'react-input-mask';
+import { GetDadataHints } from './GetDadataHints/GetDadataHints';
 
-
-interface IGetDadataHints {
-    statePart: string
-    setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void
-}
-export const GetDadataHints: FC<IGetDadataHints> = ({ statePart, setFieldValue }: IGetDadataHints) => {
-    const { values } = useFormikContext()
-    const query = JSON.stringify({ query: values[statePart] })
-    const [hints, setHints] = useState<string[]>([])
-
-
-    const getHints = useCallback(async () => {
-        const responce = await dadataFetch.post('', query);
-        if (responce.data.suggestions) {
-            const vals = [];
-            responce.data.suggestions.forEach((el: DadataSuggestionType) => vals.push(el.value))
-            setHints(vals)
-        }
-        return responce;
-    }, [query])
-
-    useEffect(() => {
-        getHints()
-    }, [query, getHints])
-
-    if (!hints.length) { return null }
-
-    return <div className={c.hintsWrap} >
-        {hints.map((el, i) => {
-            return <div key={i} onClick={() => { setFieldValue(statePart, el); setHints([]) }}
-                    className={c.hint} style={ {top: 30*i + 'px'}}>
-                    {el}
-                </div>
-            
-        })}
-        </div>
-}
 
 interface IAddress {
     userName: string
@@ -55,11 +17,13 @@ interface IAddress {
     activeCol: activeColEnum
 }
 
+
+
 export const Address: FC<IAddress> = ({ userName, setActiveCol, activeCol }: IAddress) => {
     const iValues: IInitialValues = initValues(userName);
     const dispatch = useAppDispatch()
 
-    const editOrder = useCallback( async () => {
+    /* const editOrder =  async () => {
         const cart = await dispatch(fetchCollectCartPrices())
         if (cart.meta.requestStatus === 'fulfilled') {
             try {
@@ -73,11 +37,26 @@ export const Address: FC<IAddress> = ({ userName, setActiveCol, activeCol }: IAd
                 console.log('error in prices collecting', error)
             }
         }
-    }, [dispatch/* , iValues */])
+    } */
     
-    useEffect( () => {
+    /* useEffect( () => {
+        const editOrder =  async () => {
+            const cart = await dispatch(fetchCollectCartPrices())
+            if (cart.meta.requestStatus === 'fulfilled') {
+                try {
+                    try {
+                        const order = await dispatch(fetchCreateOrder(iValues))
+                        dispatch(setProcessedOrder(order.payload))
+                    } catch (error) {
+                        console.log('error in setting processed Order', error)
+                    }
+                } catch (error) {
+                    console.log('error in prices collecting', error)
+                }
+            }
+        }
         editOrder()
-    }, [editOrder])
+    }, [dispatch]) */
 
     return <>
         <OrderHeader>
@@ -117,7 +96,7 @@ export const Address: FC<IAddress> = ({ userName, setActiveCol, activeCol }: IAd
                         </div>
 
                         <div className={c.formLine} >
-                            <textarea /* type="text" */ placeholder='адрес'
+                            <textarea placeholder='адрес'
                                 onChange={props.handleChange}
                                 value={props.values.address}
                                 name="address"

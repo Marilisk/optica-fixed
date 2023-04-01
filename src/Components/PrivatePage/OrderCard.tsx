@@ -11,7 +11,7 @@ interface IOrderCard {
     orderId: string
 }
 
-export const fetchOrder = async (orderId:string, setOrder:(arg: OrderType) => void) => {
+export const fetchOrder = async (orderId: string, setOrder: (arg: OrderType) => void) => {
     try {
         const response = await instance.get(`/order/${orderId}`)
         setOrder(response.data)
@@ -21,7 +21,7 @@ export const fetchOrder = async (orderId:string, setOrder:(arg: OrderType) => vo
 }
 const OrderCard: FC<IOrderCard> = ({ orderId }: IOrderCard) => {
     const dispatch = useAppDispatch()
-    const [order, setOrder] = useState<OrderType>(null)    
+    const [order, setOrder] = useState<OrderType>(null)
 
     useEffect(() => {
         fetchOrder(orderId, setOrder)
@@ -52,6 +52,7 @@ const OrderCard: FC<IOrderCard> = ({ orderId }: IOrderCard) => {
 
 
     return <div className={c.card}>
+        
         <div>
             <h2>Заказ от {createDate} г.</h2>
             {order.address && <span>Доставка по адресу {order.address}</span>}
@@ -62,26 +63,21 @@ const OrderCard: FC<IOrderCard> = ({ orderId }: IOrderCard) => {
         </div>
 
         <div>
-            Заказ {condition}, {order.paymentMade? 'Оплачен' : 'не оплачен'}.
+            Заказ {condition}, {order.paymentMade ? 'Оплачен' : 'не оплачен'}.
         </div>
 
         <div>
-            
-        </div>
-
-        <div>
-        <h3>Товары:</h3>
+            <h3>Товары:</h3>
             {order.cart.map(el => (
                 <OrderProductCard key={el.productId} productId={el.productId} cat={el.cat} />
             ))}
         </div>
 
-        
-
         <div className={c.deleteOrder}
             onClick={() => dispatch(fetchDeleteOrder(orderId))}>
             Отменить заказ
         </div>
+
     </div>
 }
 
