@@ -91,6 +91,7 @@ export type ICartItemWithSum = {
 export type ILData = {
     data?: IUser | null
     status: 'loaded' | 'loading' | 'error'
+    serverMessage: string
 } 
 export type ISubscribeData = {
     email: string
@@ -233,7 +234,6 @@ export type LensesInitialStateType = {
     currentProduct: CurrentLensType
 }
 
-
 export enum CatEnum {
     eyewear = 'eyewear',
     contactLens = 'contactLens'
@@ -244,3 +244,8 @@ export type FetchAddToCartArgType = {
     lens?: number
 }
 
+export interface RegisterPayload {
+    email: string
+    password:string
+    fullName: string
+}

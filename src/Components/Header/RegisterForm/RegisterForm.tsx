@@ -6,12 +6,13 @@ import { validateEmail, validatePassword, validateFullName } from '../LoginForm/
 import snowFlake from './../../../assets/icons/snowflake.png';
 import errorInput from './../../../assets/icons/errorInput.png';
 import check from './../../../assets/icons/check.png';
-import { useState } from 'react';
 import { initialiseCart } from '../LoginForm/LoginForm';
+import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
 
 
-export const RegisterForm = ({ dispatch, toggleLoginModalOpened, isLoading, setIsLoginTab }) => {
-    const [alreadyRegisteredMsg, setAlreadyRegisteredMsg] = useState(null)
+export const RegisterForm = ({ toggleLoginModalOpened, isLoading, setIsLoginTab }) => {
+    const dispatch = useAppDispatch()
+    const serverMsg = useAppSelector(s => s.auth.loginData.serverMessage)
 
     return <Formik initialValues={{
         fullName: '',
@@ -21,20 +22,11 @@ export const RegisterForm = ({ dispatch, toggleLoginModalOpened, isLoading, setI
     }}
         onSubmit={async (values, actions) => {
             const payload = { email: values.email, password: values.password, fullName: values.fullName };
-            const response = await dispatch(fetchRegister(payload));
-            //console.log(response)
-            if (response.error && response.error.message === "Request failed with status code 400") {
-                setAlreadyRegisteredMsg('Пользователь с таким email уже зарегистрирован')
-                setIsLoginTab(true)
-            } else if (response.payload && 'email' in response.payload) {
+            const response = await dispatch(fetchRegister(payload))
+            if (response.payload && 'email' in response.payload) {
                 if (values.rememberMe) { localStorage.setItem('email', values.email) }
                 initialiseCart(dispatch)
-                actions.resetForm({
-                    fullName: '',
-                    email: '',
-                    password: '',
-                    rememberMe: true,
-                });
+                actions.resetForm();
                 toggleLoginModalOpened();
             } else {
                 console.log(response);
@@ -70,7 +62,7 @@ export const RegisterForm = ({ dispatch, toggleLoginModalOpened, isLoading, setI
                             touched.password ? check : snowFlake}
                         className={c.passwordIcon} />
 
-                    {alreadyRegisteredMsg && <p className={c.alreadyRegisteredMsg}>{alreadyRegisteredMsg}</p>}
+                    {serverMsg && <p className={c.alreadyRegisteredMsg}>{serverMsg}</p>}
 
                     <button type='submit'
                         disabled={isLoading === 'loading'}

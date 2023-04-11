@@ -23,7 +23,7 @@ export const LoginPage = ({isLoading}) => {
    
     const toggleLoginModalOpened = () => {
         dispatch(setfullHeaderTheme(true));
-        navigate(-1);
+        navigate('/');
     }
     if (isAuth) {
         navigate(-1);   // проверить надо
@@ -44,8 +44,7 @@ export const LoginPage = ({isLoading}) => {
                                   toggleLoginModalOpened={toggleLoginModalOpened}
                                   isLoading={isLoading} /> :
 
-             <RegisterForm dispatch={dispatch} 
-                    toggleLoginModalOpened={toggleLoginModalOpened} 
+             <RegisterForm toggleLoginModalOpened={toggleLoginModalOpened} 
                     navigate={navigate}
                     isLoading={isLoading}
                     setIsLoginTab={setIsLoginTab} /> }

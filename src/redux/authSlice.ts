@@ -1,4 +1,4 @@
-import { FetchAddToCartArgType } from './../Components/Types/types';
+import { FetchAddToCartArgType, RegisterPayload } from './../Components/Types/types';
 import { createAppAsyncThunk } from './hooks';
 import { RootState } from './redux-store';
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
@@ -27,10 +27,10 @@ export const checkAuth = createAsyncThunk('auth/checkAuth', async () => {  // re
     return response.data.user;
 })
 
-export const fetchRegister = createAsyncThunk('auth/fetchRegister', async (params) => {
+export const fetchRegister = createAsyncThunk('auth/fetchRegister', async (params: RegisterPayload) => {
     let response = await instance.post('/auth/register', params)
     localStorage.setItem('token', response.data.accessToken)
-    return response.data.user;
+    return response.data;
 })
 
 export const fetchAddToFavorites = createAsyncThunk('auth/fetchAddToFavorites', async (productId: string) => {
@@ -113,6 +113,7 @@ const initialState: AuthInitStateType = {
     loginData: {
         data: null,
         status: 'loaded',
+        serverMessage: '',
     },
     subscribeData: {
         email: '',
@@ -142,7 +143,7 @@ const authSlice = createSlice({
 
     },
     extraReducers: (builder) => {
-        builder.addCase(fetchAuth.pending, (state, action/* :PayloadAction<string[]> */) => {
+        builder.addCase(fetchAuth.pending, (state) => {
             state.loginData.status = 'loading';
         })
             .addCase(fetchAuth.fulfilled, (state, action) => {
@@ -182,11 +183,16 @@ const authSlice = createSlice({
                 state.loginData.data = null;
             })
             .addCase(fetchRegister.fulfilled, (state, action) => {
-                state.loginData.status = 'loaded';
-                state.loginData.data = action.payload;
+                state.loginData.status = 'loaded'
+                state.loginData.data = action.payload.user
             })
             .addCase(fetchRegister.rejected, (state, action) => {
                 state.loginData.status = 'error';
+                if (action.error.message === 'Request failed with status code 400') {
+                    state.loginData.serverMessage = 'Пользователь с таким email уже зарегистрирован';
+                } else {
+                    state.loginData.serverMessage = 'сервис недоступен';
+                }
                 state.loginData.data = null;
             })
 

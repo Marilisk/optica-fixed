@@ -15,10 +15,6 @@ $serif-font-family: 'Playfair Display SC', serif;
     margin: 0 auto;
     width: 350px;
     position: relative;
-    @media (max-width : 533px)  {
-        //background: pink;
-    }
-    z-index: 1000;
 
     input {
         margin: 0 auto;

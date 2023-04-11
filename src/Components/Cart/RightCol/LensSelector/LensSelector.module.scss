@@ -17,6 +17,7 @@ $serif-font-family: 'Playfair Display SC', serif;
     padding: 20px;
     font-weight: 700;
     background: white;
+
     @media (max-width: 440px) {
         //display: block;
     }
@@ -28,40 +29,39 @@ $serif-font-family: 'Playfair Display SC', serif;
     color: $gray-fontcolor;
     width: 50%;
     padding-top: 12px;
+
     @media (max-width: 533px) {
         padding-top: 16px;
         margin-right: 20px;
         width: fit-content;
         font-size: 14px;
     }
-    @media (max-width: 440px) {
-         padding-top: 12px;
-         //margin: 0 auto;
-         margin-bottom: 14px;
-         font-size: 18px;
 
-     }
+    @media (max-width: 440px) {
+        padding-top: 12px;
+        margin-bottom: 14px;
+        font-size: 18px;
+    }
 }
 
 .sideFlex {
     display: flex;
     color: $gray-fontcolor;
-    
 
     @media (max-width: 440px) {
-        //display: block;
         margin-left: 20px;
     }
 }
+
 .oneSelectorWrap {
     margin-left: 14px;
-    //border: 1px solid blue;
     display: flex;
+
     @media (max-width: 440px) {
         display: block;
-        
     }
 }
+
 .sideName {
     font-size: 16px;
     margin-right: 6px;
@@ -72,15 +72,16 @@ $serif-font-family: 'Playfair Display SC', serif;
 
 .selectWrapper {
     width: 84px;
-    //z-index: 0;
     position: relative;
     border: $thin-gray-border;
     height: 46px;
     font-size: 14px;
 }
+
 .select {
     width: 42px;
-    & > div {
+
+    &>div {
         width: fit-content;
         margin: 0 auto;
         margin-top: 33%;
@@ -119,7 +120,6 @@ $serif-font-family: 'Playfair Display SC', serif;
     max-height: 244px;
     clear: both;
 
-
     @media (pointer: fine) {
 
         &::-webkit-scrollbar {
@@ -142,7 +142,6 @@ $serif-font-family: 'Playfair Display SC', serif;
     width: 80px;
     font-size: 16px;
     position: absolute;
-    //border: 1px solid pink;
     padding-top: 11px;
     padding-left: 11px;
     z-index: 10;

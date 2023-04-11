@@ -10,16 +10,13 @@ import { CookieModal } from './Components/common/CookieModal/CookieModal.jsx';
 import { Outlet, ScrollRestoration } from 'react-router-dom';
 import { Preloader } from './assets/common/Preloader/Preloader.jsx';
 import { useAppDispatch, useAppSelector } from './redux/hooks';
-import { LoadingStatusEnum } from './Components/Types/types';
-import { ErrorPage } from './assets/ErrorPage/ErrorPage';
 
 
 export const App = () => {
   const dispatch = useAppDispatch()
   const isAuth = useAppSelector(selectIsAuth);
   const fullHeader = useAppSelector(state => state.header.fullHeader);
-  const authLoadingError = useAppSelector(s => s.auth.loginData.status === LoadingStatusEnum.error)
-
+  
   useEffect(() => {
     dispatch(fetchProducts());
     dispatch(setfullHeaderTheme(true));
@@ -42,9 +39,6 @@ export const App = () => {
   const userFavorites = useAppSelector(state => state.auth.loginData.data?.favourites);
   let favoritesCount = userFavorites ? userFavorites.length : null;
 
-  if (authLoadingError) {
-    return <ErrorPage />
-  }
   if (localStorage.getItem('token') && !isAuth) {
     return <Preloader minFormat={false} />;
   }

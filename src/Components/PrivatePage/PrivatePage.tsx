@@ -19,7 +19,7 @@ export const PrivatePage: FC = () => {
         }
     }, [isAuth, navigate])
 
-    if (authIsLoading || !orders.length) {
+    if (authIsLoading || !orders || !orders.length ) {
         return <h1 className={c.header}>
             <div>{userName}, у вас пока нет заказов...</div>
         </h1>
