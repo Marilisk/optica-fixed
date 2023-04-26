@@ -86,7 +86,6 @@ export const router = createBrowserRouter([
         path: "/product/:id",
         element: <ProductPage />,
         errorElement: <ErrorPage />,
-
       },
 
       {
