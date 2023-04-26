@@ -2,7 +2,7 @@ import c from './CustomerButtons.module.scss';
 import { Heart } from '../../../../assets/icons/Heart';
 
 
-export const CustomerButtons = ({ addToFavorites, removeFromFavorites, authIsLoading, isFavorite,
+export const CustomerButtons = ({ addToFavorites, isInCart, removeFromFavorites, authIsLoading, isFavorite,
     productId, prodLoadingStatus, addToCart }) => {
 
     
@@ -32,9 +32,9 @@ export const CustomerButtons = ({ addToFavorites, removeFromFavorites, authIsLoa
         }
 
         <button type='button' className={c.addBtn}
-            disabled={authIsLoading === 'loading' || prodLoadingStatus === 'loading'}
+            disabled={authIsLoading === 'loading' || prodLoadingStatus === 'loading' || isInCart}
             onClick={() => addToCart()}>
-            в корзину
+            {isInCart ? 'в корзине' : 'в корзину'}
         </button>
     </div>
 

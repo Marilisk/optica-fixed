@@ -1,5 +1,4 @@
 import c from './ProductPage.module.scss';
-import { useDispatch, useSelector } from 'react-redux';
 import { fetchProd } from '../../../redux/productsSlice';
 import { fetchAddToFavorites, fetchRemoveFromFavorites, selectIsAuth, selectIsManager } from '../../../redux/authSlice';
 import { BreadCrumbs } from '../BreadCrumbs/BreadCrumbs';
@@ -14,30 +13,35 @@ import { CustomerButtons } from './CustomerButtons/CustomerButtons';
 import { priceFormatter } from '../../../assets/functions/priceFormatter';
 import { addToCartOrLS } from '../ProductCard/ProductCard';
 import { switchAuthOfferModal } from '../../../redux/headerSlice';
+import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
+import { LoadingStatusEnum } from '../../Types/types';
 
 
 export const ProductPage = () => {
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
-    const authIsLoading = useSelector(s => s.auth.loginData.status)
-    const status = useSelector(state => state.products.currentProduct.status);
-    const product = useSelector(state => state.products.currentProduct.item);
+    const authIsLoading = useAppSelector(s => s.auth.loginData.status)
+    const status = useAppSelector(state => state.products.currentProduct.status);
+    const product = useAppSelector(state => state.products.currentProduct.item);
 
-    const IsManager = useSelector(selectIsManager)
-    const isAuth = useSelector(selectIsAuth)
+    const IsManager = useAppSelector(selectIsManager)
+    const isAuth = useAppSelector(selectIsAuth)
 
     const params = useParams();
-    const userFavorites = useSelector(s => s.auth.loginData.data?.favourites)
+    const userFavorites = useAppSelector(s => s.auth.loginData.data?.favourites)
     const isFavorite = userFavorites?.includes(params.id);
 
-    const addToFavorites = (productId) => {
+    const userCart = useAppSelector(s => s.auth.loginData.data.cart)
+    const isInCart = userCart?.find(elem => elem.productId === params.id)
+
+    const addToFavorites = (productId: string) => {
         if (!isAuth) {
             dispatch(switchAuthOfferModal(true))
         } else {
             dispatch(fetchAddToFavorites(productId))
         }
     } 
-    const removeFromFavorites = (productId) => {
+    const removeFromFavorites = (productId: string) => {
         dispatch(fetchRemoveFromFavorites(productId))
     } 
 
@@ -49,7 +53,7 @@ export const ProductPage = () => {
         dispatch(fetchProd(params.id))
     }, [params.id, dispatch])
 
-    if (status === 'loading' || !product) {
+    if (status === LoadingStatusEnum.loading || !product) {
         return <Preloader minFormat={true} />;
     }
 
@@ -70,6 +74,7 @@ export const ProductPage = () => {
                     <Price price={price} />
 
                     <CustomerButtons isFavorite={isFavorite}
+                        isInCart={isInCart}
                         authIsLoading={authIsLoading}
                         addToFavorites={addToFavorites}
                         removeFromFavorites={removeFromFavorites}
