@@ -31,7 +31,7 @@ export const ProductPage = () => {
     const userFavorites = useAppSelector(s => s.auth.loginData.data?.favourites)
     const isFavorite = userFavorites?.includes(params.id);
 
-    const userCart = useAppSelector(s => s.auth.loginData.data.cart)
+    const userCart = useAppSelector(s => s.auth.loginData.data?.cart)
     const isInCart = userCart?.find(elem => elem.productId === params.id)
 
     const addToFavorites = (productId: string) => {

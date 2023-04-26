@@ -21,7 +21,7 @@ export const ShopByPage: FC = () => {
     const products = useAppSelector(s => s.products.products.items)
     const areProdsLoading = useAppSelector(s => s.products.products.status === LoadingStatusEnum.loading)
     const features = useAppSelector(s => s.filters.features)
-    const userFavorites = useAppSelector(s => s.auth.loginData.data.favourites)
+    const userFavorites = useAppSelector(s => s.auth.loginData.data?.favourites)
     const authIsLoading = useAppSelector(s => s.auth.loginData.status)
     const [title, setTitle] = useState(features[0].name)
     const [page, setPage] = useState<PageEnum>()

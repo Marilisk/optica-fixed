@@ -85,7 +85,7 @@ export const router = createBrowserRouter([
       {
         path: "/product/:id",
         element: <ProductPage />,
-        errorElement: <ErrorPage />,
+        /* errorElement: <ErrorPage />, */
       },
 
       {
@@ -96,7 +96,7 @@ export const router = createBrowserRouter([
       {
         path: "/lenses/:id",
         element: <LensPage />,
-        errorElement: <ErrorPage />,
+        /* errorElement: <ErrorPage />, */
       },
 
       {
