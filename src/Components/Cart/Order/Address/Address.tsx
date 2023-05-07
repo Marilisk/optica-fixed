@@ -20,43 +20,9 @@ interface IAddress {
 
 
 export const Address: FC<IAddress> = ({ userName, setActiveCol, activeCol }: IAddress) => {
+    
     const iValues: IInitialValues = initValues(userName);
     const dispatch = useAppDispatch()
-
-    /* const editOrder =  async () => {
-        const cart = await dispatch(fetchCollectCartPrices())
-        if (cart.meta.requestStatus === 'fulfilled') {
-            try {
-                try {
-                    const order = await dispatch(fetchCreateOrder(iValues))
-                    dispatch(setProcessedOrder(order.payload))
-                } catch (error) {
-                    console.log('error in setting processed Order', error)
-                }
-            } catch (error) {
-                console.log('error in prices collecting', error)
-            }
-        }
-    } */
-    
-    /* useEffect( () => {
-        const editOrder =  async () => {
-            const cart = await dispatch(fetchCollectCartPrices())
-            if (cart.meta.requestStatus === 'fulfilled') {
-                try {
-                    try {
-                        const order = await dispatch(fetchCreateOrder(iValues))
-                        dispatch(setProcessedOrder(order.payload))
-                    } catch (error) {
-                        console.log('error in setting processed Order', error)
-                    }
-                } catch (error) {
-                    console.log('error in prices collecting', error)
-                }
-            }
-        }
-        editOrder()
-    }, [dispatch]) */
 
     return <>
         <OrderHeader>
