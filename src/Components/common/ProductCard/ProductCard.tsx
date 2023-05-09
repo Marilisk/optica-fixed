@@ -1,20 +1,25 @@
 import c from './ProductCard.module.scss';
 import defaultGlasses from './../../../assets/common/defaultGlasses.webp';
-import { Heart } from './../../../assets/icons/Heart.jsx';
+import { Heart } from '../../../assets/icons/Heart.jsx';
 import { NavLink } from 'react-router-dom';
-import { setCartInLSLength, setCurrentProd } from '../../../redux/productsSlice';
+import { addToCartUnLoginned, setCartInLSLength, setCurrentProd } from '../../../redux/productsSlice';
 import { priceFormatter } from '../../../assets/functions/priceFormatter';
 import { useState } from 'react';
 import { CartIcon } from '../../../assets/header/icons/CartIcon';
 import { fetchAddEyewearToCart, selectIsAuth } from '../../../redux/authSlice';
-import { useSelector } from 'react-redux';
 import { API_URL } from '../../../redux/API/api';
+import { CatEnum } from '../../Types/types';
+import { useAppSelector } from '../../../redux/hooks';
 
 export const addToCartOrLS = (isAuth, dispatch, productId) => {
+    console.log('in addToCartOrLS')
     if (isAuth) {
-        dispatch(fetchAddEyewearToCart({ productId, cat: "eyewear" }))
+        dispatch(fetchAddEyewearToCart({ productId, cat: CatEnum.eyewear }))
     } else {
         let newCartItem = { productId, quantity: 1, leftLens: 1, rightLens: 1, cat: "eyewear" }
+        dispatch(addToCartUnLoginned(newCartItem))
+
+
         const lastCart = JSON.parse(localStorage.getItem('cart'))
         if (lastCart) {
             const good = lastCart.find(elem => elem.productId === productId)
@@ -40,11 +45,13 @@ export const ProductCard = ({ dispatch,
     authIsLoading,
     inCartArray }) => {
 
+    console.log('inCartArray', inCartArray)
+
     const price = priceFormatter(product.price)
     const isFavorite = userFavorites?.includes(product._id)
     const isInCart = inCartArray.includes(product._id)
 
-    const isAuth = useSelector(selectIsAuth)
+    const isAuth = useAppSelector(selectIsAuth)
 
     const [isHovered, setIsHovered] = useState(null)
 
@@ -71,7 +78,7 @@ export const ProductCard = ({ dispatch,
                         </div>
                         :
                         <div onClick={() => addToFavorites(product._id)} >
-                            <Heart color={authIsLoading ? '#fff' : '#C899CC'} size={'18px'} />
+                            <Heart margin={0} transform={'none'} color={authIsLoading ? '#fff' : '#C899CC'} size={'18px'} />
                         </div>
                     }
                 

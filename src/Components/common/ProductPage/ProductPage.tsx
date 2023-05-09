@@ -32,7 +32,10 @@ export const ProductPage = () => {
     const isFavorite = userFavorites?.includes(params.id);
 
     const userCart = useAppSelector(s => s.auth.loginData.data?.cart)
-    const isInCart = userCart?.find(elem => elem.productId === params.id)
+    const unLogginedUserCart = useAppSelector(s => s.products.unloginnedCart)
+    const isInCart = isAuth ?
+        userCart?.find(elem => elem.productId === params.id) :
+        unLogginedUserCart.find(elem => elem.productId === params.id)
 
     const addToFavorites = (productId: string) => {
         if (!isAuth) {

@@ -129,17 +129,22 @@ const authSlice = createSlice({
         subscribe(state) {
             state.subscribeData.responseMsg = 'Ваш промокод на скидку 8% направлен на e-mail. Спасибо.'
         },
+
         sendPromoCode(state, action: PayloadAction<string>) {
             state.subscribeData.responseMsg = action.payload
         },
-        updateCart(state, action/* : PayloadAction<number> */) {
+
+        updateCart(state, action) {
             if (state.loginData?.data) {
                 state.loginData.data.cart[action.payload.cartItemIndex] = action.payload.newCartItem;
             }
         },
+
         pushPriceToTotal(state, action) {
             state.totalCartSum[action.payload.id] = action.payload.sum;
         },
+
+        
 
     },
     extraReducers: (builder) => {
@@ -295,8 +300,6 @@ const authSlice = createSlice({
                 state.loginData.status = 'loading';
             })
             .addCase(fetchAddValuesToOrder.fulfilled, (state, action) => {
-                //state.loginData.data.orders.push(action.payload._id)
-
                 state.loginData.status = 'loaded';
             })
             .addCase(fetchAddValuesToOrder.rejected, (state) => {
@@ -307,7 +310,6 @@ const authSlice = createSlice({
                 state.loginData.status = 'loading';
             })
             .addCase(fetchEditOrder.fulfilled, (state, action) => {
-                //state.loginData.data.orders.push(action.payload._id)
                 state.loginData.status = 'loaded';
             })
             .addCase(fetchEditOrder.rejected, (state) => {
@@ -334,5 +336,5 @@ const authSlice = createSlice({
 export const selectIsAuth = (state: RootState) => Boolean(state.auth.loginData.data);
 export const selectIsManager = (state: RootState) => Boolean(state.auth.loginData.data?.role === 'ADMIN');
 
-export const { subscribe, updateCart, pushPriceToTotal, sendPromoCode } = authSlice.actions;
+export const { subscribe, updateCart, pushPriceToTotal, sendPromoCode, } = authSlice.actions;
 export default authSlice.reducer;

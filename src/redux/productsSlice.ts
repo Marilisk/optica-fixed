@@ -38,7 +38,6 @@ export const fetchCollectCartPrices = createAppAsyncThunk('products/CollectCartP
         const state = thunkApi.getState()
         const authData: IUser = state.auth.loginData.data;
         const cartWithSums: ICartItemWithSum[] = await cartWithSumsCreator(authData)
-        //console.log(cartWithSums)
         return cartWithSums
     })
 
@@ -66,7 +65,9 @@ const initialState: ProdInitialStateType = {
         status: LoadingStatusEnum.loaded,
     },
 
-    cartInLSLength: JSON.parse(localStorage.getItem('cart'))?.length
+    cartInLSLength: JSON.parse(localStorage.getItem('cart'))?.length,
+
+    unloginnedCart: JSON.parse(localStorage.getItem('cart')) || [],
 
 }
 
@@ -93,11 +94,15 @@ const productsSlice = createSlice({
         setCartInLSLength(state, action) {
             state.cartInLSLength = action.payload
         },
+
+        addToCartUnLoginned(state, action) {
+            console.log(action)
+            state.unloginnedCart.push(action.payload)
+        },
+
     },
     extraReducers: (builder) => {
         builder.addCase(fetchProducts.pending, (state, action) => {
-            //state.products.items = [];
-            //state.products.items = action.meta.arg;
             state.products.status = LoadingStatusEnum.loading;
         })
             .addCase(fetchProducts.fulfilled, (state, action) => {
@@ -168,6 +173,7 @@ export const {
     clearSearchResults,
     setProcessedOrder,
     setCartInLSLength,
+    addToCartUnLoginned,
 } = productsSlice.actions;
 
 export default productsSlice.reducer;

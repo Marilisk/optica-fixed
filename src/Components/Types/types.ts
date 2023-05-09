@@ -201,6 +201,7 @@ export type ProdInitialStateType = {
     currentCartWithSums: CartItemWithSumType
     processedOrder: ProcessedOrderType
     cartInLSLength: number
+    unloginnedCart: ICartItem[]
 }
 
 type FieldType = {
