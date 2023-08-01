@@ -2,8 +2,9 @@ import axios from "axios";
 
 export const DEV_API_URL = 'http://localhost:5555'
 export const PROD_API_URL = 'https://api.spboptis.ru'
+export const RENDER_PROD_API_URL = 'https://backend-optics-without-packlo.onrender.com'
 export const ADMIN_URL = 'https://spboptis.store'
-export const API_URL = PROD_API_URL
+export const API_URL = RENDER_PROD_API_URL
 
 
 const instance = axios.create({  
