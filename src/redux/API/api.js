@@ -3,7 +3,7 @@ import axios from "axios";
 export const DEV_API_URL = 'http://localhost:5555'
 export const PROD_API_URL = 'https://api.spboptis.ru'
 export const RENDER_PROD_API_URL = 'https://backend-optics-without-packlo.onrender.com'
-export const BEGET_PROD_API_URL = 'http://api.spboptis.ru:8080'
+export const BEGET_PROD_API_URL = 'https://api.spboptis.ru:8080'
 //export const BEGET_PROD_API_URL = 'http://31.129.97.202:8080' // dsnt work!
 export const ADMIN_URL = 'https://spboptis.store'
 export const API_URL = BEGET_PROD_API_URL
